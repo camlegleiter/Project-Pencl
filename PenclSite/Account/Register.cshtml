@@ -1,6 +1,6 @@
 ﻿@{
     // Set the layout page and page title
-    Layout = "~/_SiteLayout.cshtml";
+    Layout = "~/PenclSite/_SiteLayout.cshtml";
     Page.Title = "Register an Account";
 
     // Initialize general page variables
@@ -63,7 +63,7 @@
                     var token = WebSecurity.CreateAccount(email, password, requireEmailConfirmation);
                     if (requireEmailConfirmation) {
                         var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
-                        var confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
+                        var confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/PenclSite/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
 
                         WebMail.Send(
                             to: email,	
@@ -74,11 +74,11 @@
 
                     if (requireEmailConfirmation) {
                         // Thank the user for registering and let them know an email is on its way
-                        Response.Redirect("~/Account/Thanks");
+                        Response.Redirect("~/PenclSite/Account/Thanks");
                     } else {
                         // Navigate back to the homepage and exit
                         WebSecurity.Login(email, password);
-                        Response.Redirect("~/");
+                        Response.Redirect("~/PenclSite/");
                     }
                 } catch (System.Web.Security.MembershipCreateUserException e) {
                     isValid = false;

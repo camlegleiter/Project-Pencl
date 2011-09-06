@@ -1,6 +1,6 @@
 ﻿@{
     // Set the layout page and page title
-    Layout = "~/_SiteLayout.cshtml";
+    Layout = "~/PenclSite/_SiteLayout.cshtml";
     Page.Title = "Log In";
 
     // Initialize general page variables
@@ -34,7 +34,7 @@
         // Confirm there are no validation errors
         if (isValid) {
             if (WebSecurity.UserExists(username) && WebSecurity.GetPasswordFailuresSinceLastSuccess(username) > 4 && WebSecurity.GetLastPasswordFailureDate(username).AddSeconds(60) > DateTime.UtcNow ) {
-                Response.Redirect("~/account/AccountLockedOut");
+                Response.Redirect("~/PenclSite/account/AccountLockedOut");
                 return;
             }
 
@@ -56,7 +56,7 @@
 
 <p>
    Please enter your username and password below. If you don't have an account,
-   visit the <a href="@Href("~/Account/Register")">registration page</a> and create one.
+   visit the <a href="@Href("~/PenclSite/Account/Register")">registration page</a> and create one.
 </p>
 
 @* If one or more validation errors exist, show an error *@
@@ -96,6 +96,6 @@
         <p class="form-actions">
             <input type="submit" value="login" title="Login"/>
         </p>
-        <p><a href="@Href("~/Account/ForgotPassword")">Did you forget your password?</a></p>
+        <p><a href="@Href("~/PenclSite/Account/ForgotPassword")">Did you forget your password?</a></p>
     </fieldset>
 </form>
