@@ -59,7 +59,7 @@ h5, h6 {
 /* PRIMARY LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 #page {
-    width: 90%;
+    width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -271,3 +271,57 @@ input[type="text"].error-field, input[type="password"].error-field {
     .validation-error:before {
         content: "»";
     }
+    
+#topbar {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 25px;
+line-height: 25px;
+vertical-align: middle;
+background: lightyellow;
+}
+#topbar a {
+display: block;
+padding-left: 5px;
+height: 25px;
+line-height: 25px;
+vertical-align: middle;
+}
+
+#notify-container {
+    color: #FFFFFF;
+    font-size: 130%;
+    font-weight: bold;
+    height: 0;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+#notify-container div {
+    background-color: #000099;
+    border-bottom: 1px solid #0066FF;
+    padding: 7px 0;
+}
+#notify-container a {
+    color: #735005;
+    text-decoration: underline;
+}
+#notify-container span.notify-close {
+    background-color: #FAD163;
+    border: 2px solid #735005;
+    cursor: pointer;
+    display: block;
+    float: right;
+    margin-right: 20px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-decoration: none;
+}
+#notify-container span.notify-close a {
+    text-decoration: none;
+}
