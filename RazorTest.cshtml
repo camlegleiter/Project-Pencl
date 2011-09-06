@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        @{ 
+            var myChart = new Chart(width: 600, height: 400)         
+            .AddTitle("Chart Title") 
+                .AddSeries( 
+                    name: "Employee", 
+                    xValue: new[] {  "Peter", "Andrew", "Julie", "Mary", "Dave" },             
+                    yValues: new[] { "2", "6", "4", "5", "3" }) 
+                .Write(); 
+        }
+    </body>
+</html>
