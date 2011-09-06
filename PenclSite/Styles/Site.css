@@ -290,6 +290,12 @@ line-height: 25px;
 vertical-align: middle;
 }
 
+#notify-container-space {
+    height: 35px;
+    position: relative;
+    width: 100%;
+}
+
 #notify-container {
     color: #FFFFFF;
     font-size: 130%;
