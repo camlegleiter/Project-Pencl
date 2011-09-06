@@ -1,3 +1,4 @@
+
 // Keep everything in anonymous function, called on window load.
 if(window.addEventListener) {
 window.addEventListener('load', function () {
@@ -84,6 +85,7 @@ window.addEventListener('load', function () {
   function ev_tool_change (ev) {
     if (tools[this.value]) {
       tool = new tools[this.value]();
+    
     }
   }
 
