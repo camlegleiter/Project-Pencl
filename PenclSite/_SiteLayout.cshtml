@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>My ASP.NET Web Page - @Page.Title</title>
+        <title>@Page.Title [ Pencl ]></title>
         <link href="@Href("~/PenclSite/Styles/Site.css")" rel="stylesheet" />
         <link href="@Href("~/PenclSite/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
     </head>
@@ -15,8 +15,9 @@
             </div>
         </div>
         <div id="page">
+            <div id="notify-container-space"></div>
             <div id="header">
-                <p class="site-title">My ASP.NET Web Page</p>
+                <p class="site-title">Pencl</p>
                 <div id="login">
                     @if (WebSecurity.IsAuthenticated) {
                         <p>
@@ -41,7 +42,7 @@
                     @RenderBody()
                 </div>
                 <div id="footer">
-                    &copy; @DateTime.Now.Year - My ASP.NET Web Page
+                    &copy; @DateTime.Now.Year - Pencl
                 </div>
             </div>
         </div>
