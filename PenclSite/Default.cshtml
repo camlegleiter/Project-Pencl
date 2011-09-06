@@ -1,7 +1,14 @@
 ﻿@{  
     Layout = "~/PenclSite/_SiteLayout.cshtml";
-    Page.Title = "Welcome to my Web Site!";
+    Page.Title = "Pencl";
 }
+
+<style type="text/css"><!--
+      #container { position: relative; }
+      #imageView { border: 1px solid #000; }
+      #imageTemp { position: absolute; top: 1px; left: 1px; }
+    --></style> 
+    
 <p>
     ASP.NET Web Pages make it easy to build powerful .NET based applications for the web.
 </p>
@@ -16,8 +23,7 @@
     </label>
 </p> 
  
-    <div id="container"> 
-      <canvas id="imageView" width="800" height="600"> 
+      <canvas id="imageView" width="400" height="300" style="border: 1px solid #c3c3c3;"> 
         <p>Unfortunately, your browser is currently unsupported by our web 
         application.  We are sorry for the inconvenience. Please use one of the 
         supported browsers listed below, or draw the image you want using an 
@@ -27,6 +33,15 @@
           href="http://www.apple.com/safari">Safari</a>, and <a 
           href="http://www.konqueror.org">Konqueror</a>.</p> 
       </canvas> 
-    </div> 
  
-    <script type="text/javascript" src="js/canvas.js"></script>
+    <script type="text/javascript" src="js-text/canvasNew.js"></script>
+    
+    <canvas id="myCanvas" width="200" height="100" style="border: 1px solid #c3c3c3;"> 
+        <p>No.</p>
+      </canvas> 
+    
+    <script type="text/javascript" src="js-text/test.js">
+        
+    </script> 
+    
+    <p>Script isn't working :(</p>
