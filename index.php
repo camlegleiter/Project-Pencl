@@ -77,7 +77,7 @@ if($_POST['email']){
 
 <div id="footer">
 	<div class="tri"></div>
-	<h1>Pencl - Coming Soon</h1>
+	<h1>Pencl - The web-based note taking application.</h1>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
