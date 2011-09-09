@@ -25,7 +25,7 @@ $(document).ready(function(){
 		}
 		working = true;
 		
-		$.post("./coming-soon.php",{email:$('#email').val()},function(r){
+		$.post("./index.php",{email:$('#email').val()},function(r){
 			if(r.error){
 				$('#email').val(r.error);
 			}
