@@ -9,6 +9,6 @@
 	Username: <input type="text" name="username" ></input>
 	<br>Password: <input type="password" name="password" ></input>
 	<br>
-	<input type="submit" value="Login" ></input>&nbsp; <a href="register.php">Register</a></form>
+	<input type="submit" value="Login" ></input>&nbsp; <a href="register_form.php">Register</a></form>
 </body>
 </html>
