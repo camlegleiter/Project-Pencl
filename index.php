@@ -43,11 +43,11 @@ if($_POST['email']){
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
 <title>Pencl - Coming Soon</title>
 
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
-<link rel="stylesheet" type="text/css" href="css/nivo-slider.css" />
+<link rel="stylesheet" type="text/css" href="css/styles.css"></link>
+<link rel="stylesheet" type="text/css" href="css/nivo-slider.css"></link>
 
 </head>
 
@@ -66,9 +66,9 @@ if($_POST['email']){
         
     <h2>Subscribe</h2>
     
-    <form method="post" action="">
-    	<input type="text" id="email" name="email" value="<?php echo $msg?>" />
-        <input type="submit" value="Submit" id="submitButton" />
+    <form method="post" action="index.php">
+    	<input type="text" id="email" name="email" value=""></input>
+        <input type="submit" value="Submit" id="submitButton"></input>
     </form>
     
 </div>
@@ -80,9 +80,9 @@ if($_POST['email']){
 	<h1>Pencl - The web-based note taking application.</h1>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-<script src="js/jquery.nivo.slider.pack.js"></script>
-<script src="js/script.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 
 </body>
 </html>
