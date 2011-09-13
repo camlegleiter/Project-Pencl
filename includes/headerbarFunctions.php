@@ -75,6 +75,10 @@ if($_POST['submit']=='Login')
 			// Store some data in the session
 			
 			setcookie('tzRemember',$_POST['rememberMe']);
+			
+			//Redirect to members page
+			header("Location: registered.php");
+			exit;
 		}
 		else $err[]='Wrong username and/or password!';
 		
