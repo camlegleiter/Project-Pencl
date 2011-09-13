@@ -85,7 +85,6 @@ include 'includes/headerbar.php';
 
 	<!-- Javascript (Called after jQuery) -->
 	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
-    <script type="text/javascript" src="js/slide.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
 
