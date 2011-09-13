@@ -126,9 +126,9 @@ else if($_POST['submit']=='Register')
 		
 		if(mysql_affected_rows($link)==1)
 		{
-			send_mail(	'demo-test@tutorialzine.com',
+			send_mail(	'donotreply@pencl.me',
 						$_POST['email'],
-						'Registration System Demo - Your New Password',
+						'Pencl - Registration',
 						'Your password is: '.$pass);
 
 			$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
