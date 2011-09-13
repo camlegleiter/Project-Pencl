@@ -43,8 +43,29 @@
 			</div>
 			<div class="left right">	
 				<!-- Login Form -->		
-				<form class="clearfix" action="" method="post">
-					<h1>Member Login</h1>
+				<form class="clearfix" action="" method="post" id="toggleLogin">
+					<h1>Member Login (<a id="showRegister" href="#">Register</a>)</h1>
+                    
+                    <?php
+						
+						if($_SESSION['msg']['login-err'])
+						{
+							echo '<div class="err">'.$_SESSION['msg']['login-err'].'</div>';
+							//unset($_SESSION['msg']['login-err']); //Need variable below also, don't unset yet
+						}
+					?>
+					
+					<label class="grey" for="username">Username:</label>
+					<input class="field" type="text" name="username" id="username" value="" size="23" />
+					<label class="grey" for="password">Password:</label>
+					<input class="field" type="password" name="password" id="password" size="23" />
+	            	<label><input name="rememberMe" id="rememberMe" type="checkbox" checked="checked" value="1" /> &nbsp;Remember me</label>
+        			<div class="clear"></div>
+					<input type="submit" name="submit" value="Login" class="bt_login" />
+						
+				</form>
+				<form class="clearfix"  style="display: none;" action="" method="post" id="toggleRegister">
+					<h1>Register for Beta (<a id="showLogin" href="#">Login</a>)</h1>
                     
                     <?php
 						
@@ -59,9 +80,11 @@
 					<input class="field" type="text" name="username" id="username" value="" size="23" />
 					<label class="grey" for="password">Password:</label>
 					<input class="field" type="password" name="password" id="password" size="23" />
-	            	<label><input name="rememberMe" id="rememberMe" type="checkbox" checked="checked" value="1" /> &nbsp;Remember me</label>
+					<label class="grey" for="username">Beta Key:</label>
+					<input class="field" type="text" name="betaKey" id="betaKey" value="" size="40" />
         			<div class="clear"></div>
-					<input type="submit" name="submit" value="Login" class="bt_login" />
+					<input type="submit" name="submit" value="Register" class="bt_register" />
+					
 				</form>
 			</div>
             

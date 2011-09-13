@@ -16,4 +16,29 @@ $(document).ready(function() {
 		$("#toggle a").toggle();
 	});		
 		
+	// Switch buttons from "Log In | Register" to "Close Panel" on click
+	$("#showRegister").click(
+	function () 
+	{
+		$("#toggleLogin").fadeOut(500, function() 
+			{ 
+				$("#toggleRegister").fadeIn(500); 
+			}
+		); 
+	}
+	);
+	
+	$("#showLogin").click(
+	function () 
+	{
+		$("#toggleRegister").fadeOut(500, function() 
+			{ 
+				$("#toggleLogin").fadeIn(500); 
+			}
+		);
+	}
+	);
+
+
+		
 });
