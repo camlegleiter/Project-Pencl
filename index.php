@@ -50,6 +50,11 @@ if($_POST['email']){
 <link rel="stylesheet" type="text/css" href="css/nivo-slider.css" />
 <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
 
+<?php
+//Put this at the end of the <head> tag to track
+include 'includes/tracker.php';
+?>
+
 </head>
 
 <body>
