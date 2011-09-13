@@ -28,6 +28,15 @@ body{
 	width:454px;
 	border:1px solid #1f1f20;
 }
+#page hr{
+	border:0;
+	text-indent:-9999px;
+	height:50px;
+	width:329px;
+	background:url('../img/hbar.png') no-repeat;
+	background-position:center bottom;
+	overflow:hidden;
+}
 
 #page h1,
 #page h2{
