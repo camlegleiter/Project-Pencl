@@ -12,6 +12,11 @@ include 'includes/headerbarFunctions.php';
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
 
+<?php
+//Include this inside the <head> tag to require user to be logged in to view the page.
+include 'includes/membersOnly.php';
+?>
+
 </head>
 
 <body>
@@ -22,14 +27,15 @@ include 'includes/headerbar.php';
 
 <div id="page">
 
-	<h3>Members</h3> 
-
-	    <?php
-	if($_SESSION['id'])
-	echo '<h4>Hello, '.$_SESSION['usr'].'! You are registered and logged in!</h4>';
-	else echo '<h4>Please, <a href="index.php">login</a> and come back later!</h4>';
-    ?>    
-       
+	<h3>Welcome to Pencl <?php echo $_SESSION['usr']?>!</h3> 
+	<h4>We are currently working on the main application, so please come back 
+	later to try it out!</h4>
+	
+	<hr />
+	
+	<h3>Settings</h3>
+	<h4>Settings may go here soon?</h4>	
+	<hr />   
 </div>
 
 <?php
