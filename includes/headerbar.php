@@ -51,7 +51,12 @@
 						if($_SESSION['msg']['login-err'])
 						{
 							echo '<div class="err">'.$_SESSION['msg']['login-err'].'</div>';
-							//unset($_SESSION['msg']['login-err']); //Need variable below also, don't unset yet
+							unset($_SESSION['msg']['login-err']);
+						}
+						else if ($_SESSION['msg']['reg-success'])
+						{
+							echo '<div class="err">'.$_SESSION['msg']['reg-success'].'</div>';
+							unset($_SESSION['msg']['reg-success']);
 						}
 					?>
 					
@@ -69,10 +74,10 @@
                     
                     <?php
 						
-						if($_SESSION['msg']['login-err'])
+						if($_SESSION['msg']['reg-err'])
 						{
-							echo '<div class="err">'.$_SESSION['msg']['login-err'].'</div>';
-							unset($_SESSION['msg']['login-err']);
+							echo '<div class="err">'.$_SESSION['msg']['reg-err'].'</div>';
+							unset($_SESSION['msg']['reg-err']);
 						}
 					?>
 					

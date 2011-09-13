@@ -55,8 +55,14 @@ if($_POST['submit']=='Login')
 		$_POST['rememberMe'] = (int)$_POST['rememberMe'];
 		
 		// Escaping all input data
+		$result = mysql_query("SELECT id,usr FROM tz_members WHERE usr='{$_POST['username']}' AND pass='".md5($_POST['password'])."'");
 
-		$row = mysql_fetch_assoc(mysql_query("SELECT id,usr FROM tz_members WHERE usr='{$_POST['username']}' AND pass='".md5($_POST['password'])."'"));
+		//TODO : REMOVE AT PRODUCTION (SECURITY RISK)
+		if (!$result) {
+		    die('Invalid query: ' . mysql_error());
+		}
+		
+		$row = mysql_fetch_assoc($result);
 
 		if($row['usr'])
 		{
@@ -71,6 +77,8 @@ if($_POST['submit']=='Login')
 			setcookie('tzRemember',$_POST['rememberMe']);
 		}
 		else $err[]='Wrong username and/or password!';
+		
+		mysql_free_result($result);
 	}
 	
 	if($err)
@@ -96,44 +104,64 @@ else if($_POST['submit']=='Register')
 		$err[]='Your username contains invalid characters!';
 	}
 	
-	if(!checkEmail($_POST['email']))
+	//if(!checkEmail($_POST['email']))
+	//{
+	//	$err[]='Your email is not valid!';
+	//}
+	if(strlen($_POST['password']) < 8)
 	{
-		$err[]='Your email is not valid!';
+		$err[]='Your password needs to be 8 characters or more!';
+	}
+	//CHECK FOR ILLEGAL PASSWORDS (SQL INJECTION)
+	
+	if($_POST['betaKey'] != 'eraser')
+	{
+		$err[]='You have entered an invalid Beta Key!';
 	}
 	
 	if(!count($err))
 	{
 		// If there are no errors
 		
-		$pass = substr(md5($_SERVER['REMOTE_ADDR'].microtime().rand(1,100000)),0,6);
+		//$pass = substr(md5($_SERVER['REMOTE_ADDR'].microtime().rand(1,100000)),0,6);
 		// Generate a random password
 		
-		$_POST['email'] = mysql_real_escape_string($_POST['email']);
+		$link = mysql_connect($db_host, $db_user, $db_pass) or die('Error connecting to mysql, try again later.');
+		mysql_select_db($db_name);
+		
+		//$_POST['email'] = mysql_real_escape_string($_POST['email']);
 		$_POST['username'] = mysql_real_escape_string($_POST['username']);
+		$_POST['password'] = mysql_real_escape_string($_POST['password']);
 		// Escape the input data
 		
 		
-		mysql_query("	INSERT INTO tz_members(usr,pass,email,regIP,dt)
+		$result = mysql_query("	INSERT INTO tz_members(usr,pass,email,regIP,dt)
 						VALUES(
 						
 							'".$_POST['username']."',
-							'".md5($pass)."',
-							'".$_POST['email']."',
+							'".md5($_POST['password'])."',
+							'testAccount@localhost',
 							'".$_SERVER['REMOTE_ADDR']."',
 							NOW()
 							
 						)");
 		
+		//TODO : REMOVE AT PRODUCTION (SECURITY RISK)
+		if (!$result) {
+		    die('Invalid query: ' . mysql_error());
+		}
+		
 		if(mysql_affected_rows($link)==1)
 		{
-			send_mail(	'donotreply@pencl.me',
-						$_POST['email'],
-						'Pencl - Registration',
-						'Your password is: '.$pass);
+			//send_mail(	'donotreply@pencl.me',
+			//			$_POST['email'],
+			//			'Pencl - Registration',
+			//			'Your password is: '.$pass);
 
-			$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
+			//$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
+			$_SESSION['msg']['reg-success']='Congratulations! You\'re in!';
 		}
-		else $err[]='This username is already taken!';
+		else $err[]='This username is already taken! Affected rows: '.mysql_affected_rows($link);
 	}
 
 	if(count($err))
@@ -149,7 +177,17 @@ $script = '';
 
 if($_SESSION['msg'])
 {
+	$subscript = '';
+	
 	// The script below shows the sliding panel on page load
+	if ($_SESSION['msg']['reg-err'])
+	{
+		$subscript = '$("#toggleLogin").hide();$("#toggleRegister").show();';
+	}
+	else if ($_SESSION['msg']['log-err'])
+	{
+		$subscript = '$("#toggleRegister").hide();$("#toggleLogin").show();';
+	}
 	
 	$script = '
 	<script type="text/javascript">
@@ -158,6 +196,8 @@ if($_SESSION['msg'])
 		
 			$("div#panel").show();
 			$("#toggle a").toggle();
+			
+			'.$subscript.'			
 		});
 	
 	</script>';
