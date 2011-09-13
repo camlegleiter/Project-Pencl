@@ -101,10 +101,10 @@
             
             <div class="left">
             
-            <h1>Members panel</h1>
+            <h1>Members panel (User: <b></b><?php echo $_SESSION['usr'] ? $_SESSION['usr'] : 'Guest';?></b>)</h1>
             
-            <p>You can put member-only data here</p>
-            <a href="registered.php">View a special member page</a>
+            <p>Welcome to the beta of Pencl!</p>
+            <a href="registered.php">Start using Pencl!</a>
             <p>- or -</p>
             <a href="?logoff">Log off</a>
             
