@@ -1,4 +1,5 @@
 <?php
+//Must be on top of everything to function correctly
 include 'includes/headerbarFunctions.php';
 
 $msg = '';
@@ -53,6 +54,7 @@ if($_POST['email']){
 
 <body>
 <?php
+//Must be first thing in the <body> tag to function correctly
 include 'includes/headerbar.php';
 ?>
 
@@ -76,17 +78,14 @@ include 'includes/headerbar.php';
     
 </div>
 
-<!-- Feel free to remove this footer -->
-
-<div id="footer">
-	<div class="tri"></div>
-	<h1>Pencl - The web-based note taking application.</h1>
-</div>
-
 	<!-- Javascript (Called after jQuery) -->
 	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
+<?php
+//Must be last thing in the <body> tag to function correctly
+include 'includes/footerbar.php';
+?>
 
 </body>
 </html>
