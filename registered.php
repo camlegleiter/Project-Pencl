@@ -28,8 +28,16 @@ include 'includes/headerbar.php';
 <div id="page">
 
 	<h3>Welcome to Pencl <?php echo $_SESSION['usr']?>!</h3> 
-	<h4>We are currently working on the main application, so please come back 
-	later to try it out!</h4>
+	<h4>
+	We are currently working on the main application, so please come back 
+	later to try it out!
+	</h4>
+	<h4>
+	&nbsp;
+	</h4>
+	<h4 style="text-align:center">
+	<a href="canvas.php">Open Notepad</a>
+	</h4>
 	
 	<hr />
 	

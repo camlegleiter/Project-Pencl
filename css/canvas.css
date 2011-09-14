@@ -1,0 +1,233 @@
+﻿*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	color:#eee;
+	background:url('../img/canvas/desk3tile.jpg');
+	background-repeat:repeat;
+	background-position:center top;
+	background-color:#3B1604;
+	font:15px Calibri,Arial,sans-serif;
+	border-top:5px solid #3B1604;
+	margin:0;
+	padding:0;
+	line-height: 1.5em;
+}
+
+#page_header{
+	width:auto;
+	height: 40px;
+	margin:20px auto 20px 20px;	
+	background:url('../img/canvas/notepad_icon_small.png');
+	background-repeat:no-repeat;
+	background-position:left center;
+	padding-left:40px;
+}
+
+#page{
+	width:auto;
+	margin:auto auto auto auto;
+}
+
+#slideshow{
+	height:169px;
+	overflow:hidden;
+	width:454px;
+}
+
+#slideshowContainer{
+	padding:10px;
+	background-color:#181819;
+	margin:30px 0 50px -72px;
+	width:454px;
+	border:1px solid #1f1f20;
+}
+#page hr{
+	border:0;
+	text-indent:-9999px;
+	height:50px;
+	width:329px;
+	background-image:none;
+	background-position:center bottom;
+	overflow:hidden;
+}
+
+#page h1,
+#page h2{
+	text-indent:0px;
+	overflow:hidden;
+	height:105px;
+	background-image:none;
+}
+
+#page h2{
+	height:76px;
+	background-image:none;
+	margin-bottom:20px;
+}
+
+#page form{
+	background-color:#181819;
+	display:block;
+	height:31px;
+	padding:10px;
+	position:relative;
+	width:323px;
+	margin-left:-7px;
+
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+
+#email{
+	background:url('../img/submit_form.png') no-repeat;
+	border:none;
+	color:#888888;
+	height:31px;
+	left:10px;
+	line-height:31px;
+	padding-left:8px;
+	position:absolute;
+	text-shadow:1px 1px 0 #FFFFFF;
+	top:10px;
+	width:215px;
+	outline:none;
+}
+
+#submitButton{
+	background:url('../img/submit_form.png') no-repeat right top;
+	border:none;
+	cursor:pointer;
+	height:31px;
+	left:236px;
+	line-height:31px;
+	position:absolute;
+	text-indent:-99999px;
+	text-transform:uppercase;
+	top:10px;
+	width:96px;
+}
+
+#submitButton:hover{
+	background-position:right bottom;
+}
+
+/* Page Styles */
+
+#footer{
+	background-color:#212121;
+	position:fixed;
+	width:100%;
+	height:70px;
+	bottom:0;
+	left:0;
+}
+
+.tri{
+	border-color:transparent transparent #212121;
+	border-style:solid;
+	border-width:20px 17px;
+	height:0;
+	left:50%;
+	margin:-40px 0 0 -400px;
+	position:absolute;
+	top:0;
+	width:0;
+}
+
+#footer h1{
+	font-size:20px;
+	font-weight:normal;
+	left:50%;
+	margin-left:-400px;
+	padding:25px 0;
+	position:absolute;
+	width:400px;
+}
+
+a, a:visited {
+	text-decoration:none;
+	outline:none;
+	border-bottom:1px dotted #97cae6;
+	color:#97cae6;
+}
+
+a:hover{
+	border-bottom:1px dashed transparent;
+}
+
+.clear{
+	clear:both;
+}
+
+/*CANVAS LAYOUT */
+#contentwrapper{
+	float:left;
+	width:100%;
+	height:100%;
+}
+
+#contentcolumn{
+	margin:0 300px 0 250px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
+	/*
+	background-color:green;
+	*/
+}
+
+#leftcolumn{
+	float:left;
+	width:250px; /*Width of left column*/
+	margin-left:-100%;
+	/*
+	background-color:red;
+	*/
+}
+
+#rightcolumn{
+	float:left;
+	width:300px; /*Width of right column*/
+	margin-left:-300px; /*Set left marginto -(RightColumnWidth)*/
+	/*
+	background-color:blue;
+	*/
+}
+
+.innertube{
+	margin:10px; /*Margins for inner DIV inside each column (to provide padding)*/
+	margin-top:0;
+}
+
+/* DESKTOP ITEMS */
+#iphone{
+	text-indent:0px;
+	overflow:hidden;
+	width:203px;
+	height:398px;
+	background:url('../img/canvas/phone.png') no-repeat left top;
+}
+
+#iphone_content{
+	text-indent:0px;
+	margin:69px 10px 66px 16px;
+	width:177px;
+	height:263px;
+	background-color:white;
+	color:black;
+	overflow:auto;
+	overflox-x:hidden;
+	overflox-y:auto;
+}
+
+.box_rotate {
+  -webkit-transform: rotate(-7.5deg);  
+     -moz-transform: rotate(-7.5deg);  
+      -ms-transform: rotate(-7.5deg);  
+       -o-transform: rotate(-7.5deg);  
+          transform: rotate(-7.5deg);  
+             filter: progid:DXImageTransform.Microsoft.Matrix( 
+                     M11=0.9914448613738104, M12=0.13052619222005157, M21=-0.13052619222005157, M22=0.9914448613738104, sizingMethod='auto expand');
+               zoom: 1;
+}
