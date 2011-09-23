@@ -39,7 +39,7 @@ body{
 #content {
 	background: #AAAAAA;
 	margin: 0 275px 0 225px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
-	width: 525px;
+	width: 550px;
 }
 
 #left {
@@ -52,8 +52,8 @@ body{
 #right {
 	background: #FDE95E;
 	float: left;
-	width: 250px; /*Width of right column*/
-	margin-left: -250px; /*Set left margin to -(RightColumnWidth)*/
+	width: 225px; /*Width of right column*/
+	margin-left: -225px; /*Set left margin to -(RightColumnWidth)*/
 }
 
 /******
@@ -63,9 +63,10 @@ body{
 #editor {
 	border-style: solid;
 	border-width: 1px;
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 	height: 500px;
-	width: 513px;
+	width: 538px;
 	margin: 5px 5px 5px 5px;
 }
 
@@ -80,6 +81,6 @@ textarea#textbox {
 	font: 12px Calibri,Arial,sans-serif;
 	margin: 0px;
 	padding: 0px;
-	width: 511px;
-	max-width: 511px;
+	min-width: 520px;
+	max-width: 520px;
 }
