@@ -8,7 +8,6 @@
 		
 		<script type="text/javascript" src="js/jquery/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="js/editor.js"></script>
 		<script type="text/javascript" src="js/tabby.js"></script>
 	</head>
 	<body>
@@ -27,12 +26,17 @@
 	<div id="right">
 		<b>Right Column: <em>250px</em></b>
 		<br>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#adddiv").click(createTextBox);
-			});
-		</script>
-		<a id="adddiv" href="#">Add a &lt;div&gt; element to the editor</a>
+		<script type="text/javascript" src="js/editor.js"></script>
+		<a id="addtext" href="#">Add a &lt;div&gt; element</a>
+		<br>
+		<a id="addsketch" href="#">Add a &lt;canvas&gt; element</a>
+		<p>
+			<label>Drawing tool: <select id="dtool"> 
+        		<option value="line">Line</option> 
+        		<option value="rect">Rectangle</option> 
+        		<option value="pencil">Pencil</option> 
+    		</select></label>
+    	</p> 
 	</div>
 </div>
 	</body>

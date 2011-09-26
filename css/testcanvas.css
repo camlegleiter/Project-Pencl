@@ -37,7 +37,11 @@ body{
 }
 
 #content {
-	background: #AAAAAA;
+	/*background: #AAAAAA;*/
+	background: url('../_IMAGES_NOWEBSITE/YellowNotepaper.jpg');
+	background-repeat: repeat-y;
+	background-position: left top;
+	background-width: 100%;
 	margin: 0 275px 0 225px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
 	width: 550px;
 }
@@ -70,17 +74,37 @@ body{
 	margin: 5px 5px 5px 5px;
 }
 
-div#textbox {
+div#text {
 	margin: 0px;
 	padding: 0px;
 	height: 20px;
-	width: auto;
+	width: 520px;
 }
 
 textarea#textbox {
+	background: transparent;
+	border-color: black;
 	font: 12px Calibri,Arial,sans-serif;
 	margin: 0px;
 	padding: 0px;
 	min-width: 520px;
 	max-width: 520px;
+}
+
+div#sketch {
+	margin: 0px;
+	padding: 3px;
+	height: 300px;
+	width: 520px;
+}
+
+#canvas {
+	background: rgba(255, 255, 255, 0.75);
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	margin: 0px;
+	padding: 0px;
+	height: 275px;
+	width: 514px;
 }
