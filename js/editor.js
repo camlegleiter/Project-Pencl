@@ -2,16 +2,15 @@ $(document).ready(function() {
 	$("#addtext").click(createTextBox);
 	$("#addsketch").click(createSketchBox);
 });
-var j = 0;
 
 function createTextBox() {
-	$('#editor').append('<div id="text"><textarea id="textbox"></textarea></div>');
+	$('.scroll-content').append('<div class="text" id="expand"><textarea id="textbox"></textarea></div>');
 	$('textarea').tabby();
 }
 
 function createSketchBox() {
-	$('#editor').append('<div id="sketch"></div>');
-	var sketch = $('#sketch:last').get(0);
+	$('.scroll-content').append('<div class="sketch" id="expand"></div>');
+	var sketch = $('.sketch:last').get(0);
 	var canvas = document.createElement('canvas');
 	canvas.setAttribute('id', 'canvas');
 	sketch.appendChild(canvas);

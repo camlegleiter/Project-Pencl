@@ -19,7 +19,7 @@ body{
 	background-position: left center;
 }
 
-/******
+/****************
  * CANVAS LAYOUT
  ******/
 
@@ -30,20 +30,9 @@ body{
 }
 
 #middle {
-	background: #999999;
 	float: left;
 	height: 100px;
 	width: 100%;
-}
-
-#content {
-	/*background: #AAAAAA;*/
-	background: url('../_IMAGES_NOWEBSITE/YellowNotepaper.jpg');
-	background-repeat: repeat-y;
-	background-position: left top;
-	background-width: 100%;
-	margin: 0 275px 0 225px; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
-	width: 550px;
 }
 
 #left {
@@ -60,21 +49,106 @@ body{
 	margin-left: -225px; /*Set left margin to -(RightColumnWidth)*/
 }
 
-/******
- * CANVAS EDITOR
+/****************
+ * SCROLLBAR
+ ******/
+
+a:active,
+a:focus { 
+	outline: none;
+}
+
+.scroll-container { 
+	height: 100%;
+}
+.scroll-pane {
+    float: left;
+    overflow: auto;
+    width: 540px;
+    height: 500px;
+    position: relative;
+    /*border: 1px solid gray;*/
+    margin-left: 225px;
+    display: inline;
+}
+.scroll-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.scroll-content-item {
+    background-color: #fcfcfc;
+    color: #003366;
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin: 10px;
+    font-size: 3em;
+    line-height: 96px;
+    text-align: center;
+    border: 1px solid gray;
+    display: inline;
+}
+.extra-scroll-item {
+    background-color: #fcfcfc;
+    color: #003366;
+    width: 100px;
+    height: 400px;
+    float: left;
+    margin: 10px;
+    font-size: 3em;
+    line-height: 96px;
+    text-align: center;
+    border: 1px solid gray;
+    display: inline;
+}
+#expand,
+#contract {
+    font-size: 1.4em;
+    line-height: 1.1em;
+    padding-top: 10px;
+    cursor: pointer;
+}
+.slider-wrap {
+    float: left;
+    width: 10px;
+    /*border: 1px solid gray;*/
+    border-left: none;
+}
+.slider-vertical {
+    position: relative;
+    height: 100%;
+}
+.ui-slider-handle {
+    width: 8px;
+    height: 10px;
+    margin: 2px 0 2px 2px;
+    background-color: rgba(169, 169, 169, 0.8);
+    display: block;
+    position: absolute;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/****************
+ * EDITOR
  ******/
 
 #editor {
 	border-style: solid;
 	border-width: 1px;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: auto;
 	height: 500px;
-	width: 538px;
+	width: 550px;
 	margin: 5px 5px 5px 5px;
 }
 
-div#text {
+/******
+ * TEXTBOX
+ ******/
+
+div.text {
+	display: inline;
 	margin: 0px;
 	padding: 0px;
 	height: 20px;
@@ -91,20 +165,25 @@ textarea#textbox {
 	max-width: 520px;
 }
 
-div#sketch {
+/******
+ * SKETCHPAD
+ ******/
+
+div.sketch {
+	display: inline;
 	margin: 0px;
-	padding: 3px;
+	padding: 0px;
 	height: 300px;
 	width: 520px;
 }
 
 #canvas {
-	background: rgba(255, 255, 255, 0.75);
+	background: rgba(255, 255, 255, 0.9);
 	border-style: solid;
 	border-color: black;
 	border-width: 1px;
 	margin: 0px;
 	padding: 0px;
 	height: 275px;
-	width: 514px;
+	width: 520px;
 }
