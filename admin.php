@@ -24,7 +24,7 @@ return "<tr>
 			<td>$id</td>
 			<td>$user</td>
 			<td>$email</td>
-		</tr>"
+		</tr>";
 }
 
 ?>
