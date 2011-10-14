@@ -64,13 +64,41 @@ return  "<tr>
 		<th>Delete</th>
 	</tr>
 <?php
-	$result = mysql_query("SELECT * FROM users LIMIT ".$oldlimit.",".$listnumber."");
-	while($row = mysql_fetch_assoc($result)){
-	echo addrow($row['username'], $row['email'], $row['ip'] );
+	$result = mysql_query("SELECT * FROM users LIMIT ".$oldlimit.",".($listnumber + 1)."");
+	$shownext = false;
+	for($i = 0; $i < $listnumber + 1; $i++){
+		$row = mysql_fetch_assoc($result);
+		if (!$row)
+			break;
+		if($i != $listnumber){
+			echo addrow($row['username'], $row['email'], $row['ip'] );
+		}
+		else{
+			$shownext = true;
+		}
 	}
 ?>
 </table>
-
+<?php
+if ($i == 0)
+{
+	echo "<p>No entries on this page! <a href=\"?p=1\">Go to page 1</a></p>";
+}
+?>
+<p>Page: <?php echo $pagenumber ?> </p>
+<?php
+if ($pagenumber != 1)
+	echo "<a href=\"?p=".($pagenumber-1)."\">";
+	echo "&lt; Prev";
+if ($pagenumber != 1)
+	echo "</a>";
+	echo " | ";
+if ($shownext)
+	echo "<a href=\"?p=".($pagenumber+1)."\">";
+	echo"Next &gt;";
+if ($shownext)
+	echo "</a>";
+?>
 
 
 
