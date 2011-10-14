@@ -49,6 +49,13 @@ body{
 	margin-left: -225px; /*Set left margin to -(RightColumnWidth)*/
 }
 
+#container {
+	float: left;
+	position: relative;
+	margin-left: 225px;
+	display: inline;
+}
+
 /****************
  * SCROLLBAR
  ******/
