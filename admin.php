@@ -85,7 +85,7 @@ if ($i == 0)
 	echo "<p>No entries on this page! <a href=\"?p=1\">Go to page 1</a></p>";
 }
 ?>
-<p>Page: <?php echo $pagenumber ?> </p>
+<p>Page: <?php echo $pagenumber ?> (
 <?php
 if ($pagenumber != 1)
 	echo "<a href=\"?p=".($pagenumber-1)."\">";
@@ -98,9 +98,26 @@ if ($shownext)
 	echo"Next &gt;";
 if ($shownext)
 	echo "</a>";
+	
+function showNumItems($num){
+	global $listnumber, $pagenumber;
+	if($listnumber != $num){
+		echo "<a href=\"?p=".$pagenumber."&n=".$num."\">";
+	}
+	else{
+		echo"<strong>";
+	}
+	echo $num;
+	if($listnumber != $num){
+		echo "</a>";
+	}
+	else{
+	echo"</strong>";
+	}
+	
+}
 ?>
-
-
+)    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
 
 
 
