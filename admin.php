@@ -10,6 +10,23 @@ include 'includes/membersOnly.php';
 <?php
 include_once 'includes/functions.php';
 
+if(!empty($_GET['p'])){
+	$pagenumber = $_GET['p'];
+}
+else{
+	$pagenumber = 1;
+}
+if(!empty($_GET['n'])){
+	$listnumber = $_GET['n'];
+}
+else{
+	$listnumber = 25;
+}
+
+$limit = $pagenumber * $listnumber;
+$oldlimit = $limit - $listnumber;
+global $rownum;
+$rownum = $oldlimit;
 function adderror($error){
 	global $errorarray;
 	$errorarray[] = $error;
@@ -20,7 +37,9 @@ function addsuccess($success){
 	$successarray[] = $success;
 }
 function addrow($id, $user, $email, $ip){
+$rownum = $rownum + 1;
 return  "<tr>
+			<td>$rownum</td>
 			<td>$id</td>
 			<td>$user</td>
 			<td><a href='#'>Reset Password</a></td>
@@ -36,6 +55,7 @@ return  "<tr>
 ?>
 <table align="center" border="1" cellpadding="5px">
 	<tr>
+		<th>#</th>
 		<th>ID</th>
 		<th>User</th>
 		<th>Password</th>
@@ -46,7 +66,7 @@ return  "<tr>
 		<th>Delete</th>
 	</tr>
 <?php
-	$result = mysql_query("SELECT * FROM users");
+	$result = mysql_query("SELECT * FROM users LIMIT ".$oldlimit.",".$listnumber."");
 	while($row = mysql_fetch_assoc($result)){
 	echo addrow($row['userid'],$row['username'], $row['email'], $row['ip'] );
 	}
