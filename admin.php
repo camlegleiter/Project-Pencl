@@ -19,13 +19,17 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-function addrow($id, $user, $email){
+function addrow($id, $user, $email, $ip){
 return  "<tr>
 			<td>$id</td>
 			<td>$user</td>
 			<td><a href='#'>Reset Password</a></td>
 			<td><a href='#'>View Notepads</a></td>
 			<td>$email</td>
+			<td>Level(ToDo)</td>
+			<td>$ip</td>
+			<td><a href='#'>Bye Bye</a></td>
+
 		</tr>";
 }
 
@@ -38,13 +42,14 @@ return  "<tr>
 		<th>Notebooks</th>
 		<th>Email</th>
 		<th>User Level</th>
+		<th>Register IP</th>
 		<th>Delete</th>
 	</tr>
 <?php
 	$result = mysql_query("SELECT * FROM users");
-	$row = mysql_fetch_assoc($result);
-	echo addrow($row['userid'],$row['username'], $row['email'] );
-	
+	while($row = mysql_fetch_assoc($result)){
+	echo addrow($row['userid'],$row['username'], $row['email'], $row['ip'] );
+	}
 ?>
 </table>
 
