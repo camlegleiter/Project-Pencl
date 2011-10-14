@@ -25,7 +25,6 @@ else{
 
 $limit = $pagenumber * $listnumber;
 $oldlimit = $limit - $listnumber;
-global $rownum;
 $rownum = $oldlimit;
 function adderror($error){
 	global $errorarray;
@@ -36,13 +35,13 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-function addrow($id, $user, $email, $ip){
+function addrow($user, $email, $ip){
+global $rownum;
 $rownum = $rownum + 1;
 return  "<tr>
 			<td>$rownum</td>
-			<td>$id</td>
 			<td>$user</td>
-			<td><a href='#'>Reset Password</a></td>
+			<td><a href='#'>Reset</a></td>
 			<td><a href='#'>View Notepads</a></td>
 			<td>$email</td>
 			<td>Level(ToDo)</td>
@@ -56,7 +55,6 @@ return  "<tr>
 <table align="center" border="1" cellpadding="5px">
 	<tr>
 		<th>#</th>
-		<th>ID</th>
 		<th>User</th>
 		<th>Password</th>
 		<th>Notebooks</th>
@@ -68,7 +66,7 @@ return  "<tr>
 <?php
 	$result = mysql_query("SELECT * FROM users LIMIT ".$oldlimit.",".$listnumber."");
 	while($row = mysql_fetch_assoc($result)){
-	echo addrow($row['userid'],$row['username'], $row['email'], $row['ip'] );
+	echo addrow($row['username'], $row['email'], $row['ip'] );
 	}
 ?>
 </table>
