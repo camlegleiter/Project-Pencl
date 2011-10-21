@@ -177,9 +177,9 @@ else if($_POST['submit']=='Register')
 						)");
 		
 		//TODO : REMOVE AT PRODUCTION (SECURITY RISK)
-		if (!$result) {
-		    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
-		}
+		//if (!$result) {
+		//    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
+		//}
 		
 		if(mysql_affected_rows($link)==1)
 		{
