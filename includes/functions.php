@@ -93,4 +93,39 @@ function getUserSalt($userid)
 	return $salt;
 
 }
+function getUserLevelStr($level){
+	
+	if($level == -2){
+		$level = 'Inactive';
+	}
+	else if($level == -1){
+		$level = 'Banned';
+	}
+	else if($level == 0){
+		$level = "Web Master";
+	}
+	else if($level == 1){
+		$level = "Admin";
+	}
+	else if($level == 2){
+		$level = 'Teacher';
+	}
+	else{
+		$level = "Student";
+	}
+	return $level;
+}
+function getUserLevel($userid){
+	$extract = mysql_query("SELECT 1 FROM admins WHERE userid='$userid'");
+	$numrows = mysql_num_rows($extract);
+	if($numrows == 0){
+		return 99;
+	}
+	else{
+	$line = mysql_fetch_assoc($extract);
+		return $line['level'];
+	}
+
+}
+
 ?>
