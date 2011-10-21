@@ -35,16 +35,19 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-function addrow($user, $email, $ip){
-global $rownum;
-$rownum = $rownum + 1;
-return  "<tr>
+function addrow($userid, $user, $email, $ip){
+	global $rownum;
+	$rownum = $rownum + 1;
+	$levelnum = getUserLevel($userid);
+	$level = getUserLevelStr($levelnum);
+	
+	return  "<tr>
 			<td>$rownum</td>
 			<td>$user</td>
 			<td><a href='#'>Reset</a></td>
 			<td><a href='#'>View Notepads</a></td>
 			<td>$email</td>
-			<td>Level(ToDo)</td>
+			<td>$level</td>
 			<td>$ip</td>
 			<td><a href='#'>Bye Bye</a></td>
 
@@ -71,7 +74,7 @@ return  "<tr>
 		if (!$row)
 			break;
 		if($i != $listnumber){
-			echo addrow($row['username'], $row['email'], $row['ip'] );
+			echo addrow($row['userid'],$row['username'], $row['email'], $row['ip'] );
 		}
 		else{
 			$shownext = true;
