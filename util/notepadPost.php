@@ -18,7 +18,7 @@ if($_POST['error']){
 	errorMessage('Error message flag set');
 }
 if($_POST['success']){
-	sucessMessage('Success message flag set');
+	successMessage('Success message flag set');
 }
 
 $action = $_POST['action'];
