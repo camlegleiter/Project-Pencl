@@ -11,6 +11,10 @@ include 'includes/membersOnly.php';
 include_once 'includes/functions.php';
 ?>
 <html>
+<body>
+<?php
+print_r($_POST);
+?>
 <form class="clearfix" action="" method="GET">
 	<input type="text" name="srch">
 	<?php
@@ -64,14 +68,14 @@ function addrow($userid, $user, $email, $ip){
 			<td>
 			<form class='clearfix' action='' method='POST'>
 			<input type='hidden' name='id' value='$userid'>
-				<select>
-					<option value='orig' selected>$level</option>
-					<option disabled>-------</option>
-					<option value='orig'>".getUserLevelStr(1)."</option>
-					<option value='orig'>".getUserLevelStr(2)."</option>
-					<option value='orig'>".getUserLevelStr(3)."</option>
-				</select>
-				<input type='submit' value='&gt;'>
+			<select name='dropdown'>
+				<option value='orig' selected>$level</option>
+				<option value='disabled' disabled>-------</option>
+				<option value='lvl1'>".getUserLevelStr(1)."</option>
+				<option value='lvl2'>".getUserLevelStr(2)."</option>
+				<option value='lvl3'>".getUserLevelStr(3)."</option>
+			</select>
+			<input type='submit' value='&gt;'>
 			</form>
 			</td>
 			<td>$ip</td>
@@ -81,7 +85,7 @@ function addrow($userid, $user, $email, $ip){
 }
 
 ?>
-<table align="center" border="1" cellpadding="5px">
+<table border="1" cellpadding="5px" style="text-align:center">
 	<tr>
 		<th>#</th>
 		<th>User</th>
@@ -166,4 +170,5 @@ function showNumItems($num){
 }
 ?>
 )    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
+</body>
 </html>

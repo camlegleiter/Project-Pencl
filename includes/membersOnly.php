@@ -1,5 +1,5 @@
 <?php
-if (!define('PREDIR'))
+if (!defined('PREDIR'))
 	require "includes/connect.php";
 else
 	require PREDIR."includes/connect.php";
