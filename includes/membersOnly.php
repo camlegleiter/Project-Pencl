@@ -1,5 +1,8 @@
 <?php
-require "includes/connect.php";
+if (!define('PREDIR'))
+	require "includes/connect.php";
+else
+	require PREDIR."includes/connect.php";
 
 function checkToken($userid, $token)
 {
