@@ -21,6 +21,7 @@ function ajaxLoad() {
         ed.setContent('HTML content that got passed from server.');
     }, 3000);*/
     $.ajax({
+    	type: 'POST',
 		url: "util/notepadPost.php",
 		statusCode: {
 			404: function() {
