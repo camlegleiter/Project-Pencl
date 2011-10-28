@@ -15,6 +15,7 @@
 	<!-- Load TinyMCE -->
 	<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
 	<script type="text/javascript">
+		
 		$().ready(function() {
 			$('textarea.tinymce').tinymce({
 				// Location of TinyMCE script
@@ -37,8 +38,8 @@
 				theme_advanced_buttons4 : "",
 				theme_advanced_toolbar_location : "top",
 				theme_advanced_toolbar_align : "left",
-				theme_advanced_statusbar_location : "bottom",
-				theme_advanced_resizing : true,
+				theme_advanced_statusbar_location : false,
+				theme_advanced_resizing : false,
 	
 				// Example content CSS (should be your site CSS)
 				content_css : "css/content.css",
@@ -54,9 +55,38 @@
 					username : "Some User",
 					staffid : "991234"
 				}
-			});
+			});	
 		});
+		
 		</script>
+		
+		<script type="text/javascript">
+			var currentSave = "";
+			var editorText = "";
+			var t;
+			function autosave() {
+			
+				editorText = tinymce.get('elm1').getContent();//document.getElementById('elm1').innerHTML;
+				
+				//document.getElementById('elm1').innerHTML = "word";
+
+				console.log(editorText);
+				if(editorText.localeCompare(currentSave) != 0)
+				{
+					currentSave = editorText;
+					console.log("autosave text changed");
+					
+				}
+				
+				t = setTimeout("autosave()", 10000);
+				console.log("autosave called");
+			};
+			
+			$().ready(function() {
+				setTimeout("autosave()", 10000);
+			});
+		</script>
+		
 	</head>
 	<body>
 		<div id="main">
@@ -82,7 +112,10 @@
 			</div>
 			<div id="right">
 				<b>Right Column: <em>250px</em></b>
+				<input type = 'button' onclick = 'autosave()' value = 'save'/>
 			</div>
 		</div>
+		
+		
 	</body>
 </html>
