@@ -16,10 +16,6 @@ function ajaxLoad() {
 
     // Do you ajax call here, window.setTimeout fakes ajax call
     ed.setProgressState(1); // Show progress
-   /* window.setTimeout(function() {
-        ed.setProgressState(0); // Hide progress
-        ed.setContent('HTML content that got passed from server.');
-    }, 3000);*/
     $.ajax({
     	type: 'POST',
 		url: "util/notepadPost.php",
@@ -36,10 +32,10 @@ function ajaxLoad() {
 		},
 		data: {
 			//key1: "value1",
-			error : 'true'
+			success : 'true'
 		},
 		complete: function(jqXHR, textStatus) {
-			ed.setProgressState(0);
+			ed.setProgressState(0);// Hide progress
 		}
     });
 }
