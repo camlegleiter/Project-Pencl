@@ -23,16 +23,16 @@ function ajaxLoad() {
 			404: function() {
 				alert('page not found');
 			},
-			409: function(data) {
-				alert('409 ' + data);
+			409: function(jqXHR, textStatus, errorThrown) {
+				alert('409 ' + errorThrown);
 			},
-			200: function(data) {
-				alert('200 ' + data);
+			200: function(data, textStatus, jqXHR) {
+				alert('200 ' + textStatus);
 			}
 		},
 		data: {
 			//key1: "value1",
-			error : 'true'
+			success : 'true'
 		},
 		complete: function(jqXHR, textStatus) {
 			ed.setProgressState(0);// Hide progress
