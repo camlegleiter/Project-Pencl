@@ -9,7 +9,25 @@ include 'includes/membersOnly.php';
 
 <?php
 include_once 'includes/functions.php';
+?>
+<html>
+<body>
+<?php
+print_r($_POST);
+?>
+<form class="clearfix" action="" method="GET">
+	<input type="text" name="srch">
+	<?php
+ 		if(!empty($_GET['n'])){
+			echo '<input type="hidden" name="n" value="'.$_GET['n'].'">';
+		}		
+	?>
+	<input type="hidden" name="p" value="1">
+	<input type="submit" value="Search">
+	<a href="<?php echo "?p=".$_GET['p']."&n=".$_GET['n']; ?>">Clear</a>
+</form>
 
+<?php
 if(!empty($_GET['p'])){
 	$pagenumber = $_GET['p'];
 }
@@ -35,16 +53,31 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-function addrow($user, $email, $ip){
-global $rownum;
-$rownum = $rownum + 1;
-return  "<tr>
+function addrow($userid, $user, $email, $ip){
+	global $rownum;
+	$rownum = $rownum + 1;
+	$levelnum = getUserLevel($userid);
+	$level = getUserLevelStr($levelnum);
+	
+	return  "<tr>
 			<td>$rownum</td>
 			<td>$user</td>
 			<td><a href='#'>Reset</a></td>
 			<td><a href='#'>View Notepads</a></td>
 			<td>$email</td>
-			<td>Level(ToDo)</td>
+			<td>
+			<form class='clearfix' action='' method='POST'>
+			<input type='hidden' name='id' value='$userid'>
+			<select name='dropdown'>
+				<option value='orig' selected>$level</option>
+				<option value='disabled' disabled>-------</option>
+				<option value='lvl1'>".getUserLevelStr(1)."</option>
+				<option value='lvl2'>".getUserLevelStr(2)."</option>
+				<option value='lvl3'>".getUserLevelStr(3)."</option>
+			</select>
+			<input type='submit' value='&gt;'>
+			</form>
+			</td>
 			<td>$ip</td>
 			<td><a href='#'>Bye Bye</a></td>
 
@@ -52,7 +85,7 @@ return  "<tr>
 }
 
 ?>
-<table align="center" border="1" cellpadding="5px">
+<table border="1" cellpadding="5px" style="text-align:center">
 	<tr>
 		<th>#</th>
 		<th>User</th>
@@ -64,14 +97,20 @@ return  "<tr>
 		<th>Delete</th>
 	</tr>
 <?php
-	$result = mysql_query("SELECT * FROM users LIMIT ".$oldlimit.",".($listnumber + 1)."");
+	$srch = mysql_real_escape_string($_GET['srch']);
+	if(isSet($srch)){
+		$result = mysql_query("SELECT * FROM users WHERE username LIKE '%".$srch."%' OR email LIKE '%".$srch."%' LIMIT ".$oldlimit.",".($listnumber + 1)."");
+	}
+	else{
+		$result = mysql_query("SELECT * FROM users LIMIT ".$oldlimit.",".($listnumber + 1)."");
+	}
 	$shownext = false;
 	for($i = 0; $i < $listnumber + 1; $i++){
 		$row = mysql_fetch_assoc($result);
 		if (!$row)
 			break;
 		if($i != $listnumber){
-			echo addrow($row['username'], $row['email'], $row['ip'] );
+			echo addrow($row['userid'],$row['username'], $row['email'], $row['ip'] );
 		}
 		else{
 			$shownext = true;
@@ -87,14 +126,24 @@ if ($i == 0)
 ?>
 <p>Page: <?php echo $pagenumber ?> (
 <?php
-if ($pagenumber != 1)
-	echo "<a href=\"?p=".($pagenumber-1)."\">";
+if ($pagenumber != 1) 
+{
+	echo "<a href=\"?p=".($pagenumber-1)."&n=".$_GET['n'];
+	if (isset($_GET['srch']))
+		echo "&srch=".$_GET['srch'];
+	echo "\">";
+}
 	echo "&lt; Prev";
 if ($pagenumber != 1)
 	echo "</a>";
 	echo " | ";
 if ($shownext)
-	echo "<a href=\"?p=".($pagenumber+1)."\">";
+{
+	echo "<a href=\"?p=".($pagenumber+1)."&n=".$_GET['n'];
+	if (isset($_GET['srch']))
+		echo "&srch=".$_GET['srch'];
+	echo "\">";
+}
 	echo"Next &gt;";
 if ($shownext)
 	echo "</a>";
@@ -102,7 +151,10 @@ if ($shownext)
 function showNumItems($num){
 	global $listnumber, $pagenumber;
 	if($listnumber != $num){
-		echo "<a href=\"?p=".$pagenumber."&n=".$num."\">";
+		echo "<a href=\"?p=".$pagenumber."&n=".$num;
+		if (isset($_GET['srch']))
+			echo "&srch=".$_GET['srch'];
+		echo "\">";
 	}
 	else{
 		echo"<strong>";
@@ -118,29 +170,5 @@ function showNumItems($num){
 }
 ?>
 )    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
-
-
-
-<form class="clearfix" action="" method="post">
-	<h3>Change password</h3>
-	<div>
-	<label class="grey" for="oldpass">Current:</label>
-	<input class="field" type="password" name="oldpass" id="password" size="23" />
-	</div>
-	<div>
-	<label class="grey" for="newpass">New:</label>
-	<input class="field" type="password" name="newpass" id="password" size="23" />
-	</div>
-	<div>
-	<label class="grey" for="newpass">Retype new:</label>
-	<input class="field" type="password" name="newpass2" id="password" size="23" />
-	</div>
-	<h3>Change Email</h3>
-	<div>
-	<label class="grey" for="email">Email:</label>
-	<input class="field" type="text" name="cemail" id="cemail" value="<?php echo $userRow['email'] ?>" size="23" />
-	</div>
-	<input type="submit" name="save" value="Save" />
-	<input type="submit" name="clearnotes" value="Delete Notebooks" />
-</form>
-
+</body>
+</html>

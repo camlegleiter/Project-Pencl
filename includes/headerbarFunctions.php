@@ -177,9 +177,9 @@ else if($_POST['submit']=='Register')
 						)");
 		
 		//TODO : REMOVE AT PRODUCTION (SECURITY RISK)
-		if (!$result) {
-		    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
-		}
+		//if (!$result) {
+		//    die('Invalid query (158): ' . mysql_error() . '<br>' . $stringQ);
+		//}
 		
 		if(mysql_affected_rows($link)==1)
 		{
@@ -191,7 +191,7 @@ else if($_POST['submit']=='Register')
 			//$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
 			$_SESSION['msg']['reg-success']='Congratulations! You\'re in!';
 		}
-		else $err[]='This username is already taken! Affected rows: '.mysql_affected_rows($link);
+		else $err[]='This username is already taken!';
 	}
 
 	if(count($err))
