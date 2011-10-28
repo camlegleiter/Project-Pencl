@@ -65,7 +65,7 @@
 			var editorText = "";
 			var t;
 			function autosave() {
-			
+				
 				editorText = tinymce.get('elm1').getContent();//document.getElementById('elm1').innerHTML;
 				
 				//document.getElementById('elm1').innerHTML = "word";
@@ -85,6 +85,7 @@
 			$().ready(function() {
 				setTimeout("autosave()", 10000);
 			});
+			
 		</script>
 		
 	</head>
