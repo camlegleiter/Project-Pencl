@@ -10,8 +10,7 @@ header("HTTP/1.1 409 Conflict");
 echo $error;
 exit;
 }
-function successMessage($success, $content){
-echo $content;
+function successMessage($success){
 echo $success;
 exit;
 }
@@ -19,7 +18,7 @@ if($_POST['error']){
 	errorMessage('Error message flag set');
 }
 if($_POST['success']){
-	errorMessage('Success message flag set');
+	sucessMessage('Success message flag set');
 }
 
 $action = $_POST['action'];
@@ -27,10 +26,10 @@ $notpadid = $_POST['notpadid'];
 $content = $_POST['content'];
 
 if($action == 'get'){
-	successMessage('Content loaded', $content);
+	successMessage('Content loaded');
 }
 if($action == 'load'){
-	successMessage('Content loaded', $content);
+	successMessage('Content loaded');
 }
 
 ?>
