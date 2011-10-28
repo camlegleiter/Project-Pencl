@@ -52,9 +52,14 @@ function ajaxSave() {
 }
 </script>
 
-<form method="post" action="somepage">
+<form method="post" action="">
     <textarea name="content" style="width:100%">
     </textarea>
     <input type = 'button' onclick = 'ajaxSave()' value = 'save'/>
     <input type = 'button' onclick = 'ajaxLoad()' value = 'load'/>
+</form>
+
+<form method="post" action="util/notepadPost.php">
+    <input type = 'text' name='success' />
+    <input type = 'submit' name='success' value = 'submit'/>
 </form>
