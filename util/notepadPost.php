@@ -1,6 +1,6 @@
 <?php
-print_r($_POST);
-print_r($_GET);
+//print_r($_POST);
+//print_r($_GET);
 //for errors, use 409 error
 //define('PREDIR', '../');
 //include "../includes/membersOnly.php";
