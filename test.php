@@ -27,12 +27,12 @@ function ajaxLoad() {
 				alert('409 ' + errorThrown);
 			},
 			200: function(data, textStatus, jqXHR) {
-				alert('200 ' + textStatus);
+				alert('200 ' + data);
 			}
 		},
 		data: {
 			//key1: "value1",
-			success : 'true'
+			error : 'true'
 		},
 		complete: function(jqXHR, textStatus) {
 			ed.setProgressState(0);// Hide progress
