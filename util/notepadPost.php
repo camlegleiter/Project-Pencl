@@ -6,7 +6,7 @@
 //include "../includes/membersOnly.php";
 
 function errorMessage($error){
-header("HTTP/1.1 409 Conflict Test");
+header("HTTP/1.1 409 ".$error);
 echo $error;
 exit;
 }
