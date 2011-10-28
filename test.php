@@ -32,7 +32,7 @@ function ajaxLoad() {
 		},
 		data: {
 			//key1: "value1",
-			success : 'true'
+			error : 'true'
 		},
 		complete: function(jqXHR, textStatus) {
 			ed.setProgressState(0);// Hide progress
