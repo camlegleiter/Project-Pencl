@@ -1,7 +1,7 @@
 <?php
 //for errors, use 409 error
-define('PREDIR', '../');
-include "../includes/membersOnly.php";
+//define('PREDIR', '../');
+//include "../includes/membersOnly.php";
 
 function errorMessage($error){
 header("HTTP/1.1 409 Conflict");
