@@ -6,7 +6,7 @@
 //include "../includes/membersOnly.php";
 
 function errorMessage($error){
-header("HTTP/1.1 409 Conflict");
+header("HTTP/1.1 409 Conflict Test");
 echo $error;
 exit;
 }
@@ -31,5 +31,5 @@ if($action == 'get'){
 if($action == 'load'){
 	successMessage('Content loaded');
 }
-
+	errorMessage('Incorrect post args');
 ?>
