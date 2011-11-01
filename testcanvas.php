@@ -21,13 +21,17 @@
 				// Location of TinyMCE script
 				script_url : 'js/tiny_mce/tiny_mce.js',
 	
-				//Plugins
+				// Plugins
 				plugins : "save",
+				
+				// Save functionality
+				save_enablewhendirty : false,
+				save_onsavecallback: "usersave",
 				
 				// General options
 				theme : "advanced",
 	
-				//Editor Size
+				// Editor Size
 				width : "550",
 				height : "500",
 				
@@ -62,25 +66,26 @@
 		
 		<script type="text/javascript">
 			var currentSave = "";
-			var editorText = "";
-			var t;
+			
 			function autosave() {
-				
-				editorText = tinymce.get('elm1').getContent();//document.getElementById('elm1').innerHTML;
-				
-				//document.getElementById('elm1').innerHTML = "word";
-
-				console.log(editorText);
-				if(editorText.localeCompare(currentSave) != 0)
-				{
-					currentSave = editorText;
-					console.log("autosave text changed");
-					
-				}
-				
-				t = setTimeout("autosave()", 10000);
-				console.log("autosave called");
+				save();
+				console.log('autosaved text');
+				setTimeout("autosave()", 10000);				
 			};
+			
+			function usersave() {
+				save();
+				console.log('usersaved text');
+			}
+			
+			function save() {
+				var editorText = tinymce.get('elm1').getContent();
+
+				if (currentSave != editorText) {
+					currentSave = editorText;
+					console.log('updated currentSave');
+				}
+			}
 			
 			$().ready(function() {
 				setTimeout("autosave()", 10000);
@@ -113,7 +118,6 @@
 			</div>
 			<div id="right">
 				<b>Right Column: <em>250px</em></b>
-				<input type = 'button' onclick = 'autosave()' value = 'save'/>
 			</div>
 		</div>
 		
