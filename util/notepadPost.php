@@ -21,9 +21,9 @@ if($_POST['success']){
 	successMessage('Success message flag set');
 }
 
-$action = $_POST['action'];
-$notpadid = $_POST['notpadid'];
-$content = $_POST['content'];
+$action = mysql_real_escape_string($_POST['action']);
+$notpadid = mysql_real_escape_string($_POST['notpadid']);
+$content = mysql_real_escape_string($_POST['content']);
 
 if($action == 'get'){
 	successMessage('Content loaded');
