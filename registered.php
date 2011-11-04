@@ -10,10 +10,10 @@ include 'includes/membersOnly.php';
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Pencl - Coming Soon</title>
 
-<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
 
 </head>
 
@@ -28,23 +28,42 @@ include 'includes/headerbar.php';
 
 	<h3>Welcome to Pencl <?php echo $_SESSION['usr']?>!</h3> 
 	<h4>
-	We are currently working on the main application, so please come back 
-	later to try it out!
+		We are currently working on the main application, so please come back 
+		later to try it out!
 	</h4>
 	<h4>
-	&nbsp;
+		&nbsp;
 	</h4>
 	<h4 style="text-align:center">
-	<a href="canvas.php">Open Notepad</a>
+		<a href="testcanvas.php">NOTEPAD TEST PAGE</a>
+	</h4>
+	<h4>
+		&nbsp;
+	</h4>
+	<h4 style="text-align:center">
+		<a href="canvas.php">Open New Notepad</a>
+	</h4>
+	<h4 style="text-align:center">
+		<a href="noteselection.php">Notepad Selection</a>
 	</h4>
 	
-	<hr />
+	<?php
+		$usrlevel = getUserLevel($_SESSION['id']);
+		if ($usrlevel == 0 || $usrlevel == 1)
+		{
+			echo '<h4 style="text-align:center">
+					<a href="admin.php">Admin Page</a>
+				  </h4>';
+		}
+	?>
+	
+	<hr>
 	
 	<h3>Settings</h3>
 	<?php
 	include 'settings.php';
 	?>	
-	<hr />   
+	<hr>   
 </div>
 
 <?php
