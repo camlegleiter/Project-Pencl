@@ -35,12 +35,6 @@ include 'includes/headerbar.php';
 		&nbsp;
 	</h4>
 	<h4 style="text-align:center">
-		<a href="testcanvas.php">NOTEPAD TEST PAGE</a>
-	</h4>
-	<h4>
-		&nbsp;
-	</h4>
-	<h4 style="text-align:center">
 		<a href="canvas.php">Open New Notepad</a>
 	</h4>
 	<h4 style="text-align:center">
