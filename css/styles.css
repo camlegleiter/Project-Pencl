@@ -146,3 +146,49 @@ a:hover{
 .clear{
 	clear:both;
 }
+
+.notebook table {
+  border-collapse: collapse;
+  border: 1px solid #CCCCCC;
+  color:#FFFFFF;
+  background:#000000;
+  text-align:left;
+  }
+.notebook caption {
+  text-align: center;
+  background: transparent;
+  padding:6px 4px 8px 0px;
+  color: #CC00FF;
+  text-transform: uppercase;
+}
+.notebook table a {
+color:#CCCCCC;
+text-decoration:none;
+}
+.notebook table a:hover {
+text-decoration:underline;
+}
+.notebook tr.odd {
+background: #666666;
+}
+.notebook tr.odd:hover {
+background:#555555;
+}
+.notebook tr:hover {
+background:#111111;
+}
+.notebook tr.head {
+background:#333333;
+}
+.notebook thead, tfoot {
+background:#333333;
+text-align:left;
+height:30px;
+}
+.notebook thead th, tfoot th {
+padding:5px;
+}
+
+.notebook tbody th, tbody td {
+padding:5px;
+}
