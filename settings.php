@@ -1,5 +1,10 @@
 <?php
-include_once 'includes/functions.php';
+define('INCLUDE_CHECK',true);
+
+// Those two files can be included only if INCLUDE_CHECK is defined
+require "includes/connect.php";
+require 'includes/functions.php';
+include 'includes/membersOnly.php';
 
 function adderror($error){
 	global $errorarray;
@@ -156,44 +161,47 @@ include 'includes/tracker.php';
 //Must be first thing in the <body> tag to function correctly
 include 'includes/topbar.php';
 ?>
-<?php
-	echo "<h3>User settings for ".$userRow['username']."<h3>";
-	
-	if ($errorarray)
-	{
-		foreach($errorarray as $value) 
-			echo "<p class='error'>$value</p>";
-	}
-	if ($successarray)
-	{
-		foreach($successarray as $svalue)
-			echo "<p class='success'>$svalue</p>";
-	}
-	unset($errorarray);
-	unset($successarray);
-?>
+<div id="pagewide">
 
-<form class="clearfix" action="" method="post">
-	<h3>Change password</h3>
-	<div>
-	<label class="grey" for="oldpass">Current:</label>
-	<input class="field" type="password" name="oldpass" id="password" size="23" />
-	</div>
-	<div>
-	<label class="grey" for="newpass">New:</label>
-	<input class="field" type="password" name="newpass" id="password" size="23" />
-	</div>
-	<div>
-	<label class="grey" for="newpass">Retype new:</label>
-	<input class="field" type="password" name="newpass2" id="password" size="23" />
-	</div>
-	<h3>Change Email</h3>
-	<div>
-	<label class="grey" for="email">Email:</label>
-	<input class="field" type="text" name="cemail" id="cemail" value="<?php echo $userRow['email'] ?>" size="23" />
-	</div>
-	<input type="submit" name="save" value="Save" />
-	<input type="submit" name="clearnotes" value="Delete Notebooks" />
-</form>
+	<?php
+		echo "<h1>User settings for ".$userRow['username']."</h1>";
+		
+		if ($errorarray)
+		{
+			foreach($errorarray as $value) 
+				echo "<p class='error'>$value</p>";
+		}
+		if ($successarray)
+		{
+			foreach($successarray as $svalue)
+				echo "<p class='success'>$svalue</p>";
+		}
+		unset($errorarray);
+		unset($successarray);
+	?>
+	
+	<form class="clearfix" action="" method="post">
+		<h3>Change password</h3>
+		<div>
+		<label class="grey" for="oldpass">Current:</label>
+		<input class="field" type="password" name="oldpass" id="password" size="23" />
+		</div>
+		<div>
+		<label class="grey" for="newpass">New:</label>
+		<input class="field" type="password" name="newpass" id="password" size="23" />
+		</div>
+		<div>
+		<label class="grey" for="newpass">Retype new:</label>
+		<input class="field" type="password" name="newpass2" id="password" size="23" />
+		</div>
+		<h3>Change Email</h3>
+		<div>
+		<label class="grey" for="email">Email:</label>
+		<input class="field" type="text" name="cemail" id="cemail" value="<?php echo $userRow['email'] ?>" size="23" />
+		</div>
+		<input type="submit" name="save" value="Save" />
+		<input type="submit" name="clearnotes" value="Delete Notebooks" />
+	</form>
+</div>
 </body>
 </html>
