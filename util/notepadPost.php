@@ -30,7 +30,7 @@ function successMessage($success){
 =====================================
 */
 function buildPath($userid, $notepadid){
-	return $url = getcwd().'/../notepads/'.$userid.'/'.$notepadid.'/';
+	return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
 }
 
 //Recursive remove directory
@@ -105,6 +105,9 @@ if (!is_numeric($notepadid))
 if($action == 'save'){
 	//Add html to file
 	$path = buildPath($userid, $notepadid);
+	//Create our directory if not made
+	if (!is_dir($path))
+		mkdir($path, 0777, true);
 	$file = fopen($path.$notepadid.'.html', 'w');
 	if (!$file)
 		errorMessage("Error saving notepad (-1)");
