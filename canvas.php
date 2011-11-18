@@ -53,6 +53,8 @@ if (!isset($_GET['id'])) {
 			// Save content from editor into the file
 			function writeToFile() {
 				save();
+				 // Show progress
+				 tinymce.get('elm1').setProgressState(1);
 				$.ajax({
 					type: 'POST',
 					url: './util/notepadPost.php',
@@ -64,12 +66,17 @@ if (!isset($_GET['id'])) {
 					statusCode: {
 						404: function() {
 							alert('Page not found!');
+							// Hide progress
+							tinymce.get('elm1').setProgressState(0);
 						},
 						409: function(jqXHR, status, error) {
 							alert('Error: ' + error);
+							// Hide progress
+							tinymce.get('elm1').setProgressState(0);
 						},
 						200: function(data) {
-							alert('Saved!');
+							// Hide progress
+							window.setTimeout(function() {tinymce.get('elm1').setProgressState(0)}, 500);
 						}
 					}
 				});
@@ -78,6 +85,8 @@ if (!isset($_GET['id'])) {
 			// Load content from file into the editor
 			function loadTinyMCEContent() {
 				if (queryObj['id']) {
+					// Show progress
+					tinymce.get('elm1').setProgressState(1); 
 					$.ajax({
 						type: 'POST',
 						url: './util/notepadPost.php',
@@ -89,13 +98,19 @@ if (!isset($_GET['id'])) {
 						statusCode: {
 							404: function() {
 								alert("Page not found.");
+								// Hide progress
+								tinymce.get('elm1').setProgressState(0);
 							},
 							409: function(jqXHR, textStatus, error) {
 								alert("Error: " + error);
+								// Hide progress
+								tinymce.get('elm1').setProgressState(0);
 							},
 							200: function(data) {
 								$('#notepadTitle').text(data.notepadname);
 								tinymce.activeEditor.setContent(data.content);
+								// Hide progress
+								tinymce.get('elm1').setProgressState(0);
 							}
 						}
 					});
