@@ -22,12 +22,7 @@ include 'includes/tracker.php';
 include 'includes/topbar.php';
 
 
-if($_SESSION['msg']['login-err'])
-					{
-						echo '<div class="error"><p>'.$_SESSION['msg']['login-err'].'</p></div>';
-						unset($_SESSION['msg']['login-err']);
-					}
-					else if ($_SESSION['msg']['reg-success'])
+ if ($_SESSION['msg']['reg-success'])
 					{
 						echo '<div class="success"><p>'.$_SESSION['msg']['reg-success'].'</p></div>';
 						unset($_SESSION['msg']['reg-success']);
@@ -45,7 +40,9 @@ if($_SESSION['msg']['login-err'])
 <form action="" method="post">
 	Username: <input name="username" type="text"><br>
 	Password: <input name="password" type="password"><br>
-	<input name="submit" type="submit" value="Login"></form>
+	Confirm Password: <input name="passwordagain" type="password"><br>
+	Beta Key: <input name="betaKey" type="text"><br>
+	<input name="submit" type="submit" value="Register"></form>
 
 </div>
 </body>
