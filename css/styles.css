@@ -34,7 +34,8 @@ body{
 	width:454px;
 	border:1px solid #1f1f20;
 }
-#page,pagewide hr{
+#page hr,
+#pagewide hr{
 	border:0;
 	text-indent:-9999px;
 	height:50px;
@@ -44,21 +45,22 @@ body{
 	overflow:hidden;
 }
 
-#page,pagewide h1,
-#page,pagewide h2{
+#page h1,
+#page h2 {
 	text-indent:-9999px;
 	overflow:hidden;
 	height:105px;
 	background:url('../img/coming_soon.png') no-repeat;
 }
 
-#page,pagewide h2{
+#page h2{
 	height:76px;
 	background:url('../img/get_notified.png') no-repeat;
 	margin-bottom:20px;
 }
 
-#page,pagewide form{
+#page form,
+#pagewide form{
 	background-color:#181819;
 	display:block;
 	height:31px;
