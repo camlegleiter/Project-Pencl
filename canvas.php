@@ -172,8 +172,17 @@ if (!isset($_GET['id'])) {
 				});
 			});
 		</script>
+<?php
+//Must be in header!
+include 'includes/topbar_header.php';
+?>
 	</head>
 	<body onload="setTimeout('loadTinyMCEContent()', 400);" onunload="writeToFile();">
+		<?php
+		//Must be first thing in the <body> tag to function correctly
+		define("CANVAS", true);
+		include 'includes/topbar.php';
+		?>
 		<div id="main">
 			<div id="page_header">
 				<h1 id="notepadTitle"></h1>
