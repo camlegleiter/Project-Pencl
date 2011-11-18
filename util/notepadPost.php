@@ -111,11 +111,11 @@ if($action == 'save'){
 		errorMessage("Error saving notepad (-2)");
 	fclose($file);
 	//Set value in SQL
-	$padCheck = mysql_query("SELECT COUNT(*) FROM notepads WHERE userid='$userid' AND id='$notepadid'");
+	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
 	$numrows = mysql_fetch_assoc($padCheck);
 	if($numrows['COUNT(*)'] != 0){
 		//Already in database, update the value
-		$updatePad = mysql_query("UPDATE notepads SET modified=NOW() WHERE userid='$userid' AND id='$notepadid'");
+		$updatePad = mysql_query("UPDATE notebooks SET modified=NOW() WHERE userid='$userid' AND id='$notepadid'");
 		if (!$updatePad)
 			errorMessage("Error saving notepad");
 		//mysql_free_result($updatePad);
@@ -125,7 +125,7 @@ if($action == 'save'){
 		//Create new entry
 		if (empty($notepadname))
 			errorMessage("No notepad name given");
-		$insertPad = mysql_query("INSERT INTO notepads (userid, name, description, created, modified) VALUES ('$userid','$notepadname','None',NOW(),NOW())");
+		$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','None',NOW(),NOW())");
 		if (!$insertPad)
 			errorMessage("Error saving notepad (-3)");
 		//mysql_free_result($insertPad);
@@ -141,7 +141,7 @@ else if($action == 'load'){
 	successMessage(file_get_contents($file));
 }
 else if($action == 'delete'){
-	$deletePad = mysql_query("DELETE FROM notepads WHERE userid='$userid' AND id='$notepadid'");
+	$deletePad = mysql_query("DELETE FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
 	$deletedRows = mysql_affected_rows();
 	if ($deletedRows > 1)
 		errorMessage("Error deleting notepad (-1)");
@@ -166,7 +166,7 @@ else if($action == 'rename'){
 	if (!empty($notepaddesc))
 		$updateString .= "description='$notepaddesc'";
 		
-	$updatePad = mysql_query("UPDATE notepads SET $updateString WHERE userid='$userid' AND id='$notepadid'");
+	$updatePad = mysql_query("UPDATE notebooks SET $updateString WHERE userid='$userid' AND id='$notepadid'");
 	if (!$updatePad)
 		errorMessage("Error updating notepad");
 	successMessage("Notepad updated");
