@@ -1,6 +1,7 @@
 <?php
 //Must be on top of everything to function correctly
 include 'includes/registerFunctions.php';
+//Test
 ?>
 
 <!DOCTYPE html>
