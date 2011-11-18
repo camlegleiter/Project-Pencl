@@ -38,4 +38,8 @@ if (!checkToken($_SESSION['id'], $_SESSION['token']))
 	header("Location: index.php");
 	exit;
 }
+else
+{
+	define("LOGGEDIN", true);
+}
 ?>
