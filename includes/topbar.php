@@ -1,7 +1,3 @@
-<?php 
- 
-?>
-
 <div class="tb" id="topContainer">
 	<div class="chromestyle" id="chromemenu">
 		<div class="tb" id="topLogo"></div>
