@@ -4,6 +4,11 @@ if (!defined('PREDIR'))
 else
 	require PREDIR."includes/connect.php";
 
+if (!isset ($_COOKIE[ini_get('session.name')])) {
+    session_name('PenclLogin');
+    session_start();
+}
+
 function checkToken($userid, $token)
 {
 	$valid = false;
