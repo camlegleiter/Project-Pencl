@@ -82,8 +82,18 @@
 				setTimeout("autosave()", 10000);
 			});
 		</script>
+        <?php
+		//Put this at the end of the <head> tag to track
+		include 'includes/topbar_header.php';
+		include 'includes/tracker.php';
+		?>
 	</head>
 	<body>
+    <?php
+	//Must be first thing in the <body> tag to function correctly
+	define("CANVAS", true);
+	include 'includes/topbar.php';
+	?>
 		<div id="main">
 			<div id="page_header">
 				<h1>Notepad Title Here</h1>

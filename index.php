@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 //Must be on top of everything to function correctly
 include 'includes/headerbarFunctions.php';
