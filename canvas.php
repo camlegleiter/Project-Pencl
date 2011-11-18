@@ -20,11 +20,81 @@ include 'includes/membersOnly.php';
 		<script type="text/javascript">
 			var querystring = location.search.replace('?', '').split('&');
 			var queryObj = {};
+			var currentSave = "";
+
+			// Get the URL querystring values
 			for (var i = 0; i < querystring.length; i++) {
 				var name = querystring[i].split('=')[0];
 				var value = querystring[i].split('=')[1];
 
 				queryObj[name] = value;
+			}
+
+			// Runs every 10 seconds to save the editor content
+			function autosave() {
+				save();
+				setTimeout("autosave()", 10000);				
+			}
+
+			// Modifies the current content value
+			function save() {
+				var editorText = tinymce.get('elm1').getContent();
+
+				if (currentSave != editorText) {
+					currentSave = editorText;
+				}
+			}
+
+			// Save content from editor into the file
+			function writeToFile() {
+				save();
+				$.ajax({
+					type: 'POST',
+					url: './util/notepadPost.php',
+					data: {
+						action: 'save',
+						notepadid: parseInt(queryObj['id']),
+						content: currentSave
+					},
+					statusCode: {
+						404: function() {
+							alert('Page not found!');
+						},
+						409: function(jqXHR, status, error) {
+							alert('Error: ' + error);
+						},
+						200: function(data) {
+							alert('Saved!');
+						}
+					}
+				});
+			}
+
+			// Load content from file into the editor
+			function loadTinyMCEContent() {
+				if (queryObj['id']) {
+					$.ajax({
+						type: 'POST',
+						url: './util/notepadPost.php',
+						data: {
+							action: 'load', 
+							notepadid: parseInt(queryObj['id'])
+						},
+						dataType: "json",
+						statusCode: {
+							404: function() {
+								alert("Page not found.");
+							},
+							409: function(jqXHR, textStatus, error) {
+								alert("Error: " + error);
+							},
+							200: function(data) {
+								$('#notepadTitle').text(data.notepadname);
+								tinymce.activeEditor.setContent(data.content);
+							}
+						}
+					});
+				}
 			}
 		
 			$().ready(function() {
@@ -37,7 +107,7 @@ include 'includes/membersOnly.php';
 					
 					// Save functionality
 					save_enablewhendirty : false,
-					save_onsavecallback: "usersave",
+					save_onsavecallback: "writeToFile",
 					
 					// General options
 					theme : "advanced",
@@ -66,70 +136,11 @@ include 'includes/membersOnly.php';
 					media_external_list_url : "lists/media_list.js",
 				});
 
-				if (queryObj['id']) {
-					$.ajax({
-						type: 'POST',
-						url: './util/notepadPost.php',
-						data: {
-							action: 'load', 
-							notepadid: parseInt(queryObj['id'])
-						},
-						statusCode: {
-							404: function() {
-								alert("Page not found.");
-							},
-							409: function(jqXHR, textStatus, error) {
-								alert("Error: " + error);
-							},
-							200: function(data) {
-								alert('postin stuff!');
-								tinyMCE.activeEditor.setContent(data.content);
-								$('#notepadTitle').text(data.notepadname);
-							}
-						}
-					});
-				}
-			});
-		</script>
-		
-		<script type="text/javascript">
-			var currentSave = "";
-			
-			function autosave() {
-				save();
-				console.log('autosaved text');
-				setTimeout("autosave()", 10000);				
-			}
-			
-			function usersave() {
-				writeToFile();
-				console.log('usersaved text');
-			}
-			
-			function save() {
-				var editorText = tinymce.get('elm1').getContent();
-
-				if (currentSave != editorText) {
-					currentSave = editorText;
-				}
-			}
-
-			function writeToFile() {
-				save();
-				$.post('./util/notepadPost.php', 
-					{ action: 'save', notepadid: parseInt(queryObj['id']), content: currentSave }, 
-					function(data) {
-						alert("Saved, bitch!")
-					}
-				);
-			}
-			
-			$().ready(function() {
 				setTimeout("autosave()", 10000);
 			});
 		</script>
 	</head>
-	<body>
+	<body onload="loadTinyMCEContent()">
 		<div id="main">
 			<div id="page_header">
 				<h1 id="notepadTitle">Notepad Title Here</h1>
@@ -137,12 +148,6 @@ include 'includes/membersOnly.php';
 			<div id="middle">
 				<div id="container">
 					<textarea id="elm1" name="elm1" rows="15" cols="80" class="tinymce">
-						&lt;p&gt;
-						This is some example text that you can edit inside the &lt;strong&gt;TinyMCE editor&lt;/strong&gt;.
-						&lt;/p&gt;
-						&lt;p&gt;
-						Nam nisi elit, cursus in rhoncus sit amet, pulvinar laoreet leo. Nam sed lectus quam, ut sagittis tellus. Quisque dignissim mauris a augue rutrum tempor. Donec vitae purus nec massa vestibulum ornare sit amet id tellus. Nunc quam mauris, fermentum nec lacinia eget, sollicitudin nec ante. Aliquam molestie volutpat dapibus. Nunc interdum viverra sodales. Morbi laoreet pulvinar gravida. Quisque ut turpis sagittis nunc accumsan vehicula. Duis elementum congue ultrices. Cras faucibus feugiat arcu quis lacinia. In hac habitasse platea dictumst. Pellentesque fermentum magna sit amet tellus varius ullamcorper. Vestibulum at urna augue, eget varius neque. Fusce facilisis venenatis dapibus. Integer non sem at arcu euismod tempor nec sed nisl. Morbi ultricies, mauris ut ultricies adipiscing, felis odio condimentum massa, et luctus est nunc nec eros.
-						&lt;/p&gt;
 					</textarea>
 				</div>
 			</div>
