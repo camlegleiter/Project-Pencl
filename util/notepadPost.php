@@ -158,7 +158,7 @@ else if($action == 'load'){
 		"notepadname" => $name,
 		"content" => file_get_contents($file)
 		);
-	successMessage(json_encode($arr));
+	successMessage('JSON: '.json_encode($arr));
 }
 else if($action == 'delete'){
 	$deletePad = mysql_query("DELETE FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
