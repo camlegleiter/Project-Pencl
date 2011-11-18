@@ -15,6 +15,12 @@ body{
 	margin:70px auto 100px;
 }
 
+#pagewide{
+	width:800px;
+	margin:70px auto 100px;
+}
+
+
 #slideshow{
 	height:169px;
 	overflow:hidden;
@@ -28,7 +34,7 @@ body{
 	width:454px;
 	border:1px solid #1f1f20;
 }
-#page hr{
+#page,pagewide hr{
 	border:0;
 	text-indent:-9999px;
 	height:50px;
@@ -38,21 +44,21 @@ body{
 	overflow:hidden;
 }
 
-#page h1,
-#page h2{
+#page,pagewide h1,
+#page,pagewide h2{
 	text-indent:-9999px;
 	overflow:hidden;
 	height:105px;
 	background:url('../img/coming_soon.png') no-repeat;
 }
 
-#page h2{
+#page,pagewide h2{
 	height:76px;
 	background:url('../img/get_notified.png') no-repeat;
 	margin-bottom:20px;
 }
 
-#page form{
+#page,pagewide form{
 	background-color:#181819;
 	display:block;
 	height:31px;
@@ -153,7 +159,11 @@ a:hover{
   color:#FFFFFF;
   background:#000000;
   text-align:left;
+  width:100%;
   }
+.notebook td {
+	border: 1px solid #CCCCCC;
+}
 .notebook caption {
   text-align: center;
   background: transparent;
@@ -179,6 +189,7 @@ background:#111111;
 }
 .notebook tr.head {
 background:#333333;
+text-align:center;
 }
 .notebook thead, tfoot {
 background:#333333;

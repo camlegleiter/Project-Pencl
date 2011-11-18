@@ -7,15 +7,15 @@ include 'includes/membersOnly.php';
 function printAllNotepads($userid)
 {
 	$userid = mysql_real_escape_string($userid);
-	//$padRow = mysql_query("SELECT id FROM notepads WHERE userid='$userid'");
-	$notepadHTML = "SELECT id FROM notebooks WHERE userid='$userid'";
-	/*
+	$padRow = mysql_query("SELECT id FROM notebooks WHERE userid='$userid'");
+	$notepadHTML = "";
+	
 	while ($row = mysql_fetch_assoc($padRow))
 	{
 		$notepadHTML = $notepadHTML.getNotepadRow($userid, $row['id']);
 	}
 	mysql_free_result($padRow);
-	*/
+	
 	return $notepadHTML;
 }
 
@@ -30,7 +30,7 @@ function getNotepadRow($userid, $id)
 		$rowHTML = '
 			<tr>
 				<td>
-					'.$row['name'].'
+					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
 				</td>
 				<td>
 					'.$row['modified'].'
@@ -65,7 +65,7 @@ include 'includes/headerbar.php';
 ?>
 
 
-<div id="page">
+<div id="pagewide">
 	<div class="notebook">
 		<table>
 			<thead>
