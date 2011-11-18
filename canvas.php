@@ -1,7 +1,7 @@
 <?php
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
-
+// Prevent absolute links to a blank canvas
 if (!isset($_GET['id'])) {
 	header('Location: ./noteselection.php');
 }
@@ -25,6 +25,7 @@ if (!isset($_GET['id'])) {
 			var querystring = location.search.replace('?', '').split('&');
 			var queryObj = {};
 			var currentSave = "";
+			var flag = false;
 
 			// Get the URL querystring values
 			for (var i = 0; i < querystring.length; i++) {
@@ -123,7 +124,7 @@ if (!isset($_GET['id'])) {
 					height : "600",
 					
 					// Theme options
-					theme_advanced_buttons1 : "save,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect,|,bullist,numlist,|,image",
+					theme_advanced_buttons1 : "save,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect,|,bullist,numlist,|,image,|,lights",
 					theme_advanced_buttons2 : "",
 					theme_advanced_buttons3 : "",
 					theme_advanced_buttons4 : "",
@@ -143,6 +144,16 @@ if (!isset($_GET['id'])) {
 				});
 
 				setTimeout("autosave()", 10000);
+				
+				$('#lightSwitch').click(function() {
+					if (!flag) {
+						flag = true;
+						$(document.body).css("background-position", "0px -1376px");
+					} else {
+						flag = false;
+						$(document.body).css("background-position", "0px 0px");
+					}
+				});
 			});
 		</script>
 	</head>
@@ -160,6 +171,7 @@ if (!isset($_GET['id'])) {
 			<div id="left">
 			</div>
 			<div id="right">
+				<a id="lightSwitch" href="#">Lights</a>
 			</div>
 		</div>
 	</body>

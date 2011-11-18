@@ -5,7 +5,7 @@
 }
 
 body {
-	background: url('../img/canvas/desk3tile.jpg');
+	background: url('../img/canvas/Desk3TileDark.png');
 	background-repeat: repeat;
 	background-position: center top;
 	color: #eee;	
@@ -54,15 +54,30 @@ body {
 }
 
 #left {
-	background: black;
 	float: left;
 	width: 100px; /*Width of left column in pixel*/
 	margin-left: -750px; /*Set margin to that of -(MainContainerWidth)*/
 }
 
 #right {
-	background: black;
 	float: left;
 	width: 100px; /*Width of right column*/
 	margin-left: -100px; /*Set left margin to -(RightColumnWidth)*/
+}
+
+#shadow {
+	background-image: url(../img/canvas/shade1x1.png);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+#lightSwitch {
+	background-image: url(../img/canvas/light_bulb.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 0 0 0 16px;
+	color: white;
+	outline: none;
 }
