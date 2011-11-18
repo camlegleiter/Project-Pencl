@@ -32,20 +32,20 @@ function getNotepadRow($userid, $id)
 				<td>
 					
 				</td>
-				<td>
+				<td align="left">
 					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
 				</td>
-				<td>
+				<td align="center">
 					'.$row['modified'].'
 				</td>
-				<td>
+				<td align="center">
 					'.$row['created'].'
 				</td>
-				<td style="text-align:center">
-					<a href="#"><img src="img/buttons/pencl_edit.png" alt="Edit"></a>
-					<a href="#"><img src="img/buttons/pencl_share.png" alt="Share"></a>
-					<a href="#"><img src="img/buttons/pencl_export.png" alt="Export"></a>
-					<a href="#"><img src="img/buttons/pencl_delete.png" alt="Delete"></a>
+				<td align="center">
+					<a href="#"><img src="img/buttons/pencl_edit.png" title="Edit" alt="Edit"></a>
+					<a href="#"><img src="img/buttons/pencl_share.png" title="Share" alt="Share"></a>
+					<a href="#"><img src="img/buttons/pencl_export.png" title="Export" alt="Export"></a>
+					<a href="#"><img src="img/buttons/pencl_delete.png" title="Delete" alt="Delete"></a>
 					
 				</td>
 			</tr>
@@ -60,7 +60,7 @@ function getNotepadRow($userid, $id)
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Pencl - Coming Soon</title>
+<title>Notepad Selection - Pencl</title>
 
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
 <?php

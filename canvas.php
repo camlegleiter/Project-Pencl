@@ -1,6 +1,10 @@
 <?php
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
+
+if (!isset($_GET['id'])) {
+	header('Location: ./noteselection.php');
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -94,6 +98,8 @@ include 'includes/membersOnly.php';
 							}
 						}
 					});
+				} else {
+					$('#notepadTitle').text("New Notepad");
 				}
 			}
 		
@@ -140,10 +146,10 @@ include 'includes/membersOnly.php';
 			});
 		</script>
 	</head>
-	<body onload="loadTinyMCEContent();" onunload="loadTinyMCEContent();">
+	<body onload="setTimeout('loadTinyMCEContent()', 400);" onunload="writeToFile();">
 		<div id="main">
 			<div id="page_header">
-				<h1 id="notepadTitle">Notepad Title Here</h1>
+				<h1 id="notepadTitle"></h1>
 			</div>
 			<div id="middle">
 				<div id="container">
@@ -152,10 +158,8 @@ include 'includes/membersOnly.php';
 				</div>
 			</div>
 			<div id="left">
-				<b>Left Column: <em>100px</em></b>
 			</div>
 			<div id="right">
-				<b>Right Column: <em>100px</em></b>
 			</div>
 		</div>
 	</body>
