@@ -103,6 +103,7 @@ z-index:100;
 background-color: #116496;
 visibility: hidden;
 text-align:right;
+width:150px;
 }
 
 
@@ -123,5 +124,5 @@ width: 100%;
 }
 
 .dropmenudiv a:hover{ /*THEME CHANGE HERE*/
-background-color:#116496;
+background-color:#0D4B71;
 }
