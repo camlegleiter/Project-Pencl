@@ -1,3 +1,7 @@
+<?php
+//Include this inside the <head> tag to require user to be logged in to view the page.
+include 'includes/membersOnly.php';
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
@@ -14,6 +18,15 @@
 		<!-- Load TinyMCE -->
 		<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
 		<script type="text/javascript">
+			var querystring = location.search.replace('?', '').split('&');
+			var queryObj = {};
+			for (var i = 0; i < querystring.length; i++) {
+				var name = querystring[i].split('=')[0];
+				var value = querystring[i].split('=')[1];
+
+				queryObj[name] = value;
+			}
+		
 			$().ready(function() {
 				$('textarea.tinymce').tinymce({
 					// Location of TinyMCE script
@@ -51,7 +64,31 @@
 					external_link_list_url : "lists/link_list.js",
 					external_image_list_url : "lists/image_list.js",
 					media_external_list_url : "lists/media_list.js",
-				});	
+				});
+
+				if (queryObj['id']) {
+					$.ajax({
+						type: 'POST',
+						url: './util/notepadPost.php',
+						data: {
+							action: 'load', 
+							notepadid: parseInt(queryObj['id'])
+						},
+						statusCode: {
+							404: function() {
+								alert("Page not found.");
+							},
+							409: function(jqXHR, textStatus, error) {
+								alert("Error: " + error);
+							},
+							200: function(data) {
+								alert('postin stuff!');
+								tinyMCE.activeEditor.setContent(data.content);
+								$('#notepadTitle').text(data.notepadname);
+							}
+						}
+					});
+				}
 			});
 		</script>
 		
@@ -65,17 +102,26 @@
 			}
 			
 			function usersave() {
-				save();
+				writeToFile();
 				console.log('usersaved text');
 			}
 			
 			function save() {
 				var editorText = tinymce.get('elm1').getContent();
 
-				if (currentSave !== editorText) {
+				if (currentSave != editorText) {
 					currentSave = editorText;
-					console.log('updated currentSave');
 				}
+			}
+
+			function writeToFile() {
+				save();
+				$.post('./util/notepadPost.php', 
+					{ action: 'save', notepadid: parseInt(queryObj['id']), content: currentSave }, 
+					function(data) {
+						alert("Saved, bitch!")
+					}
+				);
 			}
 			
 			$().ready(function() {
@@ -86,7 +132,7 @@
 	<body>
 		<div id="main">
 			<div id="page_header">
-				<h1>Notepad Title Here</h1>
+				<h1 id="notepadTitle">Notepad Title Here</h1>
 			</div>
 			<div id="middle">
 				<div id="container">
