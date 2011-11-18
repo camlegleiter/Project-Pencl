@@ -63,12 +63,17 @@ function getNotepadRow($userid, $id)
 <title>Pencl - Coming Soon</title>
 
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
+<?php
+//Put this at the end of the <head> tag to track
+include 'includes/topbar_header.php';
+include 'includes/tracker.php';
+?>
 </head>
 
 <body>
 <?php
 //Must be first thing in the <body> tag to function correctly
-include 'includes/headerbar.php';
+include 'includes/topbar.php';
 ?>
 
 

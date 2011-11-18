@@ -14,13 +14,17 @@ include 'includes/membersOnly.php';
 <title>Pencl - Coming Soon</title>
 
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
-
+<?php
+//Put this at the end of the <head> tag to track
+include 'includes/topbar_header.php';
+include 'includes/tracker.php';
+?>
 </head>
 
 <body>
 <?php
 //Must be first thing in the <body> tag to function correctly
-include 'includes/headerbar.php';
+include 'includes/topbar.php';
 ?>
 
 
@@ -31,8 +35,8 @@ include 'includes/headerbar.php';
 		We are currently working on the main application, so please come back 
 		later to try it out!
 	</h4>
-	<h4>
-		&nbsp;
+	<h4>&nbsp;
+		
 	</h4>
 	<h4 style="text-align:center">
 		<a href="canvas.php">Open New Notepad</a>
