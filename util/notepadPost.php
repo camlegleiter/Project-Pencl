@@ -92,7 +92,7 @@ if($_POST['print']){
 	ERROR CHECKING
 =====================================
 */
-if (!is_int($notepadid))
+if (!is_numeric($notepadid))
 {
 	errorMessage("notepadid is not an int");
 }
