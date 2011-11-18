@@ -67,7 +67,7 @@ body{
 #pagewide form{
 	background-color:#181819;
 	display:block;
-	height:31px;
+	/*height:31px;*/
 	padding:10px;
 	position:relative;
 	width:323px;
