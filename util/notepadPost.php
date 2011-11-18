@@ -105,10 +105,10 @@ if($action == 'save'){
 	//Add html to file
 	$path = buildPath($userid, $notepadid);
 	$file = fopen($path.$notepadid.'.html', 'w');
-	if ($!file)
-		errorMessage("Error saving notepad");
+	if (!$file)
+		errorMessage("Error saving notepad (-1)");
 	if (!fwrite($file, $content))
-		errorMessage("Error saving notepad");
+		errorMessage("Error saving notepad (-2)");
 	fclose($file);
 	//Set value in SQL
 	$padCheck = mysql_query("SELECT COUNT(*) FROM notepads WHERE userid='$userid' AND id='$notepadid'");
@@ -127,7 +127,7 @@ if($action == 'save'){
 			errorMessage("No notepad name given");
 		$insertPad = mysql_query("INSERT INTO notepads (userid, name, description, created, modified) VALUES ('$userid','$notepadname','None',NOW(),NOW())");
 		if (!$insertPad)
-			errorMessage("Error saving notepad");
+			errorMessage("Error saving notepad (-3)");
 		//mysql_free_result($insertPad);
 	}
 	mysql_free_result($padCheck);
