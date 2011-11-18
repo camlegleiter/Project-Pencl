@@ -43,12 +43,11 @@ if($_POST['email']){
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Pencl - Coming Soon</title>
 
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
-<link rel="stylesheet" type="text/css" href="css/nivo-slider.css" />
-<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/styles.css" >
+<link rel="stylesheet" type="text/css" href="css/nivo-slider.css" >
 
 <?php
 //Put this at the end of the <head> tag to track
@@ -84,7 +83,7 @@ include 'includes/headerbar.php';
 </div>
 
 	<!-- Javascript (Called after jQuery) -->
-	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery.nivo.slider.pack.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
 <?php
