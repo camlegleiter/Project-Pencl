@@ -28,7 +28,7 @@ function successMessage($success){
 	EXTRA FUNCTIONS
 =====================================
 */
-function buildPath($userid, $notepad){
+function buildPath($userid, $notepadid){
 	return $url = getcwd().'/../notepads/'.$userid.'/'.$notepadid.'/';
 }
 
@@ -136,7 +136,7 @@ if($action == 'save'){
 }
 else if($action == 'load'){
 	//Grab file from file path
-	$path = buildPath($userid, $notepad);
+	$path = buildPath($userid, $notepadid);
 	$file = $path.$notepadid.'.html';
 	successMessage(file_get_contents($file));
 }
