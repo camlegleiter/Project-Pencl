@@ -30,6 +30,7 @@ function successMessage($success){
 =====================================
 */
 function buildPath($userid, $notepadid){
+	//return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
 	return $url = getcwd().'/../notepads/'.$userid.'/'.$notepadid.'/';
 }
 
@@ -105,6 +106,9 @@ if (!is_numeric($notepadid))
 if($action == 'save'){
 	//Add html to file
 	$path = buildPath($userid, $notepadid);
+	//Create our directory if not made
+	if (!is_dir($path))
+		mkdir($path, 0777, true);
 	$file = fopen($path.$notepadid.'.html', 'w');
 	if (!$file)
 		errorMessage("Error saving notepad (-1)");
@@ -139,7 +143,26 @@ else if($action == 'load'){
 	//Grab file from file path
 	$path = buildPath($userid, $notepadid);
 	$file = $path.$notepadid.'.html';
-	successMessage(file_get_contents($file));
+	
+	$padName = mysql_query("SELECT name FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
+	$row = mysql_fetch_assoc($padName);
+	if($row['name']){
+		$name = $row['name'];
+	}
+	else
+	{
+		$name = "Error fetching notepad name!";
+	}
+	
+	$contents = file_get_contents($file);
+	if (!$contents)
+		$contents = "<p>Couldn't load file!</p>";
+	
+	$arr = array(
+		"notepadname" => $name,
+		"content" => $contents
+		);
+	successMessage(json_encode($arr));
 }
 else if($action == 'delete'){
 	$deletePad = mysql_query("DELETE FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
