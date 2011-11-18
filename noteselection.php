@@ -1,10 +1,52 @@
 <?php
 //Must be on top of everything to function correctly
 include 'includes/headerbarFunctions.php';
-?>
-<?php
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
+
+function printAllNotepads($userid)
+{
+	$userid = mysql_real_escape_string($userid);
+	//$padRow = mysql_query("SELECT id FROM notepads WHERE userid='$userid'");
+	$notepadHTML = "SELECT id FROM notebooks WHERE userid='$userid'";
+	/*
+	while ($row = mysql_fetch_assoc($padRow))
+	{
+		$notepadHTML = $notepadHTML.getNotepadRow($userid, $row['id']);
+	}
+	mysql_free_result($padRow);
+	*/
+	return $notepadHTML;
+}
+
+function getNotepadRow($userid, $id)
+{
+	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE userid='$userid' AND id='$id'");
+	$row = mysql_fetch_assoc($padRow);
+	
+	$rowHTML = '';
+	
+	if($row){
+		$rowHTML = '
+			<tr>
+				<td>
+					'.$row['name'].'
+				</td>
+				<td>
+					'.$row['modified'].'
+				</td>
+				<td>
+					'.$row['created'].'
+				</td>
+				<td>
+					<a href="#">Delete</a>
+				</td>
+			</tr>
+					';
+	}
+	mysql_free_result($padRow);
+	return $rowHTML;
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,37 +83,8 @@ include 'includes/headerbar.php';
 			<tbody>
 				<?php
 					//Grab our notepads
+					echo printAllNotepads($_SESSION['id']);
 				?>
-				<tr>
-					<td>
-						Notepad #1</td>
-					<td>
-						11/3/2011</td>
-					<td>
-						11/3/2011</td>
-					<td>
-						X</td>
-				</tr>
-				<tr class="odd"> 
-					<td>
-						Notepad #2</td>
-					<td>
-						11/3/2011</td>
-					<td>
-						11/3/2011</td>
-					<td>
-						X</td>
-				</tr>
-				<tr>
-					<td>
-						Notepad #3</td>
-					<td>
-						11/3/2011</td>
-					<td>
-						11/3/2011</td>
-					<td>
-						X</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
