@@ -27,26 +27,10 @@ if($_SESSION['msg']['login-err'])
 						echo '<div class="error"><p>'.$_SESSION['msg']['login-err'].'</p></div>';
 						unset($_SESSION['msg']['login-err']);
 					}
-					else if ($_SESSION['msg']['reg-success'])
-					{
-						echo '<div class="success"><p>'.$_SESSION['msg']['reg-success'].'</p></div>';
-						unset($_SESSION['msg']['reg-success']);
-					}
-					if($_SESSION['msg']['reg-err'])
-					{
-						echo '<div class="error"><p>'.$_SESSION['msg']['reg-err'].'</p></div>';
-						unset($_SESSION['msg']['reg-err']);
-					}
-
 ?>
 
 
-<div id="pagewide">
-		
-		<?php
-		print_r($_POST);
-		?>
-		
+<div id="pagewide">		
 <form action="" method="post">
 	Username: <input name="username" type="text"><br>
 	Password: <input name="password" type="password"><br>

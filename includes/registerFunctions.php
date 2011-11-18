@@ -213,7 +213,7 @@ else if($_POST['submit']=='Register')
 		$_SESSION['msg']['reg-err'] = implode('<br />',$err);
 	}	
 	
-	header("Location: login.php");
+	header("Location: register.php");
 	exit;
 }
 
