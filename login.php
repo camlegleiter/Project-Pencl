@@ -27,17 +27,6 @@ if($_SESSION['msg']['login-err'])
 						echo '<div class="error"><p>'.$_SESSION['msg']['login-err'].'</p></div>';
 						unset($_SESSION['msg']['login-err']);
 					}
-					else if ($_SESSION['msg']['reg-success'])
-					{
-						echo '<div class="success"><p>'.$_SESSION['msg']['reg-success'].'</p></div>';
-						unset($_SESSION['msg']['reg-success']);
-					}
-					if($_SESSION['msg']['reg-err'])
-					{
-						echo '<div class="error"><p>'.$_SESSION['msg']['reg-err'].'</p></div>';
-						unset($_SESSION['msg']['reg-err']);
-					}
-
 ?>
 
 
