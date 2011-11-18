@@ -5,7 +5,8 @@
 =====================================
 */
 if (!isset($TO_ROOT))
-	$TO_ROOT = "../";	
+	$TO_ROOT = "../";
+	define("PREDIR", "../");	
 require $TO_ROOT."includes/membersOnly.php";
 
 /*
@@ -63,7 +64,7 @@ if($_POST['success']){
 	successMessage('Success message flag set');
 }
 //.../htdocs/pencl/notepads/<userid>/<notepadId>/<notepadid.html>
-$action = strtolower((mysql_real_escape_string($_POST['action']));
+$action = strtolower((mysql_real_escape_string($_POST['action'])));
 $userid = mysql_real_escape_string($_SESSION['id']);
 $notepadid = mysql_real_escape_string($_POST['notepadid']);
 $notepadname = mysql_real_escape_string($_POST['notepadname']);
