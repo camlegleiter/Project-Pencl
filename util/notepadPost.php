@@ -30,7 +30,8 @@ function successMessage($success){
 =====================================
 */
 function buildPath($userid, $notepadid){
-	return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
+	//return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
+	return $url = getcwd().'/../notepads/'.$userid.'/'.$notepadid.'/';
 }
 
 //Recursive remove directory
@@ -142,7 +143,22 @@ else if($action == 'load'){
 	//Grab file from file path
 	$path = buildPath($userid, $notepadid);
 	$file = $path.$notepadid.'.html';
-	successMessage(file_get_contents($file));
+	
+	$padName = mysql_query("SELECT name FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
+	$row = mysql_fetch_assoc($padName);
+	if($row['name']){
+		$name = $row['name'];
+	}
+	else
+	{
+		$name = "Error fetching notepad name!";
+	}
+	
+	$arr = array(
+		"notepadname" => $name,
+		"content" => file_get_contents($file)
+		);
+	successMessage(json_encode($arr));
 }
 else if($action == 'delete'){
 	$deletePad = mysql_query("DELETE FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
