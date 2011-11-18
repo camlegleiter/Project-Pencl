@@ -154,9 +154,13 @@ else if($action == 'load'){
 		$name = "Error fetching notepad name!";
 	}
 	
+	$contents = file_get_contents($file);
+	if (!$contents)
+		$contents = "Couldn't load file!";
+	
 	$arr = array(
 		"notepadname" => $name,
-		"content" => file_get_contents($file)
+		"content" => $contents
 		);
 	successMessage(json_encode($arr));
 }
