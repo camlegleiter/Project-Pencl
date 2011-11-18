@@ -80,8 +80,12 @@ function getNotepadRow($userid, $id)
 <link rel="stylesheet" type="text/css" href="css/dialog/jqModal.css">
 <script type="text/javascript" src="js/dialog/jqModal.js"></script>
 <?php
-//Put this at the end of the <head> tag to track
+//Must be in header!
 include 'includes/topbar_header.php';
+?>
+
+<?php
+//Put this at the end of the <head> tag to track
 include 'includes/tracker.php';
 ?>
 </head>
