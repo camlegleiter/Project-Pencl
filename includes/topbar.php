@@ -17,10 +17,10 @@
 			}
 			echo '" rel="dropmenu1">';
 			if(defined("LOGGEDIN")) {
-				echo Hello, $_SESSION['usr'];
+				echo 'Hello, '.$_SESSION['usr'];
 			}
 			else {
-				echo Login;
+				echo 'Login';
 			}
 			echo '</a>';
 			?></li>
