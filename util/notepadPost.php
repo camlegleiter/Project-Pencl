@@ -141,9 +141,15 @@ else if($action == 'load'){
 	successMessage(file_get_contents($file));
 }
 else if($action == 'delete'){
+	$deletePad = mysql_query("DELETE FROM notepads WHERE userid='$userid' AND id='$notepadid'");
+	$deletedRows = mysql_affected_rows();
+	if ($deletedRows > 1)
+		errorMessage("Error deleting notepad (-1)");
+	else if ($deletedRows < 1)
+		errorMessage("Error deleting notepad (-2)");
 	$path = buildPath($userid, $notepad);
 	if (!rrmdir($path))
-		errorMessage("Error deleting notepad");
+		errorMessage("Error deleting notepad (-3)");
 	successMessage('Notepad deleted');
 }
 else if($action == 'rename'){
