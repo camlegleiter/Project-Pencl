@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> Test commit (Please work!)
 <?php
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
