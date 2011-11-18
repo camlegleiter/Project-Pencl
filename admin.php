@@ -10,8 +10,24 @@ include 'includes/membersOnly.php';
 <?php
 include_once 'includes/functions.php';
 ?>
+
+<!DOCTYPE html>
 <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Pencl - Coming Soon</title>
+<?php
+//Put this at the end of the <head> tag to track
+include 'includes/topbar_header.php';
+include 'includes/tracker.php';
+?>
+</head>
+
 <body>
+<?php
+//Must be first thing in the <body> tag to function correctly
+include 'includes/topbar.php';
+?>
 <?php
 print_r($_POST);
 ?>

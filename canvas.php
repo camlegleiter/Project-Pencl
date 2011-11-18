@@ -140,7 +140,7 @@ include 'includes/membersOnly.php';
 			});
 		</script>
 	</head>
-	<body onload="loadTinyMCEContent()">
+	<body onload="loadTinyMCEContent();" onunload="loadTinyMCEContent();">
 		<div id="main">
 			<div id="page_header">
 				<h1 id="notepadTitle">Notepad Title Here</h1>

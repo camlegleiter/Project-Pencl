@@ -7,14 +7,23 @@
 		<div class="tb" id="topLogo"></div>
 		<ul>
 			<!--<li><a href="../../../CyCal/includes/help.php">Help</a></li>-->
-			<li><a href="#" rel="dropmenu1"> <?php 
+			<li><?php
+			echo '<a href="'; 
+			if(defined("LOGGEDIN")) {
+				echo '#';
+			}
+			else {
+				echo 'login.php';
+			}
+			echo '" rel="dropmenu1">';
 			if(defined("LOGGEDIN")) {
 				echo Hello, $_SESSION['usr'];
 			}
 			else {
 				echo Login;
 			}
-			?></a></li>
+			echo '</a>';
+			?></li>
 		</ul>
 	</div>
 </div>

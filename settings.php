@@ -136,7 +136,25 @@ function addsuccess($success){
 		adderror("Nope. Chuck Testa.");
 	}
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Pencl - Coming Soon</title>
 
+<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
+<?php
+//Put this at the end of the <head> tag to track
+include 'includes/topbar_header.php';
+include 'includes/tracker.php';
+?>
+</head>
+
+<body>
+<?php
+//Must be first thing in the <body> tag to function correctly
+include 'includes/topbar.php';
+?>
 <?php
 	echo "<h3>User settings for ".$userRow['username']."<h3>";
 	
@@ -153,6 +171,7 @@ function addsuccess($success){
 	unset($errorarray);
 	unset($successarray);
 ?>
+
 <form class="clearfix" action="" method="post">
 	<h3>Change password</h3>
 	<div>
@@ -175,4 +194,5 @@ function addsuccess($success){
 	<input type="submit" name="save" value="Save" />
 	<input type="submit" name="clearnotes" value="Delete Notebooks" />
 </form>
-
+</body>
+</html>
