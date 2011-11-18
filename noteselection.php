@@ -62,7 +62,16 @@ function getNotepadRow($userid, $id)
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Notepad Selection - Pencl</title>
 
+<!-- Load jQuery -->
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("jquery", "1");
+</script>
+
+
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
+<link rel="stylesheet" type="text/css" href="css/dialog/jqModal.css">
+<script type="text/javascript" src="js/dialog/jqModal.js"></script>
 <?php
 //Put this at the end of the <head> tag to track
 include 'includes/topbar_header.php';
@@ -79,6 +88,9 @@ include 'includes/topbar.php';
 
 <div id="pagewide">
 	<h1>Which notepad would you like to open?</h1>
+	<div id="page_header">
+		<p><a href="#new" onclick="newNotepad()"><img src="img/buttons/pencl_new_large.png" title="New Notepad" alt="New Notepad"></a></p>
+	</div>
 	<div class="notebook">
 		<table>
 			<thead>
@@ -111,5 +123,62 @@ include 'includes/topbar.php';
 	<br>
 	<p>Tip: Choose other options in the drop down menu at the top-right!</p>
 </div>
+<div class="popup" id="newPopup"><!-- style="display:none">-->
+	<div class="header">
+		<h1>Test</h1>
+		<div id="buttons">
+			<a id="close"><img src="img/buttons/popup_close.png" title="Close" alt="X"></a>
+		</div>
+	</div>
+	<div class="content">
+		<form>
+			<p>Name:</p>
+			<input type="text" name="Name" id="NotepadName" size="30" maxlength="30"><br>
+			<p>Description:</p>
+			<textarea cols="45" rows="5" name="Description" id="NotepadDesc" maxlength="256"></textarea><br>
+		</form>
+		<p>When you create this notepad, you will be directed right to the editting page.</p>
+	</div>
+	<div class="footer">
+		<a href="#" onclick="createNotepad()">Create!</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#newPopup').jqm();
+	$('#newPopup').jqmAddClose($('#newPopup .header #buttons #close'));
+	function newNotepad()
+	{
+		$('#newPopup .content form #NotepadName').val('');
+		$('#newPopup .content form #NotepadDesc').val('');
+		$('#newPopup').jqmShow();
+		$('#newPopup .content form #NotepadName').focus();
+	}
+	function createNotepad()
+	{
+		$.ajax({
+			type: 'POST',
+			url: './util/notepadPost.php',
+			data: {
+				action: 'create',
+				notepadname: $('#newPopup .content form #NotepadName').val(),
+				notepaddesc: $('#newPopup .content form #NotepadDesc').val()
+			},
+			dataType: "json",
+			statusCode: {
+				404: function() {
+					alert('Page not found!');
+				},
+				409: function(jqXHR, status, error) {
+					alert('Error: ' + error);
+				},
+				200: function(data) {
+					//Redirect to canvas
+					window.location = "./canvas.php?id="+data.notepadid;
+				}
+			}
+		});
+
+	}
+</script>
 </body>
 </html>
