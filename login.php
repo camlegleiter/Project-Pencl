@@ -23,10 +23,10 @@ include 'includes/topbar.php';
 
 
 if($_SESSION['msg']['login-err'])
-					{
-						echo '<div class="error"><p>'.$_SESSION['msg']['login-err'].'</p></div>';
-						unset($_SESSION['msg']['login-err']);
-					}
+{
+	echo '<div class="error"><p>'.$_SESSION['msg']['login-err'].'</p></div>';
+	unset($_SESSION['msg']['login-err']);
+}
 ?>
 
 
