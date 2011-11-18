@@ -170,7 +170,7 @@ else if($action == 'delete'){
 		errorMessage("Error deleting notepad (-1)");
 	else if ($deletedRows < 1)
 		errorMessage("Error deleting notepad (-2)");
-	$path = buildPath($userid, $notepad);
+	$path = buildPath($userid, $notepadid);
 	if (!rrmdir($path))
 		errorMessage("Error deleting notepad (-3)");
 	successMessage('Notepad deleted');
@@ -190,7 +190,7 @@ else if($action == 'rename'){
 		$updateString .= "description='$notepaddesc'";
 	
 	//Make sure we're not making another notepad with the same name
-	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND name='$notepadname'");
+	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND name='$notepadname' AND NOT id=$notepadid");
 	$numrows = mysql_fetch_assoc($padCheck);
 	if($numrows['COUNT(*)'] != 0){
 		errorMessage("Notepad name already used.  Please choose another.");
@@ -202,6 +202,31 @@ else if($action == 'rename'){
 		errorMessage("Error updating notepad");
 	successMessage("Notepad updated");
 }
+else if($action == 'getrename'){
+	$padName = mysql_query("SELECT name,description FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
+	$row = mysql_fetch_assoc($padName);
+	if($row['name'])
+	{
+		$name = $row['name'];
+	}
+	else
+	{
+		$name = "Error fetching notepad name!";
+	}
+	if ($row['description'])
+	{
+		$desc = $row['description'];
+	}
+	else
+	{
+		$desc = "Error fetching notepad description!";
+	}
+
+	$arr = array("notepadname" => $name,
+				 "notepaddesc" => $desc);
+	successMessage(json_encode($arr));
+}
+
 else if($action == 'create'){
 	//Rename notepad, or change description
 	if (empty($notepadname))
