@@ -1,3 +1,10 @@
+<?php
+define('INCLUDE_CHECK',true);
+
+// Those files can be included only if INCLUDE_CHECK is defined
+require_once 'includes/functions.php';
+?>
+
 <div class="tb" id="topContainer">
 	<div class="chromestyle" id="chromemenu">
 		<div class="tb" id="topLogo"></div>
