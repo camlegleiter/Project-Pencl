@@ -156,7 +156,7 @@ else if($action == 'load'){
 	
 	$contents = file_get_contents($file);
 	if (!$contents)
-		$contents = "Couldn't load file!";
+		$contents = "<p>Couldn't load file!</p>";
 	
 	$arr = array(
 		"notepadname" => $name,
