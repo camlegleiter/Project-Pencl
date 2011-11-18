@@ -93,7 +93,7 @@ if($_POST['print']){
 	ERROR CHECKING
 =====================================
 */
-if (!is_numeric($notepadid))
+if (!is_numeric($notepadid) && $action != 'create')
 {
 	errorMessage("notepadid is not an int");
 }
@@ -130,10 +130,9 @@ if($action == 'save'){
 		//Create new entry
 		if (empty($notepadname))
 			errorMessage("No notepad name given");
-		$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','None',NOW(),NOW())");
+		$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','$notepaddesc',NOW(),NOW())");
 		if (!$insertPad)
 			errorMessage("Error saving notepad (-3)");
-		//mysql_free_result($insertPad);
 	}
 	mysql_free_result($padCheck);
 
@@ -155,7 +154,7 @@ else if($action == 'load'){
 	}
 	
 	$contents = file_get_contents($file);
-	if (!$contents)
+	if ($contents === false)
 		$contents = "<p>Couldn't load file!</p>";
 	
 	$arr = array(
@@ -189,12 +188,68 @@ else if($action == 'rename'){
 		$updateString .= ", ";
 	if (!empty($notepaddesc))
 		$updateString .= "description='$notepaddesc'";
-		
+	
+	//Make sure we're not making another notepad with the same name
+	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND name='$notepadname'");
+	$numrows = mysql_fetch_assoc($padCheck);
+	if($numrows['COUNT(*)'] != 0){
+		errorMessage("Notepad name already used.  Please choose another.");
+	}
+
+	//Update!
 	$updatePad = mysql_query("UPDATE notebooks SET $updateString WHERE userid='$userid' AND id='$notepadid'");
 	if (!$updatePad)
 		errorMessage("Error updating notepad");
 	successMessage("Notepad updated");
 }
+else if($action == 'create'){
+	//Rename notepad, or change description
+	if (empty($notepadname))
+		errorMessage("Must give a name to the notepad");
+	
+	//Make sure we're not making another notepad with the same name
+	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND name='$notepadname'");
+	$numrows = mysql_fetch_assoc($padCheck);
+	if($numrows['COUNT(*)'] != 0){
+		errorMessage("Notepad name already used.  Please choose another.");
+	}
+	
+	//Create new entry
+	$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','$notepaddesc',NOW(),NOW())");
+	if (!$insertPad)
+		errorMessage("Error creating notepad (-3)");
+				
+	//Get the notepad ID
+	$padID = mysql_query("SELECT id FROM notebooks WHERE userid='$userid' AND name='$notepadname'");
+	if (!$padID)
+		errorMessage("Error creating notepad (-4)");
+	$row = mysql_fetch_assoc($padID);
+	if($row['id']){
+		$notepadid = $row['id'];
+	}
+	else
+	{
+		errorMessage("Error creating notepad (-5)");
+	}
+	mysql_free_result($padID);
+
+		
+	//Add html to file
+	$path = buildPath($userid, $notepadid);
+	//Create our directory if not made
+	if (!is_dir($path))
+		mkdir($path, 0777, true);
+	$file = fopen($path.$notepadid.'.html', 'w');
+	if (!$file)
+		errorMessage("Error creating notepad (-1)");
+	//if (!fwrite($file, ''))
+	//	errorMessage("Error creating notepad (-2)");
+	fclose($file);
+	
+	$arr = array(notepadid => $notepadid);
+	successMessage(json_encode($arr));
+}
+
 else
 	errorMessage('Incorrect post args');
 ?>
