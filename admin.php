@@ -16,6 +16,8 @@ include_once 'includes/functions.php';
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Pencl - Coming Soon</title>
+
+<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 <?php
 //Put this at the end of the <head> tag to track
 include 'includes/topbar_header.php';

@@ -11,6 +11,7 @@ if (!isset($_GET['id'])) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Canvas - Pencl</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="css/canvas.css">
 		
 		<!-- Load jQuery -->

@@ -46,6 +46,7 @@ if($_POST['email']){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Pencl - Coming Soon</title>
 
+<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/styles.css" >
 <link rel="stylesheet" type="text/css" href="css/nivo-slider.css" >
 

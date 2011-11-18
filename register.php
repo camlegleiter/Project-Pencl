@@ -9,6 +9,7 @@ include 'includes/registerFunctions.php';
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Pencl - Coming Soon</title>
 
+<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
 <?php
 include 'includes/topbar_header.php';

@@ -75,7 +75,7 @@ function getNotepadRow($userid, $id)
 	google.load("jquery", "1");
 </script>
 
-
+<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/dialog/jqModal.css">
 <script type="text/javascript" src="js/dialog/jqModal.js"></script>
