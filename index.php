@@ -51,6 +51,7 @@ if($_POST['email']){
 
 <?php
 //Put this at the end of the <head> tag to track
+include 'includes/topbar_header.php';
 include 'includes/tracker.php';
 ?>
 
@@ -59,7 +60,7 @@ include 'includes/tracker.php';
 <body>
 <?php
 //Must be first thing in the <body> tag to function correctly
-include 'includes/headerbar.php';
+include 'includes/topbar.php';
 ?>
 
 <div id="page">
