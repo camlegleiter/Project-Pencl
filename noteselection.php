@@ -30,6 +30,9 @@ function getNotepadRow($userid, $id)
 		$rowHTML = '
 			<tr>
 				<td>
+					
+				</td>
+				<td>
 					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
 				</td>
 				<td>
@@ -38,8 +41,12 @@ function getNotepadRow($userid, $id)
 				<td>
 					'.$row['created'].'
 				</td>
-				<td>
-					<a href="#">Delete</a>
+				<td style="text-align:center">
+					<a href="#"><img src="img/buttons/pencl_edit.png" alt="Edit"></a>
+					<a href="#"><img src="img/buttons/pencl_share.png" alt="Share"></a>
+					<a href="#"><img src="img/buttons/pencl_export.png" alt="Export"></a>
+					<a href="#"><img src="img/buttons/pencl_delete.png" alt="Delete"></a>
+					
 				</td>
 			</tr>
 					';
@@ -66,18 +73,26 @@ include 'includes/headerbar.php';
 
 
 <div id="pagewide">
+	<h1>Which notepad would you like to open?</h1>
 	<div class="notebook">
 		<table>
 			<thead>
 				<tr class="head">
 					<td>
-						<strong>Notepad</strong></td>
+						<!-- Preview -->
+					</td>
 					<td>
-						<strong>Modified</strong></td>
+						<strong>Notepad</strong>
+					</td>
 					<td>
-						<strong>Created</strong></td>
+						<strong>Modified</strong>
+					</td>
 					<td>
-						<strong>Delete</strong></td>
+						<strong>Created</strong>
+					</td>
+					<td>
+						<strong>Options</strong>
+					</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -88,6 +103,8 @@ include 'includes/headerbar.php';
 			</tbody>
 		</table>
 	</div>
+	<br>
+	<p>Tip: Choose other options in the drop down menu at the top-right!</p>
 </div>
 </body>
 </html>
