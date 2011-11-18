@@ -44,8 +44,8 @@
 
 .chromestyle{
 	width: 100%;
-	background: #800000;
-	border-bottom: 1px #CC0000 solid;
+	background: #116496;
+	border-bottom: 1px #116496 solid;
 	vertical-align: middle;
 	
 	
@@ -77,18 +77,18 @@ bottom:0;
 
 .chromestyle ul li{
 display: inline;
-color:#FFCC00;
+color:#FFFFFF;
 }
 
 .chromestyle ul li a{
-color:#FFCC00;
+color:#FFFFFF;
 padding: 4px 7px;
 margin: 0;
 text-decoration: none;
 }
 
 .chromestyle ul li a:hover, .chromestyle ul li a.selected{ /*script dynamically adds a class of "selected" to the current active menu item*/
-background-color:#CC0000;
+background-color:#116496;
 }
 
 /* ######### Style for Drop Down Menu ######### */
@@ -96,11 +96,11 @@ background-color:#CC0000;
 .dropmenudiv{
 position:absolute;
 top: 0;
-border: 1px solid #CC0000; /*THEME CHANGE HERE*/
+border: 1px solid #116496; /*THEME CHANGE HERE*/
 border-bottom-width: 0;
 line-height:25px;
 z-index:100;
-background-color: #800000;
+background-color: #116496;
 visibility: hidden;
 text-align:right;
 }
@@ -110,11 +110,11 @@ text-align:right;
 width: auto;
 display: block;
 text-indent: 3px;
-border-bottom: 1px solid #CC0000; /*THEME CHANGE HERE*/
+border-bottom: 1px solid #116496; /*THEME CHANGE HERE*/
 padding: 0;
 text-decoration: none;
 font-weight: bold;
-color: #FFCC00;
+color: #FFFFFF;
 padding:0px 7px;
 }
 
@@ -123,5 +123,5 @@ width: 100%;
 }
 
 .dropmenudiv a:hover{ /*THEME CHANGE HERE*/
-background-color:#CC0000;
+background-color:#116496;
 }
