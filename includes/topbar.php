@@ -8,8 +8,17 @@ require_once 'includes/functions.php';
 <div class="tb" id="topContainer">
 	<div class="chromestyle" id="chromemenu">
 		<div class="tb" id="topLogo"></div>
+		<?php
+			if (defined("CANVAS"))
+			{
+				echo '
+					<div class="tb" id="hint">
+						<p>Hey you! Press F11!</p>
+					</div>
+				';
+			}
+		?>
 		<ul>
-			<!--<li><a href="../../../CyCal/includes/help.php">Help</a></li>-->
 			<li><?php
 			echo '<a href="'; 
 			if(defined("LOGGEDIN")) {
@@ -37,14 +46,14 @@ require_once 'includes/functions.php';
 
 if (!defined("LOGGEDIN")) {
 	echo'
-	<a href="register.php">Register</a>
+	<a href="login.php?register=1">Register</a>
 	';
 }
 else if (defined("CANVAS"))
 {
 	echo '
 	<a href="noteselection.php">Notepad Selection</a>
-	<a href="#Save" onclick="save()">Save</a>
+	<a href="#save" onclick="writeToFile()">Save</a>
 	<a href="logout.php">Logout</a>
 	';
 }
