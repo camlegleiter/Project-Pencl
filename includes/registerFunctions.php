@@ -115,7 +115,7 @@ if($_POST['submit']=='Login')
 	}
 	
 	if($err)
-	$_SESSION['msg']['login-err'] = implode('<br />',$err);
+	$_SESSION['msg']['login-err'] = implode('<br>',$err);
 	// Save the error messages in the session
 
 	header("Location: login.php");
@@ -210,43 +210,10 @@ else if($_POST['submit']=='Register')
 
 	if(count($err))
 	{
-		$_SESSION['msg']['reg-err'] = implode('<br />',$err);
+		$_SESSION['msg']['reg-err'] = implode('<br>',$err);
 	}	
 	
-	header("Location: register.php");
+	header("Location: login.php");
 	exit;
 }
-
-$script = '';
-
-if($_SESSION['msg'])
-{
-	/*
-	$subscript = '';
-	
-	// The script below shows the sliding panel on page load
-	if ($_SESSION['msg']['reg-err'])
-	{
-		$subscript = '$("#toggleLogin").hide();$("#toggleRegister").show();';
-	}
-	else if ($_SESSION['msg']['log-err'])
-	{
-		$subscript = '$("#toggleRegister").hide();$("#toggleLogin").show();';
-	}
-	
-	$script = '
-	<script type="text/javascript">
-	
-		$(function(){
-		
-			$("div#panel").show();
-			$("#toggle a").toggle();
-			
-			'.$subscript.'			
-		});
-	
-	</script>';
-	*/
-}
-
 ?>
