@@ -112,7 +112,7 @@ if($action == 'save'){
 	$file = fopen($path.$notepadid.'.html', 'w');
 	if (!$file)
 		errorMessage("Error saving notepad (-1)");
-	if (!fwrite($file, $content))
+	if (fwrite($file, $content) === false)
 		errorMessage("Error saving notepad (-2)");
 	fclose($file);
 	//Set value in SQL
