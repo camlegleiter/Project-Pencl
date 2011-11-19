@@ -121,6 +121,12 @@ body{
 	bottom:0;
 	left:0;
 }
+.error {
+	color:#800000;
+}
+.success {
+	color:#003300;
+}
 
 .tri{
 	border-color:transparent transparent #212121;
