@@ -25,7 +25,7 @@ include 'includes/tracker.php';
 
 <body onload="
 <?php 
-	if ($_SESSION['msg']['reg-err'])
+	if ($_SESSION['msg']['reg-err'] || isset($_GET['register']))
 		echo "$('#usernameRegister').focus()";
 	else
 		echo "$('#usernameLogin').focus()";
