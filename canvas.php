@@ -178,26 +178,41 @@ include 'includes/topbar_header.php';
 ?>
 	</head>
 	<body onload="setTimeout('loadTinyMCEContent()', 400);" onunload="writeToFile();">
-		<?php
-		//Must be first thing in the <body> tag to function correctly
-		define("CANVAS", true);
-		include 'includes/topbar.php';
-		?>
-		<div id="main">
-			<div id="page_header">
-				<h1 id="notepadTitle"></h1>
-			</div>
-			<div id="middle">
-				<div id="container">
-					<textarea id="elm1" name="elm1" rows="15" cols="80" class="tinymce">
-					</textarea>
+		<!--<div class="desk">-->
+			<?php
+			//Must be first thing in the <body> tag to function correctly
+			define("CANVAS", true);
+			include 'includes/topbar.php';
+			?>
+			<div class="objects">
+				<div id="leftObjects">
+					<div class="pencil"></div>
+					<div class="eraser_pink"></div>
+					<div class="marker"></div>
+				</div>
+				<div id="rightObjects">
+					<div class="light"></div>
+					<!--<div class="light_source"></div>-->
+					<div class="phone"></div>
+					<div class="coffee"></div>
 				</div>
 			</div>
-			<div id="left">
+			<div id="main">
+				<div id="page_header">
+					<h1 id="notepadTitle"></h1>
+				</div>
+				<div id="middle">
+					<div id="container">
+						<textarea id="elm1" name="elm1" rows="15" cols="80" class="tinymce">
+						</textarea>
+					</div>
+				</div>
+				<div id="left">
+				</div>
+				<div id="right">
+					<a id="lightSwitch" href="#">Lights</a>
+				</div>
 			</div>
-			<div id="right">
-				<a id="lightSwitch" href="#">Lights</a>
-			</div>
-		</div>
+		<!--</div>-->
 	</body>
 </html>
