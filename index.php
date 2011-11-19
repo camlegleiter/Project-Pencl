@@ -78,8 +78,8 @@ include 'includes/topbar.php';
     <h2>Subscribe</h2>
     
     <form method="post" action="index.php">
-    	<input type="text" id="email" name="email" value="<?php echo $msg?>"></input>
-        <input type="submit" value="Submit" id="submitButton"></input>
+    	<input type="text" id="email" name="email" value="<?php echo $msg?>">
+        <input type="submit" value="Submit" id="submitButton">
     </form>
     
 </div>
