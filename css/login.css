@@ -1,0 +1,56 @@
+﻿.login {
+	background-image: url('../img/open-book.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 800px;
+	height: 576px;
+	padding: 0;
+	margin: auto;
+	color: #000000;
+	font-style: italic;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.login h1 {
+	font-size: x-large;
+	font-weight: bold;
+	text-decoration: underline;
+}
+.login .book {
+	padding:60px 80px 50px 60px;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+}
+.login .book .page {
+	width:275px; /* [width = ((form width) - (.book left padding) - (.book left padding) - (.middle width)) / 2]  */
+	top:0;
+	bottom:0;
+	float:left;
+}
+.login .book .middle {
+	width:110px;
+	top:0;
+	bottom:0;
+	float:left;
+}
+.login form input {
+	border-style: none none dotted none;
+	padding:2px 10px;
+	color: #333333;
+	text-shadow: 1px 1px 0 #808080;
+	width:255px; /* Shouldn't be set like this */
+	outline: none;
+	border-bottom-width: thin;
+	border-bottom-color: #000000;
+	background-color: transparent;
+}
+.login form .submit {
+	margin:10px 0px 0px 0px;
+	border-style: none;
+	color: #000000;
+	width:275px; /* Shouldn't be set like this */
+	outline: none;
+	background-color: transparent;
+	text-align: center;
+}
