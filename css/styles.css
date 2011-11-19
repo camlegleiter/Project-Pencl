@@ -153,12 +153,13 @@ body{
 a, a:visited {
 	text-decoration:none;
 	outline:none;
-	border-bottom:1px dotted #97cae6;
+	/*border-bottom:1px dotted #97cae6;*/
 	color:#97cae6;
 }
 
 a:hover{
-	border-bottom:1px dashed transparent;
+	/*border-bottom:1px dashed transparent;*/
+	color:#4FA6D5;
 }
 
 .clear{
@@ -185,10 +186,9 @@ a:hover{
 }
 .notebook table a {
 color:#CCCCCC;
-text-decoration:none;
 }
 .notebook table a:hover {
-text-decoration:underline;
+color:#808080;
 }
 .notebook tr.odd {
 background: #666666;
