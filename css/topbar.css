@@ -12,9 +12,9 @@
 	height: 30px;
 }
 .tb #topLogo {
-	/*background-image:url('../../CyCal/img/Logo1_Small.png');*/
+	background-image:url('../img/pencl_white_small.png');
 	background-repeat:no-repeat;
-	width: 63px;
+	width: 132px;
 	height: 27px;
 	float: left;
 	margin:5px;
