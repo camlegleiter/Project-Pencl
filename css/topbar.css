@@ -19,6 +19,13 @@
 	float: left;
 	margin:5px;
 }
+.tb #hint {
+	float: left;
+	margin: 13px 13px 0;
+	padding: 4px;
+	font-style: italic;
+}
+
 
 /*
 .tb #topMenu {
