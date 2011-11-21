@@ -53,7 +53,7 @@ function rrmdir($dir) {
 	return false;
 } 
 
-function findUseridfromNotebookid($notebookid)
+function findUserid($notebookid,)
 {
 	//Reference our global variable
 	global $userid;
