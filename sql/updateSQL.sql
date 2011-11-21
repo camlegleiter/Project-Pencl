@@ -53,18 +53,18 @@ CREATE TABLE IF NOT EXISTS classes (
 	password varchar(256),
 	PRIMARY KEY (id),
 	FOREIGN KEY(owner) references users( userid )
-)
+);
 
 CREATE TABLE IF NOT EXISTS classmates (
 	userid int NOT NULL,
 	classid int NOT NULL,
 	FOREIGN KEY(classid) references classes( id ),
 	FOREIGN KEY(userid) references users( userid )
-)
+);
 
 CREATE TABLE IF NOT EXISTS classbooks (
 	notebookid int NOT NULL,
 	classid int NOT NULL,
 	FOREIGN KEY(classid) references classes( id ),
 	FOREIGN KEY(notebookid) references notebooks( id )
-)
+);

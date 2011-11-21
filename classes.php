@@ -7,7 +7,7 @@ include 'includes/membersOnly.php';
 function getClassData($classid)
 {
 	$arr = array();
-	
+	$classid = mysql_real_escape_string($classid);
 	$padRow = mysql_query("SELECT name,description,password,owner FROM classes WHERE id='$classid'");
 	$row = mysql_fetch_assoc($padRow);
 
@@ -32,21 +32,23 @@ function getClassData($classid)
 
 function printAllNotepads($classid)
 {
-	$userid = mysql_real_escape_string($userid);
+	
+	$classid = mysql_real_escape_string($classid);
 	$padRow = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
 	$notepadHTML = "";
 	
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$notepadHTML = $notepadHTML.getNotepadRow($userid, $row['notebookid']);
+		$notepadHTML = $notepadHTML.getNotepadRow($row['notebookid'],$classid);
 	}
 	mysql_free_result($padRow);
 	
 	return $notepadHTML;
 }
 
-function getNotepadRow($id)
+function getNotepadRow($id,$classid)
 {
+	$id = mysql_real_escape_string($id);
 	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE id='$id'");
 	$row = mysql_fetch_assoc($padRow);
 	
@@ -55,11 +57,8 @@ function getNotepadRow($id)
 	if($row){
 		$rowHTML = '
 			<tr>
-				<td>
-					<a href="#preview">O</a>
-				</td>
 				<td align="left">
-					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
+					<a href="canvas.php?id='.$id.'&classid='.$classid.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
 					'.$row['modified'].'
@@ -82,7 +81,28 @@ function getNotepadRow($id)
 	return $rowHTML;
 }
 
-$class = getClassData($_POST['class']);
+function getAllClasses()
+{
+	$userid = mysql_real_escape_string($_SESSION['id']);
+	$classRow = mysql_query("SELECT name,description,password,id FROM classes WHERE owner='$userid'");
+	$classHTML = "";
+	
+	while ($row = mysql_fetch_assoc($classRow))
+	{
+		$classHTML = $classHTML.'
+			<tr>
+				<td>
+					<a href="?class='.$row['id'].'">'.$row['name'].'</a>
+				</td>
+			</tr>
+		';
+	}
+	mysql_free_result($classRow);
+	
+	return $classHTML;
+}
+
+$class = getClassData($_GET['class']);
 ?>
 
 <!DOCTYPE html>
@@ -121,41 +141,73 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
-	<h1>Class: <?php echo $class['name'] ?></h1>
-	<div id="page_header">
-		<p><a href="#new" onclick="newNotepad()"><img src="img/buttons/pencl_new_large.png" title="New Notepad" alt="New Notepad"></a></p>
+	<div class="twoColumn">
+		<div class="left">
+			<table>
+				<thead>
+					<tr class="head">
+						<td>
+							<strong>Classes:</strong>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						//Grab our classes
+						echo getAllClasses();
+					?>
+				</tbody>
+			</table>
+			<br>
+			<a href="createClass.php">Create a class</a>
+		</div>
+		<div class="right">
+			<?php 
+			//Display table only if we are displaying a class
+			//Start display
+			if (is_numeric($_GET['class'])) {
+			?>
+				<h1>Class: <strong><?php echo $class['name'] ?></strong></h1>
+				<div class="notebook">
+					<table>
+						<thead>
+							<tr class="head">
+								<td>
+									<strong>Notepad</strong>
+								</td>
+								<td>
+									<strong>Modified</strong>
+								</td>
+								<td>
+									<strong>Created</strong>
+								</td>
+								<td>
+									<strong>Options</strong>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								//Grab our notepads
+								echo printAllNotepads($_GET['class']);
+							?>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<p>Tip: To add notebooks to this class, share them from your <a href="noteselection.php">notes</a></p>
+			<?php
+			//End display
+			}
+			else
+			{
+			?>
+				<p>Select a class on the left, or <a href="createClass.php">create a class</a>.</p>
+			<?php
+			}
+			?>
+		</div>
 	</div>
-	<div class="notebook">
-		<table>
-			<thead>
-				<tr class="head">
-					<td>
-						<!-- Preview -->
-					</td>
-					<td>
-						<strong>Notepad</strong>
-					</td>
-					<td>
-						<strong>Modified</strong>
-					</td>
-					<td>
-						<strong>Created</strong>
-					</td>
-					<td>
-						<strong>Options</strong>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-					//Grab our notepads
-					echo printAllNotepads($_POST['class']);
-				?>
-			</tbody>
-		</table>
-	</div>
-	<br>
-	<p>Tip: Choose other options in the drop down menu at the top-right!</p>
 </div>
 <div class="popup" id="newPopup" style="display:none">
 	<div class="header">

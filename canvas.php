@@ -23,103 +23,6 @@ if (!isset($_GET['id'])) {
 		<!-- Load TinyMCE -->
 		<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
 		<script type="text/javascript">
-			var querystring = location.search.replace('?', '').split('&');
-			var queryObj = {};
-			var currentSave = "";
-			var flag = false;
-
-			// Get the URL querystring values
-			for (var i = 0; i < querystring.length; i++) {
-				var name = querystring[i].split('=')[0];
-				var value = querystring[i].split('=')[1];
-
-				queryObj[name] = value;
-			}
-
-			// Runs every 10 seconds to save the editor content
-			function autosave() {
-				save();
-				setTimeout("autosave()", 10000);				
-			}
-
-			// Modifies the current content value
-			function save() {
-				var editorText = tinymce.get('elm1').getContent();
-
-				if (currentSave != editorText) {
-					currentSave = editorText;
-				}
-			}
-
-			// Save content from editor into the file
-			function writeToFile() {
-				save();
-				 // Show progress
-				 tinymce.get('elm1').setProgressState(1);
-				$.ajax({
-					type: 'POST',
-					url: './util/notepadPost.php',
-					data: {
-						action: 'save',
-						notepadid: parseInt(queryObj['id']),
-						content: currentSave
-					},
-					statusCode: {
-						404: function() {
-							alert('Page not found!');
-							// Hide progress
-							tinymce.get('elm1').setProgressState(0);
-						},
-						409: function(jqXHR, status, error) {
-							alert('Error: ' + error);
-							// Hide progress
-							tinymce.get('elm1').setProgressState(0);
-						},
-						200: function(data) {
-							// Hide progress
-							window.setTimeout(function() {tinymce.get('elm1').setProgressState(0)}, 500);
-						}
-					}
-				});
-			}
-
-			// Load content from file into the editor
-			function loadTinyMCEContent() {
-				if (queryObj['id']) {
-					// Show progress
-					tinymce.get('elm1').setProgressState(1); 
-					$.ajax({
-						type: 'POST',
-						url: './util/notepadPost.php',
-						data: {
-							action: 'load', 
-							notepadid: parseInt(queryObj['id'])
-						},
-						dataType: "json",
-						statusCode: {
-							404: function() {
-								alert("Page not found.");
-								// Hide progress
-								tinymce.get('elm1').setProgressState(0);
-							},
-							409: function(jqXHR, textStatus, error) {
-								alert("Error: " + error);
-								// Hide progress
-								tinymce.get('elm1').setProgressState(0);
-							},
-							200: function(data) {
-								$('#notepadTitle').text(data.notepadname);
-								tinymce.activeEditor.setContent(data.content);
-								// Hide progress
-								tinymce.get('elm1').setProgressState(0);
-							}
-						}
-					});
-				} else {
-					$('#notepadTitle').text("New Notepad");
-				}
-			}
-		
 			$().ready(function() {
 				$('textarea.tinymce').tinymce({
 					// Location of TinyMCE script
@@ -130,7 +33,7 @@ if (!isset($_GET['id'])) {
 					
 					// Save functionality
 					save_enablewhendirty : false,
-					save_onsavecallback: "writeToFile",
+					save_onsavecallback : "writeToFile",
 					
 					// General options
 					theme : "advanced",
@@ -172,31 +75,120 @@ if (!isset($_GET['id'])) {
 				});
 			});
 		</script>
+		<script type="text/javascript">
+			var querystring = location.search.replace('?', '').split('&');
+			var queryObj = {};
+			var currentSave = "";
+			var flag = false;
+
+			// Get the URL querystring values
+			for (var i = 0; i < querystring.length; i++) {
+				var name = querystring[i].split('=')[0];
+				var value = querystring[i].split('=')[1];
+
+				queryObj[name] = value;
+			}
+
+			// Runs every 10 seconds to save the editor content
+			function autosave() {
+				save();
+				setTimeout("autosave()", 10000);				
+			}
+
+			// Modifies the current content value
+			function save() {
+				var editorText = tinymce.get('elm1').getContent();
+
+				if (currentSave != editorText) {
+					currentSave = editorText;
+				}
+			}
+
+			// Save content from editor into the file
+			function writeToFile() {
+				save();
+				// Show progress
+				tinymce.get('elm1').setProgressState(1);
+				// Convert HTML entities
+				currentSave = $(currentSave).html()
+				$.ajax({
+					type: 'POST',
+					url: './util/notepadPost.php',
+					data: {
+						action: 'save',
+						notepadid: parseInt(queryObj['id']),
+<?php if(isset($_GET['classid'])) { echo "classid: queryObj['classid'],"; } ?>
+						content: currentSave
+					},
+					statusCode: {
+						404: function() {
+							alert('Page not found!');
+							// Hide progress
+							tinymce.get('elm1').setProgressState(0);
+						},
+						409: function(jqXHR, status, error) {
+							alert('Error: ' + error);
+							// Hide progress
+							tinymce.get('elm1').setProgressState(0);
+						},
+						200: function(data) {
+							// Hide progress
+							window.setTimeout(function() {tinymce.get('elm1').setProgressState(0)}, 500);
+						}
+					}
+				});
+			}
+
+			// Load content from file into the editor
+			function loadTinyMCEContent() {
+				if (queryObj['id']) {
+					// Show progress
+					tinymce.get('elm1').setProgressState(1); 
+					$.ajax({
+						type: 'POST',
+						url: './util/notepadPost.php',
+						data: {
+							action: 'load',
+<?php if(isset($_GET['classid'])) { echo "classid: queryObj['classid'],"; } ?>
+							notepadid: parseInt(queryObj['id'])
+						},
+						dataType: "json",
+						statusCode: {
+							404: function() {
+								alert("Page not found.");
+								// Hide progress
+								tinymce.get('elm1').setProgressState(0);
+							},
+							409: function(jqXHR, textStatus, error) {
+								alert("Error: " + error);
+								// Hide progress
+								tinymce.get('elm1').setProgressState(0);
+							},
+							200: function(data) {
+								$('#notepadTitle').text(data.notepadname);
+								tinymce.activeEditor.setContent(data.content);
+								// Hide progress
+								tinymce.get('elm1').setProgressState(0);
+							}
+						}
+					});
+				} else {
+					$('#notepadTitle').text("New Notepad");
+				}
+			}
+		</script>
 <?php
 //Must be in header!
 include 'includes/topbar_header.php';
 ?>
 	</head>
-	<body onload="setTimeout('loadTinyMCEContent()', 400);" onunload="writeToFile();">
+	<body onload="setTimeout('loadTinyMCEContent()', 1000);" onunload="writeToFile();">
 		<!--<div class="desk">-->
 			<?php
 			//Must be first thing in the <body> tag to function correctly
 			define("CANVAS", true);
 			include 'includes/topbar.php';
 			?>
-			<div class="objects">
-				<div id="leftObjects">
-					<div class="pencil"></div>
-					<div class="eraser_pink"></div>
-					<div class="marker"></div>
-				</div>
-				<div id="rightObjects">
-					<div class="light"></div>
-					<!--<div class="light_source"></div>-->
-					<div class="phone"></div>
-					<div class="coffee"></div>
-				</div>
-			</div>
 			<div id="main">
 				<div id="page_header">
 					<h1 id="notepadTitle"></h1>
@@ -208,10 +200,20 @@ include 'includes/topbar_header.php';
 					</div>
 				</div>
 				<div id="left">
-					<br>
+					<div id="leftObjects">
+						<div class="pencil"></div>
+						<div class="eraser_pink"></div>
+						<div class="marker"></div>
+					</div>
 				</div>
 				<div id="right">
 					<a id="lightSwitch" href="#">Lights</a>
+					<div id="rightObjects">
+					<div class="light"></div>
+					<!--<div class="light_source"></div>-->
+					<div class="phone"></div>
+					<div class="coffee"></div>
+				</div>
 				</div>
 			</div>
 		<!--</div>-->
