@@ -12,7 +12,7 @@ function printAllClasses($userid)
 	
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$classmatesHTML = $classmatesHTML.getClassRow($userid, $row['id']);
+		$classmatesHTML = $classmatesHTML.getClassRow($userid, $row['classid']);
 	}
 	mysql_free_result($padRow);
 	
@@ -21,7 +21,7 @@ function printAllClasses($userid)
 
 function getClassRow($userid, $classid)
 {
-	$padRow = mysql_query("SELECT name, description FROM classes WHERE classid='$id'");
+	$padRow = mysql_query("SELECT name, description FROM classes WHERE id='$classid'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
