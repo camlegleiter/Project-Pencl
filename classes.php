@@ -4,24 +4,50 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
-function printAllNotepads($userid)
+function getClassData($classid)
+{
+	$arr = array();
+	
+	$padRow = mysql_query("SELECT name,description,password,owner FROM classes WHERE id='$classid'");
+	$row = mysql_fetch_assoc($padRow);
+
+	if ($row)
+	{
+		$arr['name']        = $row['name'];
+		$arr['description'] = $row['description'];
+		$arr['password']    = $row['password'];
+		$arr['owner']       = $row['owner'];
+	}
+	else
+	{
+		$arr['name']        = "Error: Couldn't find class name";
+		$arr['description'] = "Error: Couldn't find class description";
+		$arr['password']    = "";
+		$arr['owner']       = "Error: Couldn't find class owner";
+	}
+
+	mysql_free_result($padRow);
+	return $arr;
+}
+
+function printAllNotepads($classid)
 {
 	$userid = mysql_real_escape_string($userid);
-	$padRow = mysql_query("SELECT id FROM notebooks WHERE userid='$userid'");
+	$padRow = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
 	$notepadHTML = "";
 	
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$notepadHTML = $notepadHTML.getNotepadRow($userid, $row['id']);
+		$notepadHTML = $notepadHTML.getNotepadRow($userid, $row['notebookid']);
 	}
 	mysql_free_result($padRow);
 	
 	return $notepadHTML;
 }
 
-function getNotepadRow($userid, $id)
+function getNotepadRow($id)
 {
-	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE userid='$userid' AND id='$id'");
+	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE id='$id'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
@@ -42,16 +68,10 @@ function getNotepadRow($userid, $id)
 					'.$row['created'].'
 				</td>
 				<td align="center">
-					<a href="#edit" onClick="renameNotepad('.$id.', false)">
-						<img src="img/buttons/pencl_edit.png" title="Edit" alt="Edit">
-					</a>
-					<a href="#share" onClick="alert(\'Coming soon!\')">
-						<img src="img/buttons/pencl_share.png" title="Share" alt="Share">
-					</a>
 					<a href="#export" onClick="alert(\'Coming soon!\')">
 						<img src="img/buttons/pencl_export.png" title="Export" alt="Export">
 					</a>
-					<a href="#delete" onClick="deleteNotepad('.$id.')">
+					<a href="#delete" onClick="alert(\'Coming soon!\')">
 						<img src="img/buttons/pencl_delete.png" title="Delete" alt="Delete">
 					</a>
 				</td>
@@ -61,6 +81,8 @@ function getNotepadRow($userid, $id)
 	mysql_free_result($padRow);
 	return $rowHTML;
 }
+
+$class = getClassData($_POST['class']);
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +120,7 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
-	<h1>Which notepad would you like to open?</h1>
+	<h1>Class: <?php echo $class['name'] ?></h1>
 	<div id="page_header">
 		<p><a href="#new" onclick="newNotepad()"><img src="img/buttons/pencl_new_large.png" title="New Notepad" alt="New Notepad"></a></p>
 	</div>
@@ -126,7 +148,7 @@ include 'includes/topbar.php';
 			<tbody>
 				<?php
 					//Grab our notepads
-					echo printAllNotepads($_SESSION['id']);
+					echo printAllNotepads($_POST['class']);
 				?>
 			</tbody>
 		</table>
