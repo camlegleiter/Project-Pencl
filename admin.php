@@ -18,6 +18,9 @@ include_once 'includes/functions.php';
 <title>Pencl - Coming Soon</title>
 
 <link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
+<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
+
+
 <?php
 //Put this at the end of the <head> tag to track
 include 'includes/topbar_header.php';
@@ -100,6 +103,7 @@ function addrow($userid, $user, $email, $ip){
 }
 
 ?>
+<div class="notebook">
 <table border="1" cellpadding="5px" style="text-align:center">
 	<tr>
 		<th>#</th>
@@ -133,6 +137,7 @@ function addrow($userid, $user, $email, $ip){
 	}
 ?>
 </table>
+</div>
 <?php
 if ($i == 0)
 {
