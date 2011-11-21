@@ -64,6 +64,11 @@ else
 		';
 	}
 
+	echo '
+	<p class="line"></p>
+	<a href="search.php">Find Classes</a>
+	';
+	
 	//=====================
 	// USER LEVEL STUFF
 	//=====================
@@ -77,14 +82,13 @@ else
 	{
 		//Teacher
 		echo'
-			<p class="line"></p>
-			<a href="classes.php">Classes</a>
+			<a href="classes.php">Manage Classes</a>
 			';
 		
 		//Webmaster and Admin stuff
 		if($userLevel == 0 || $userLevel == 1){
 			echo'
-			<a href="admin.php">Admin</a>
+			<a href="admin.php">Admin Panel</a>
 			';
 		}
 	}
