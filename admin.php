@@ -186,7 +186,6 @@ function showNumItems($num){
 	else{
 	echo"</strong>";
 	}
-	
 }
 ?>
 )    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
