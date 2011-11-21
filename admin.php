@@ -5,44 +5,8 @@ include 'includes/headerbarFunctions.php';
 <?php
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
-?>
 
-<?php
-include_once 'includes/functions.php';
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Pencl - Coming Soon</title>
-
-<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
-<?php
-//Put this at the end of the <head> tag to track
-include 'includes/topbar_header.php';
-include 'includes/tracker.php';
-?>
-</head>
-
-<body>
-<?php
-//Must be first thing in the <body> tag to function correctly
-include 'includes/topbar.php';
-?>
-<form class="clearfix" action="" method="GET">
-	<input type="text" name="srch">
-	<?php
- 		if(!empty($_GET['n'])){
-			echo '<input type="hidden" name="n" value="'.$_GET['n'].'">';
-		}		
-	?>
-	<input type="hidden" name="p" value="1">
-	<input type="submit" value="Search">
-	<a href="<?php echo "?p=".$_GET['p']."&n=".$_GET['n']; ?>">Clear</a>
-</form>
-
-<?php
 if(!empty($_GET['p'])){
 	$pagenumber = $_GET['p'];
 }
@@ -59,6 +23,7 @@ else{
 $limit = $pagenumber * $listnumber;
 $oldlimit = $limit - $listnumber;
 $rownum = $oldlimit;
+
 function adderror($error){
 	global $errorarray;
 	$errorarray[] = $error;
@@ -81,7 +46,7 @@ function addrow($userid, $user, $email, $ip){
 			<td><a href='#'>View Notepads</a></td>
 			<td>$email</td>
 			<td>
-			<form class='clearfix' action='' method='POST'>
+			<form class='clearfix' action='' method='POST' style='width:auto;padding:0;margin-left:0;'>
 			<input type='hidden' name='id' value='$userid'>
 			<select name='dropdown'>
 				<option value='orig' selected>$level</option>
@@ -99,7 +64,68 @@ function addrow($userid, $user, $email, $ip){
 		</tr>";
 }
 
+function showNumItems($num){
+	global $listnumber, $pagenumber;
+	if($listnumber != $num){
+		echo "<a href=\"?p=".$pagenumber."&n=".$num;
+		if (isset($_GET['srch']))
+			echo "&srch=".$_GET['srch'];
+		echo "\">";
+	}
+	else{
+		echo"<strong>";
+	}
+	echo $num;
+	if($listnumber != $num){
+		echo "</a>";
+	}
+	else{
+	echo"</strong>";
+	}
+	
+}
+
 ?>
+
+<?php
+include_once 'includes/functions.php';
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Pencl - Coming Soon</title>
+
+<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
+<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
+
+
+<?php
+//Put this at the end of the <head> tag to track
+include 'includes/topbar_header.php';
+include 'includes/tracker.php';
+?>
+</head>
+
+<body>
+<?php
+//Must be first thing in the <body> tag to function correctly
+include 'includes/topbar.php';
+?>
+<div id="pagewide">
+<form class="clearfix" action="" method="GET">
+	<input type="text" name="srch">
+	<?php
+ 		if(!empty($_GET['n'])){
+			echo '<input type="hidden" name="n" value="'.$_GET['n'].'">';
+		}		
+	?>
+	<input type="hidden" name="p" value="1">
+	<input type="submit" value="Search">
+	<a href="<?php echo "?p=".$_GET['p']."&n=".$_GET['n']; ?>">Clear</a>
+</form>
+<div class="notebook">
 <table border="1" cellpadding="5px" style="text-align:center">
 	<tr>
 		<th>#</th>
@@ -133,6 +159,7 @@ function addrow($userid, $user, $email, $ip){
 	}
 ?>
 </table>
+</div>
 <?php
 if ($i == 0)
 {
@@ -163,27 +190,8 @@ if ($shownext)
 if ($shownext)
 	echo "</a>";
 	
-function showNumItems($num){
-	global $listnumber, $pagenumber;
-	if($listnumber != $num){
-		echo "<a href=\"?p=".$pagenumber."&n=".$num;
-		if (isset($_GET['srch']))
-			echo "&srch=".$_GET['srch'];
-		echo "\">";
-	}
-	else{
-		echo"<strong>";
-	}
-	echo $num;
-	if($listnumber != $num){
-		echo "</a>";
-	}
-	else{
-	echo"</strong>";
-	}
-	
-}
 ?>
 )    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
+</div>
 </body>
 </html>
