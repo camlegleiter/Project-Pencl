@@ -1,4 +1,7 @@
 DROP TABLE IF EXISTS admins;
+DROP TABLE IF EXISTS classmates;
+DROP TABLE IF EXISTS classbooks
+DROP TABLE IF EXISTS classes;
 DROP TABLE IF EXISTS notebooks;
 DROP TABLE IF EXISTS settings;
 DROP TABLE IF EXISTS users;
@@ -41,3 +44,27 @@ CREATE TABLE coming_soon_emails (
 	email VARCHAR(64) collate utf8_unicode_ci NOT NULL,
 	ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(email) );
+	
+CREATE TABLE IF NOT EXISTS classes (
+	id int NOT NULL AUTO_INCREMENT,
+	name varchar(31) NOT NULL,
+	description varchar(256) NOT NULL,
+	owner int NOT NULL,
+	password varchar(256),
+	PRIMARY KEY (id),
+	FOREIGN KEY(owner) references users( userid )
+)
+
+CREATE TABLE IF NOT EXISTS classmates (
+	userid int NOT NULL,
+	classid int NOT NULL,
+	FOREIGN KEY(classid) references classes( id ),
+	FOREIGN KEY(userid) references users( userid )
+)
+
+CREATE TABLE IF NOT EXISTS classbooks (
+	notebookid int NOT NULL,
+	classid int NOT NULL,
+	FOREIGN KEY(classid) references classes( id ),
+	FOREIGN KEY(notebookid) references notebooks( id )
+)
