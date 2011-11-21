@@ -58,11 +58,17 @@ else if (defined("CANVAS"))
 else
 {
 	echo '
-	<a href="settings.php">Settings</a>
+	<a href="settings.php?redirect='.urlencode($_SERVER['REQUEST_URI']).'">Settings</a>
 	';
 }
 
 $userLevel = getUserLevel($_SESSION['id']);
+
+if($userLevel >= 0 && $userLevel <= 2){
+	echo'
+	<a href="classes.php">Manage Classes</a>
+	';
+}
 
 if($userLevel == 0 || $userLevel == 1){
 	echo'
