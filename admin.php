@@ -5,6 +5,86 @@ include 'includes/headerbarFunctions.php';
 <?php
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
+
+
+if(!empty($_GET['p'])){
+	$pagenumber = $_GET['p'];
+}
+else{
+	$pagenumber = 1;
+}
+if(!empty($_GET['n'])){
+	$listnumber = $_GET['n'];
+}
+else{
+	$listnumber = 25;
+}
+
+$limit = $pagenumber * $listnumber;
+$oldlimit = $limit - $listnumber;
+$rownum = $oldlimit;
+
+function adderror($error){
+	global $errorarray;
+	$errorarray[] = $error;
+}
+
+function addsuccess($success){
+	global $successarray;
+	$successarray[] = $success;
+}
+function addrow($userid, $user, $email, $ip){
+	global $rownum;
+	$rownum = $rownum + 1;
+	$levelnum = getUserLevel($userid);
+	$level = getUserLevelStr($levelnum);
+	
+	return  "<tr>
+			<td>$rownum</td>
+			<td>$user</td>
+			<td><a href='#'>Reset</a></td>
+			<td><a href='#'>View Notepads</a></td>
+			<td>$email</td>
+			<td>
+			<form class='clearfix' action='' method='POST' style='width:auto;padding:0;margin-left:0;'>
+			<input type='hidden' name='id' value='$userid'>
+			<select name='dropdown'>
+				<option value='orig' selected>$level</option>
+				<option value='disabled' disabled>-------</option>
+				<option value='lvl1'>".getUserLevelStr(1)."</option>
+				<option value='lvl2'>".getUserLevelStr(2)."</option>
+				<option value='lvl3'>".getUserLevelStr(3)."</option>
+			</select>
+			<input type='submit' value='&gt;'>
+			</form>
+			</td>
+			<td>$ip</td>
+			<td><a href='#'>Bye Bye</a></td>
+
+		</tr>";
+}
+
+function showNumItems($num){
+	global $listnumber, $pagenumber;
+	if($listnumber != $num){
+		echo "<a href=\"?p=".$pagenumber."&n=".$num;
+		if (isset($_GET['srch']))
+			echo "&srch=".$_GET['srch'];
+		echo "\">";
+	}
+	else{
+		echo"<strong>";
+	}
+	echo $num;
+	if($listnumber != $num){
+		echo "</a>";
+	}
+	else{
+	echo"</strong>";
+	}
+	
+}
+
 ?>
 
 <?php
@@ -33,6 +113,7 @@ include 'includes/tracker.php';
 //Must be first thing in the <body> tag to function correctly
 include 'includes/topbar.php';
 ?>
+<div id="pagewide">
 <form class="clearfix" action="" method="GET">
 	<input type="text" name="srch">
 	<?php
@@ -44,65 +125,6 @@ include 'includes/topbar.php';
 	<input type="submit" value="Search">
 	<a href="<?php echo "?p=".$_GET['p']."&n=".$_GET['n']; ?>">Clear</a>
 </form>
-
-<?php
-if(!empty($_GET['p'])){
-	$pagenumber = $_GET['p'];
-}
-else{
-	$pagenumber = 1;
-}
-if(!empty($_GET['n'])){
-	$listnumber = $_GET['n'];
-}
-else{
-	$listnumber = 25;
-}
-
-$limit = $pagenumber * $listnumber;
-$oldlimit = $limit - $listnumber;
-$rownum = $oldlimit;
-function adderror($error){
-	global $errorarray;
-	$errorarray[] = $error;
-}
-
-function addsuccess($success){
-	global $successarray;
-	$successarray[] = $success;
-}
-function addrow($userid, $user, $email, $ip){
-	global $rownum;
-	$rownum = $rownum + 1;
-	$levelnum = getUserLevel($userid);
-	$level = getUserLevelStr($levelnum);
-	
-	return  "<tr>
-			<td>$rownum</td>
-			<td>$user</td>
-			<td><a href='#'>Reset</a></td>
-			<td><a href='#'>View Notepads</a></td>
-			<td>$email</td>
-			<td>
-			<form class='clearfix' action='' method='POST'>
-			<input type='hidden' name='id' value='$userid'>
-			<select name='dropdown'>
-				<option value='orig' selected>$level</option>
-				<option value='disabled' disabled>-------</option>
-				<option value='lvl1'>".getUserLevelStr(1)."</option>
-				<option value='lvl2'>".getUserLevelStr(2)."</option>
-				<option value='lvl3'>".getUserLevelStr(3)."</option>
-			</select>
-			<input type='submit' value='&gt;'>
-			</form>
-			</td>
-			<td>$ip</td>
-			<td><a href='#'>Bye Bye</a></td>
-
-		</tr>";
-}
-
-?>
 <div class="notebook">
 <table border="1" cellpadding="5px" style="text-align:center">
 	<tr>
@@ -168,27 +190,8 @@ if ($shownext)
 if ($shownext)
 	echo "</a>";
 	
-function showNumItems($num){
-	global $listnumber, $pagenumber;
-	if($listnumber != $num){
-		echo "<a href=\"?p=".$pagenumber."&n=".$num;
-		if (isset($_GET['srch']))
-			echo "&srch=".$_GET['srch'];
-		echo "\">";
-	}
-	else{
-		echo"<strong>";
-	}
-	echo $num;
-	if($listnumber != $num){
-		echo "</a>";
-	}
-	else{
-	echo"</strong>";
-	}
-	
-}
 ?>
 )    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
+</div>
 </body>
 </html>
