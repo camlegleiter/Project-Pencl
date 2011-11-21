@@ -1,0 +1,14 @@
+﻿.twoColumn {
+	width:800px;
+	height:auto;
+}
+
+.twoColumn .left {
+float:left;
+
+}
+
+.twoColumn .right {
+float:left;
+
+}
