@@ -84,14 +84,6 @@ body {
 	margin-left: -200px; /*Set left margin to -(RightColumnWidth)*/
 }
 
-#shadow {
-	background-image: url(../img/canvas/shade1x1.png);
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-}
-
 #lightSwitch {
 	background-image: url(../img/canvas/light_bulb.png);
 	background-repeat: no-repeat;
@@ -104,9 +96,10 @@ body {
 /****************
  * CANVAS OBJECTS
  ******/
-.objects .pencil {
+ 
+.pencil {
 	background-position: center center;
-	position: fixed;
+	position: absolute;
 	width: 117px;
 	height: 229px;
 	z-index: 1;
@@ -115,7 +108,7 @@ body {
 	background-repeat: no-repeat;
 	bottom: 0px;
 }
-.objects .eraser_pink {
+.eraser_pink {
 	background-position: center center;
 	position: fixed;
 	width: 150px;
@@ -126,7 +119,7 @@ body {
 	background-repeat: no-repeat;
 	bottom: 400px;
 }
-.objects .light {
+.light {
 	background-position: center center;
 	position: absolute;
 	width: 334px;
@@ -137,7 +130,7 @@ body {
 	top: 40px;
 	right: 0px;
 }
-.objects .light_source {
+.light_source {
 	background-position: center center;
 	position: absolute;
 	width: 587px;
@@ -148,7 +141,7 @@ body {
 	top: 100px;
 	right: 100px;
 }
-.objects .phone {
+.phone {
 	background-position: center center;
 	position:fixed;
 	width: 166px;
@@ -159,7 +152,7 @@ body {
 	top: 230px;
 	right: 50px;
 }
-.objects .marker {
+.marker {
 	background-position: center center;
 	position: fixed;
 	width: 125px;
@@ -170,7 +163,7 @@ body {
 	background-repeat: no-repeat;
 	bottom: 120px;
 }
-.objects .coffee  {
+.coffee  {
 	background-position: center center;
 	position: fixed;
 	width: 266px;
