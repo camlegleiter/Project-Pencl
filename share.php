@@ -4,20 +4,7 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
-/**function printAllClasses($userid)
-{
-	$userid = mysql_real_escape_string($userid);
-	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
-	$classmatesHTML = "";
-	
-	while ($row = mysql_fetch_assoc($padRow))
-	{
-		$classmatesHTML = $classmatesHTML.getClassRow($userid, $row['classid']);
-	}
-	mysql_free_result($padRow);
-	
-	return $classmatesHTML;
-}*/
+include 'includes/functions.php';
 
 function printAllClasses($userid)
 {
@@ -26,13 +13,11 @@ function printAllClasses($userid)
  $padRow2 = mysql_query("SELECT owner FROM classes WHERE id='$userid'");
  $classmatesHTML = "";
  
- while ($row = mysql_fetch_assoc($padRow2))
- {
-  $classmatesHTML = $classmatesHTML.getClassRow($userid, $row['owner']);
+ while ($row = mysql_fetch_assoc($padRow2)) {
+	 $classmatesHTML = $classmatesHTML.getClassRow($userid, $row['owner']);
  }
- while ($row = mysql_fetch_assoc($padRow))
- {
-  $classmatesHTML = $classmatesHTML.getClassRow($userid, $row['classid']);
+ while ($row = mysql_fetch_assoc($padRow)) {
+	 $classmatesHTML = $classmatesHTML.getClassRow($userid, $row['classid']);
  }
  
  mysql_free_result($padRow);
@@ -40,6 +25,7 @@ function printAllClasses($userid)
  
  return $classmatesHTML;
 }
+
 function getClassRow($userid, $classid)
 {
 	$padRow = mysql_query("SELECT name, description FROM classes WHERE id='$classid'");
