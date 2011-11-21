@@ -64,13 +64,15 @@ if (!isset($_GET['id'])) {
 
 				setTimeout("autosave()", 10000);
 				
-				$('#light').click(function() {
+				$('#switch').click(function() {
 					if (!flag) {
 						flag = true;
-						$(document.body).css("background-position", "0px -1376px");
+						$(document.body).css("background-position", "0 0");
+						$('#light').css("background-position", "center top");
 					} else {
 						flag = false;
-						$(document.body).css("background-position", "0px 0px");
+						$(document.body).css("background-position", "0 -1376px");
+						$('#light').css("background-position", "center bottom");						
 					}
 				});
 			});
@@ -79,7 +81,7 @@ if (!isset($_GET['id'])) {
 			var querystring = location.search.replace('?', '').split('&');
 			var queryObj = {};
 			var currentSave = "";
-			var flag = false;
+			var flag = true;
 
 			// Get the URL querystring values
 			for (var i = 0; i < querystring.length; i++) {
@@ -205,8 +207,10 @@ include 'includes/topbar_header.php';
 					<div class="object" id="pencil"></div>
 				</div>
 				<div id="right">
-					<div class="object light" id="light"></div>
-					<div class="light_source"></div>
+					<div class="object" id="light">
+						<div class="object" id="switch"></div>
+					</div>
+					<!--<div class="light_source"></div>-->
 					<div class="object" id="phone"></div>
 					<div class="object" id="coffee"></div>
 				</div>
