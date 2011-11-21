@@ -5,7 +5,6 @@ include 'includes/headerbarFunctions.php';
 include 'includes/membersOnly.php';
 
 define('INCLUDE_CHECK', true);
-include 'includes/functions.php';
 
 function printAllClasses($userid)
 {
