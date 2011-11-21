@@ -32,9 +32,10 @@ function addsuccess($success){
 		$write = mysql_query("INSERT INTO classes (name, description, owner, password) VALUES ('$name','$des','$owner','$pass')");
 			if (!$write){
 				adderror("Error saving class");
+				
 			}
 			else{
-				addsuccess('Class has been added.');
+				header( 'Location: classes.php' );	
 			}
 		}
 	}
