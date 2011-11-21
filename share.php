@@ -7,7 +7,7 @@ include 'includes/membersOnly.php';
 function printAllClasses($userid)
 {
 	$userid = mysql_real_escape_string($userid);
-	$padRow = mysql_query("SELECT id FROM classmates WHERE userid='$userid'");
+	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
 	$classmatesHTML = "";
 	
 	while ($row = mysql_fetch_assoc($padRow))
@@ -21,7 +21,7 @@ function printAllClasses($userid)
 
 function getClassRow($userid, $classid)
 {
-	$padRow = mysql_query("SELECT name, description FROM classmates WHERE userid='$userid' AND classid='$classid'");
+	$padRow = mysql_query("SELECT name, description FROM classes WHERE classid='$id'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
