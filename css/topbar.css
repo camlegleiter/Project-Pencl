@@ -126,6 +126,18 @@ font-weight: bold;
 color: #FFFFFF;
 padding:0px 7px;
 }
+.dropmenudiv .line{
+height:1px;
+width: auto;
+display: block;
+text-indent: 3px;
+padding: 0;
+text-decoration: none;
+font-weight: bold;
+padding:0px 7px;
+background-color:#0D4B71;
+}
+
 
 * html .dropmenudiv a{ /*IE only hack*/
 width: 100%;
