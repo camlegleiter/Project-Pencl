@@ -4,29 +4,39 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
+include 'includes/functions.php';
+
 function printAllClasses($userid)
 {
 	$userid = mysql_real_escape_string($userid);
 	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
+	$padRow2 = mysql_query("SELECT owner FROM classes WHERE id='$userid'");
 	$classmatesHTML = "";
 	
+	while ($row = mysql_fetch_assoc($padRow2))
+	{
+		$classmatesHTML .= getClassRow($userid, $row['owner']);
+	}
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$classmatesHTML = $classmatesHTML.getClassRow($userid, $row['id']);
+		$classmatesHTML .= getClassRow($userid, $row['classid']);
 	}
+	
 	mysql_free_result($padRow);
+	mysql_free_result($padRow2);
 	
 	return $classmatesHTML;
 }
 
 function getClassRow($userid, $classid)
 {
-	$padRow = mysql_query("SELECT name, description FROM classes WHERE classid='$id'");
+	$padRow = mysql_query("SELECT name, description FROM classes WHERE id='$classid'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
 	
-	if($row){
+	if($row)
+	{
 		$rowHTML = '
 			<tr>
 				<td>
