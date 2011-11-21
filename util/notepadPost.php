@@ -53,6 +53,34 @@ function rrmdir($dir) {
 	return false;
 } 
 
+function findUseridfromNotebookid($notebookid)
+{
+	//Reference our global variable
+	global $userid;
+	
+	//Set value in SQL
+	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
+	$numrows = mysql_fetch_assoc($padCheck);
+	if($numrows['COUNT(*)'] != 0){
+		//Already in database, update the value
+		$updatePad = mysql_query("UPDATE notebooks SET modified=NOW() WHERE userid='$userid' AND id='$notepadid'");
+		if (!$updatePad)
+			errorMessage("Error saving notepad");
+		//mysql_free_result($updatePad);
+	}
+	else
+	{
+		//Create new entry
+		if (empty($notepadname))
+			errorMessage("No notepad name given");
+		$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','$notepaddesc',NOW(),NOW())");
+		if (!$insertPad)
+			errorMessage("Error saving notepad (-3)");
+	}
+	mysql_free_result($padCheck);
+
+}
+
 /*
 =====================================
 	Error Testing
@@ -68,6 +96,7 @@ if($_POST['success']){
 $action = strtolower((mysql_real_escape_string($_POST['action'])));
 $userid = mysql_real_escape_string($_SESSION['id']);
 $notepadid = mysql_real_escape_string($_POST['notepadid']);
+$classid = mysql_real_escape_string($_POST['classid']);
 $notepadname = mysql_real_escape_string($_POST['notepadname']);
 $notepaddesc = mysql_real_escape_string($_POST['notepaddesc']);
 $content = $_POST['content'];
@@ -97,12 +126,21 @@ if (!is_numeric($notepadid) && $action != 'create')
 {
 	errorMessage("notepadid is not an int");
 }
+if (!empty($classid) && !is_numeric($classid))
+{
+	errorMessage("classid is not an int");
+}
+
 
 /*
 =====================================
 	DO WORK
 =====================================
 */
+//If a class is given, try and find the correct userid
+
+
+
 if($action == 'save'){
 	//Add html to file
 	$path = buildPath($userid, $notepadid);
@@ -152,6 +190,7 @@ else if($action == 'load'){
 	{
 		$name = "Error fetching notepad name!";
 	}
+	mysql_free_result($padName);
 	
 	$contents = file_get_contents($file);
 	if ($contents === false)
@@ -195,6 +234,7 @@ else if($action == 'rename'){
 	if($numrows['COUNT(*)'] != 0){
 		errorMessage("Notepad name already used.  Please choose another.");
 	}
+	mysql_free_result($padCheck);
 
 	//Update!
 	$updatePad = mysql_query("UPDATE notebooks SET $updateString WHERE userid='$userid' AND id='$notepadid'");
@@ -221,6 +261,7 @@ else if($action == 'getrename'){
 	{
 		$desc = "Error fetching notepad description!";
 	}
+	mysql_free_result($padName);
 
 	$arr = array("notepadname" => $name,
 				 "notepaddesc" => $desc);
@@ -238,6 +279,7 @@ else if($action == 'create'){
 	if($numrows['COUNT(*)'] != 0){
 		errorMessage("Notepad name already used.  Please choose another.");
 	}
+	mysql_free_result($padCheck);
 	
 	//Create new entry
 	$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','$notepaddesc',NOW(),NOW())");
