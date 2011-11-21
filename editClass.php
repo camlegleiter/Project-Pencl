@@ -36,11 +36,14 @@ function addsuccess($success){
 		}
 		else{
 			addsuccess('Class has been edited.');
+			header( 'Location: classes.php' );
 		}
 		}
 	}
 	$getclass = mysql_query("SELECT * FROM classes WHERE id= '$classid'");
 	$row = mysql_fetch_assoc($getclass);
+	mysql_free_result($getclass);
+
 		
 ?>
 <!DOCTYPE html>
@@ -107,5 +110,4 @@ include 'includes/topbar.php';
 </div>
 </div>
 </body>
-<?php mysql_free_result($row);?>
 </html>
