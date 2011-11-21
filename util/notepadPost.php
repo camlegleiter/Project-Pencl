@@ -152,12 +152,19 @@ if($action == 'save'){
 	//Create our directory if not made
 	if (!is_dir($path))
 		mkdir($path, 0777, true);
+
+	$content = str_replace("\\\"", "\"", $content);
+	$content = str_replace("\\'", "'", $content);
+	$content = str_replace("\\\\", "\\", $content);
+	$content = htmlentities($content, ENT_QUOTES);
+		
 	$file = fopen($path.$notepadid.'.html', 'w');
 	if (!$file)
 		errorMessage("Error saving notepad (-1)");
 	if (fwrite($file, $content) === false)
 		errorMessage("Error saving notepad (-2)");
 	fclose($file);
+	
 	//Set value in SQL
 	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
 	$numrows = mysql_fetch_assoc($padCheck);
@@ -200,6 +207,8 @@ else if($action == 'load'){
 	$contents = file_get_contents($file);
 	if ($contents === false)
 		$contents = "<p>Couldn't load file!</p>";
+
+	$contents = html_entity_decode($contents);
 	
 	$arr = array(
 		"notepadname" => $name,
