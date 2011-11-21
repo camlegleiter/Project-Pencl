@@ -12,13 +12,41 @@ function printAllClasses($userid)
 	
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$classmatesHTML = $classmatesHTML.getNotepadRow($userid, $row['id']);
+		$classmatesHTML = $classmatesHTML.getClassRow($userid, $row['id']);
 	}
 	mysql_free_result($padRow);
 	
 	return $classmatesHTML;
 }
+
+function getClassRow($userid, $classid)
+{
+	$padRow = mysql_query("SELECT name, description FROM classmates WHERE userid='$userid' AND classid='$classid'");
+	$row = mysql_fetch_assoc($padRow);
+	
+	$rowHTML = '';
+	
+	if($row){
+		$rowHTML = '
+			<tr>
+				<td>
+				<input type="checkbox" name="share" value="Share" /> Share
+				</td>
+				<td align="left">
+					<a href="canvas.php?id='.$classid.'">'.$row['name'].'</a>
+				</td>
+				<td align="center">
+					'.$row['description'].'
+				</td>
+			</tr>
+					';
+	}
+	mysql_free_result($padRow);
+	return $rowHTML;
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
