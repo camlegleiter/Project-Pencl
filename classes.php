@@ -70,7 +70,7 @@ function getNotepadRow($id,$classid)
 				</td>
 				<td align="center">
 					<a href="#delete" onClick="alert(\'Coming soon!\')">
-						<img src="img/buttons/pencl_delete.png" title="Delete" alt="Delete">
+						<img src="img/buttons/pencl_delete.png" title="Remove from class" alt="Remove">
 					</a>
 				</td>
 			</tr>
