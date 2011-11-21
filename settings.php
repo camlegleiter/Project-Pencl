@@ -166,12 +166,12 @@ include 'includes/tracker.php';
 //Must be first thing in the <body> tag to function correctly
 include 'includes/topbar.php';
 ?>
-<!--<div id="pagewide">-->
 <div class="bookcontainer">		
 	<div class="book">
 		<div class="page">
 	<?php
 		echo "<h1>User settings for ".$userRow['username']."</h1>";
+		echo "<br />";
 		
 		if ($errorarray)
 		{
@@ -206,13 +206,13 @@ include 'includes/topbar.php';
 		<label class="grey" for="email">Email:</label>
 		<input class="field" type="text" name="cemail" id="cemail" value="<?php echo $userRow['email'] ?>" size="23" />
 		</div>
+        <br />
 		<input type="submit" name="save" value="Save" />
 		<input type="submit" name="clearnotes" value="Delete Notebooks" />
         <input type="button" name="cancel" value="Cancel" onClick="window.history.back()" />
 	</form>
-<!--</div>-->
-</div>
-</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>
