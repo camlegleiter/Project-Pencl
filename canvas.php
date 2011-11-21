@@ -64,7 +64,7 @@ if (!isset($_GET['id'])) {
 
 				setTimeout("autosave()", 10000);
 				
-				$('#lightSwitch').click(function() {
+				$('#light').click(function() {
 					if (!flag) {
 						flag = true;
 						$(document.body).css("background-position", "0px -1376px");
@@ -200,20 +200,15 @@ include 'includes/topbar_header.php';
 					</div>
 				</div>
 				<div id="left">
-					<div id="leftObjects">
-						<div class="pencil"></div>
-						<div class="eraser_pink"></div>
-						<div class="marker"></div>
-					</div>
+					<div class="object" id="eraser"></div>
+					<div class="object" id="marker"></div>
+					<div class="object" id="pencil"></div>
 				</div>
 				<div id="right">
-					<a id="lightSwitch" href="#">Lights</a>
-					<div id="rightObjects">
-					<div class="light"></div>
-					<!--<div class="light_source"></div>-->
-					<div class="phone"></div>
-					<div class="coffee"></div>
-				</div>
+					<div class="object light" id="light"></div>
+					<div class="light_source"></div>
+					<div class="object" id="phone"></div>
+					<div class="object" id="coffee"></div>
 				</div>
 			</div>
 		<!--</div>-->

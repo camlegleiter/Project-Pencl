@@ -30,14 +30,14 @@ function addsuccess($success){
 			$pass = null;
 		}
 		if($canedit == true){
-		$write = mysql_query("UPDATE classes SET name='$name' , description='$des' , password='$pass' WHERE id='$classid'");
-		if (!$write){
-			adderror("Error saving class");
-		}
-		else{
-			addsuccess('Class has been edited.');
-			header( 'Location: classes.php' );
-		}
+			$write = mysql_query("UPDATE classes SET name='$name' , description='$des' , password='$pass' WHERE id='$classid'");
+			if (!$write){
+				adderror("Error saving class");
+			}
+			else{
+				addsuccess('Class has been edited.');
+				header( 'Location: classes.php' );
+			}
 		}
 	}
 	$getclass = mysql_query("SELECT * FROM classes WHERE id= '$classid'");

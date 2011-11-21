@@ -1,3 +1,7 @@
+/****************
+ * MAIN, TITLE LAYOUT
+ ******/
+
 ﻿* {
 	line-spacing: 1em;
 	margin: 0px;
@@ -15,21 +19,6 @@ body {
 	padding: 0px;
 	height:100%;
 	width:100%;
-}
-.desk {
-	background: url('../img/canvas/Desk3TileDark.png');
-	background-repeat: repeat;
-	background-position: center top;
-	display:block;
-
-    /*set the div in the top-left corner of the screen*/
-    position:absolute;
-    top:0;
-    left:0;
-    
-    /*set the width and height to 100% of the screen*/
-    width:100%;
-    height:100%;  
 }
 
 #page_header {
@@ -59,7 +48,6 @@ body {
 }
 
 #middle {
-	/*background: blue;*/
 	float: left;
 	height: 500px;
 	width: 100%;
@@ -74,63 +62,59 @@ body {
 
 #left {
 	float: left;
-	width: 150px; /*Width of left column in pixel*/
+	width: 100px; /*Width of left column in pixel*/
 	margin-left: -750px; /*Set margin to that of -(MainContainerWidth)*/
 }
 
 #right {
 	float: left;
-	width: 200px; /*Width of right column*/
-	margin-left: -200px; /*Set left margin to -(RightColumnWidth)*/
-}
-
-#lightSwitch {
-	background-image: url(../img/canvas/light_bulb.png);
-	background-repeat: no-repeat;
-	background-position: left;
-	padding: 0 0 0 16px;
-	color: white;
-	outline: none;
+	width: 100px; /*Width of right column*/
+	margin-left: -100px; /*Set left margin to -(RightColumnWidth)*/
 }
 
 /****************
  * CANVAS OBJECTS
  ******/
- 
-.pencil {
+
+.object {
 	background-position: center center;
-	position: absolute;
-	width: 117px;
-	height: 229px;
-	z-index: 1;
-	left: -10px;
-	background-image: url('../img/canvas/objects/pencil.png');
 	background-repeat: no-repeat;
-	bottom: 0px;
+	position: relative;
+	z-index: 1;
 }
-.eraser_pink {
-	background-position: center center;
-	position: fixed;
+
+#eraser {
+	background-image: url('../img/canvas/objects/eraser_pink.png');
 	width: 150px;
 	height: 143px;
-	z-index: 1;
-	left: -20px;
-	background-image: url('../img/canvas/objects/eraser_pink.png');
-	background-repeat: no-repeat;
-	bottom: 400px;
+	left: -60px;
 }
-.light {
-	background-position: center center;
-	position: absolute;
+
+#marker {
+	background-image: url('../img/canvas/objects/marker.png');
+	width: 125px;
+	height: 268px;
+}
+
+#pencil {
+	background-image: url('../img/canvas/objects/pencil.png');
+	width: 117px;
+	height: 229px;
+	left: -10px;
+	bottom: 0px;
+}
+
+#light {
+	background-image: url('../img/canvas/objects/light.png');
+	position: fixed;
 	width: 334px;
 	height: 250px;
-	z-index: 2;
-	background-image: url('../img/canvas/objects/light.png');
-	background-repeat: no-repeat;
 	top: 40px;
 	right: 0px;
+	z-index: 2;
 }
-.light_source {
+
+#light_source {
 	background-position: center center;
 	position: absolute;
 	width: 587px;
@@ -139,38 +123,20 @@ body {
 	background-image: url('../img/canvas/objects/light_source.png');
 	background-repeat: no-repeat;
 	top: 100px;
-	right: 100px;
+	left: -100px;
 }
-.phone {
-	background-position: center center;
-	position:fixed;
+
+#phone {
+	background-image: url('../img/canvas/objects/phone.png');
 	width: 166px;
 	height: 229px;
-	z-index: 1;
-	background-image: url('../img/canvas/objects/phone.png');
-	background-repeat: no-repeat;
-	top: 230px;
-	right: 50px;
+	top: 75px;
 }
-.marker {
-	background-position: center center;
-	position: fixed;
-	width: 125px;
-	height: 268px;
-	z-index: 1;
-	left: 40px;
-	background-image: url('../img/canvas/objects/marker.png');
-	background-repeat: no-repeat;
-	bottom: 120px;
-}
-.coffee  {
-	background-position: center center;
-	position: fixed;
+
+#coffee  {
+	background-image: url('../img/canvas/objects/coffee.png');
 	width: 266px;
 	height: 328px;
-	z-index: 1;
-	background-image: url('../img/canvas/objects/coffee.png');
-	background-repeat: no-repeat;
-	top:500px;
-	right:0px;
+	bottom: -100px;
+	left: 30px;
 }
