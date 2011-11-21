@@ -7,17 +7,16 @@ require_once 'includes/functions.php';
 
 <div class="tb" id="topContainer">
 	<div class="chromestyle" id="chromemenu">
-		<div class="tb" id="topLogo"></div>
+		<div class="tb" id="topLogo">
 		<?php
-			if (defined("CANVAS"))
+			if (defined("LOGGEDIN"))
 			{
-				echo '
-					<div class="tb" id="hint">
-						<p>Hey you! Press F11!</p>
-					</div>
-				';
+				echo '<a href="notepadselection.php"></a>';
+			} else {
+				echo '<a href="index.php></a>';
 			}
 		?>
+        </div>
 		<ul>
 			<li><?php
 			echo '<a href="'; 
