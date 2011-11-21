@@ -143,12 +143,10 @@ include 'includes/topbar.php';
 		</div>
 	</div>
 	<div class="content">
-		<form>
 			<p>Name:</p>
 			<input type="text" name="Name" id="NotepadName" size="30" maxlength="30"><br>
 			<p>Description:</p>
 			<textarea cols="45" rows="5" name="Description" id="NotepadDesc" maxlength="256"></textarea><br>
-		</form>
 		<p>When you create this notepad, you will be directed right to the editting page.</p>
 	</div>
 	<div class="footer">
@@ -163,12 +161,10 @@ include 'includes/topbar.php';
 		</div>
 	</div>
 	<div class="content">
-		<form>
 			<p>Name:</p>
 			<input type="text" name="Name" id="NotepadName" size="30" maxlength="30"><br>
 			<p>Description:</p>
 			<textarea cols="45" rows="5" name="Description" id="NotepadDesc" maxlength="256"></textarea><br>
-		</form>
 		<p>When you create this notepad, you will be directed right to the editting page.</p>
 	</div>
 	<div class="footer">
@@ -183,10 +179,10 @@ include 'includes/topbar.php';
 	$('#editPopup').jqmAddClose($('#editPopup .header #buttons #close'));
 	function newNotepad()
 	{
-		$('#newPopup .content form #NotepadName').val('');
-		$('#newPopup .content form #NotepadDesc').val('');
+		$('#newPopup .content #NotepadName').val('');
+		$('#newPopup .content #NotepadDesc').val('');
 		$('#newPopup').jqmShow();
-		$('#newPopup .content form #NotepadName').focus();
+		$('#newPopup .content #NotepadName').focus();
 	}
 	function createNotepad()
 	{
@@ -195,8 +191,8 @@ include 'includes/topbar.php';
 			url: './util/notepadPost.php',
 			data: {
 				action: 'create',
-				notepadname: $('#newPopup .content form #NotepadName').val(),
-				notepaddesc: $('#newPopup .content form #NotepadDesc').val()
+				notepadname: $('#newPopup .content #NotepadName').val(),
+				notepaddesc: $('#newPopup .content #NotepadDesc').val()
 			},
 			dataType: "json",
 			statusCode: {
@@ -234,14 +230,14 @@ include 'includes/topbar.php';
 						alert('Error: ' + error);
 					},
 					200: function(data) {
-						$('#editPopup .content form #NotepadName').val(data.notepadname);
-						$('#editPopup .content form #NotepadDesc').val(data.notepaddesc);
+						$('#editPopup .content #NotepadName').val(data.notepadname);
+						$('#editPopup .content #NotepadDesc').val(data.notepaddesc);
 						//Clear click events
 						$('#editPopup .footer #save').unbind('click');
 						//Set new click event
 						$('#editPopup .footer #save').click(function() {renameNotepad(id,true)});
 						$('#editPopup').jqmShow();
-						$('#editPopup .content form #NotepadName').focus();
+						$('#editPopup .content #NotepadName').focus();
 					}
 				}
 			});
@@ -255,8 +251,8 @@ include 'includes/topbar.php';
 				data: {
 					action: 'rename',
 					notepadid: id,
-					notepadname: $('#editPopup .content form #NotepadName').val(),
-					notepaddesc: $('#editPopup .content form #NotepadDesc').val()
+					notepadname: $('#editPopup .content #NotepadName').val(),
+					notepaddesc: $('#editPopup .content #NotepadDesc').val()
 				},
 				dataType: "json",
 				statusCode: {
