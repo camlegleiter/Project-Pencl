@@ -134,12 +134,15 @@ function addsuccess($success){
 				}
 			
 			}
+			
+			
 		}
 	}
 	else if ($_POST['clearnotes'])
 	{
 		adderror("Nope. Chuck Testa.");
 	}
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -201,6 +204,7 @@ include 'includes/topbar.php';
 		</div>
 		<input type="submit" name="save" value="Save" />
 		<input type="submit" name="clearnotes" value="Delete Notebooks" />
+        <input type="button" name="cancel" value="Cancel" onClick="window.history.back()" />
 	</form>
 </div>
 </body>

@@ -10,7 +10,7 @@ require_once 'includes/functions.php';
 		<?php
 			if (defined("LOGGEDIN"))
 			{
-				echo '<a href="notepadselection.php">';
+				echo '<a href="noteselection.php">';
 			} else {
 				echo '<a href="index.php">';
 			}
