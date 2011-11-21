@@ -4,9 +4,6 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
-define('INCLUDE_CHECK', true);
-include 'includes/functions.php';
-
 function printAllClasses($userid)
 {
 	$userid = mysql_real_escape_string($userid);
