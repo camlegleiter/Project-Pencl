@@ -61,10 +61,11 @@ function findUserid($notebookid,$classid)
 	//Make sure that this notebook is linked to the class
 	$padCheck = mysql_query("SELECT COUNT(*) FROM classbooks WHERE notebookid='$notebookid' AND classid='$classid'");
 	$numrows = mysql_fetch_assoc($padCheck);
-	if($numrows['COUNT(*)'] == 0){
+	if($numrows['COUNT(*)'] == 0)
+	{
 		mysql_free_result($padCheck);
 		//This notebook isnt with this class
-		errorMessage("This notebook is not from the class")
+		errorMessage("This notebook is not from the class");
 	}
 	else
 	{
@@ -96,7 +97,7 @@ if($_POST['error']){
 if($_POST['success']){
 	successMessage('Success message flag set');
 }
-//.../htdocs/pencl/notepads/<userid>/<notepadId>/<notepadid.html>
+//.../htdocs/pencl/notepads/<userid>/<notepadId>/<notepadid>.html
 $action = strtolower((mysql_real_escape_string($_POST['action'])));
 $userid = mysql_real_escape_string($_SESSION['id']);
 $notepadid = mysql_real_escape_string($_POST['notepadid']);
