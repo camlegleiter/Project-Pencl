@@ -54,24 +54,24 @@ else if (defined("CANVAS"))
 	echo '
 	<a href="noteselection.php">Notepad Selection</a>
 	<a href="#save" onclick="writeToFile()">Save</a>
-	<a href="logout.php">Logout</a>
 	';
 }
 else
 {
 	echo '
 	<a href="settings.php">Settings</a>
-	<a href="logout.php">Logout</a>
 	';
 }
 
 $userLevel = getUserLevel($_SESSION['id']);
 
-if($userLevel == '0' | $userLevel == '1'){
+if($userLevel == 0 || $userLevel == 1){
 	echo'
 	<a href="admin.php">Admin</a>
 	';
 }
+
+echo '<a href="logout.php">Logout</a>';
 ?>
 </span>
 
