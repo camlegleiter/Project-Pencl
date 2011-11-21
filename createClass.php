@@ -19,7 +19,7 @@ function addsuccess($success){
 		$cansave = true;
 		$name = mysql_real_escape_string($_POST['classname']);
 		$des = mysql_real_escape_string($_POST['des']);
-		$pass = sha1(mysql_real_escape_string($_POST['pass']));
+		$pass = mysql_real_escape_string($_POST['pass']);
 		$owner = $_SESSION['id'];
 		if($name == ''){
 			adderror('No class name given.');
