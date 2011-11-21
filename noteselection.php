@@ -45,7 +45,7 @@ function getNotepadRow($userid, $id)
 					<a href="#edit" onClick="renameNotepad('.$id.', false)">
 						<img src="img/buttons/pencl_edit.png" title="Edit" alt="Edit">
 					</a>
-					<a href="#share" onClick="alert(\'Coming soon!\')">
+					<a href="share.php">
 						<img src="img/buttons/pencl_share.png" title="Share" alt="Share">
 					</a>
 					<a href="#export" onClick="alert(\'Coming soon!\')">
