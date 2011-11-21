@@ -10,7 +10,9 @@ tinyMCE.init({
     theme : "advanced"
 });
 
-
+<?php
+//Merge conflict!
+?>
 function ajaxLoad() {
     var ed = tinyMCE.get('content');
 
