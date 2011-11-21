@@ -33,8 +33,6 @@ function ajaxLoad() {
 		},
 		data: {
 			//key1: "value1",
-			//iwfiuwhfiuhwaufihawfylawf
-			//efwefawfaw
 			error : 'true'
 		},
 		complete: function(jqXHR, textStatus) {
@@ -54,10 +52,6 @@ function ajaxSave() {
     }, 3000);
 }
 </script>
-
-
-<!-- Blah -->
-
 
 <form method="post" action="">
     <textarea name="content" style="width:100%">

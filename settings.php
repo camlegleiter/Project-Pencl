@@ -152,6 +152,8 @@ function addsuccess($success){
 
 <link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
+<link rel="stylesheet" type="text/css" href="css/book.css" media="screen">
+
 <?php
 //Put this at the end of the <head> tag to track
 include 'includes/topbar_header.php';
@@ -164,8 +166,10 @@ include 'includes/tracker.php';
 //Must be first thing in the <body> tag to function correctly
 include 'includes/topbar.php';
 ?>
-<div id="pagewide">
-
+<!--<div id="pagewide">-->
+<div class="bookcontainer">		
+	<div class="book">
+		<div class="page">
 	<?php
 		echo "<h1>User settings for ".$userRow['username']."</h1>";
 		
@@ -206,6 +210,9 @@ include 'includes/topbar.php';
 		<input type="submit" name="clearnotes" value="Delete Notebooks" />
         <input type="button" name="cancel" value="Cancel" onClick="window.history.back()" />
 	</form>
+<!--</div>-->
+</div>
+</div>
 </div>
 </body>
 </html>
