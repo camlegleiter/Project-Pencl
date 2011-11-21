@@ -17,6 +17,7 @@ function getClassData($classid)
 		$arr['description'] = $row['description'];
 		$arr['password']    = $row['password'];
 		$arr['owner']       = $row['owner'];
+		$arr['id']          = $classid;
 	}
 	else
 	{
@@ -24,6 +25,7 @@ function getClassData($classid)
 		$arr['description'] = "Error: Couldn't find class description";
 		$arr['password']    = "";
 		$arr['owner']       = "Error: Couldn't find class owner";
+		$arr['id']          = $classid;
 	}
 
 	mysql_free_result($padRow);
@@ -67,9 +69,6 @@ function getNotepadRow($id,$classid)
 					'.$row['created'].'
 				</td>
 				<td align="center">
-					<a href="editClass.php?classid='.$classid.'">
-						<img src="img/buttons/pencl_edit.png" title="Edit" alt="Edit">
-					</a>
 					<a href="#delete" onClick="alert(\'Coming soon!\')">
 						<img src="img/buttons/pencl_delete.png" title="Delete" alt="Delete">
 					</a>
@@ -167,7 +166,7 @@ include 'includes/topbar.php';
 			//Start display
 			if (is_numeric($_GET['class'])) {
 			?>
-				<h1>Class: <strong><?php echo $class['name'] ?></strong></h1>
+				<h1>Class: <strong><?php echo $class['name'] ?></strong> <a href="editClass.php?classid=<?php echo $class['id'] ?>">(Edit)</a></h1>
 				<div class="notebook">
 					<table>
 						<thead>
