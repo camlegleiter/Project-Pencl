@@ -30,9 +30,6 @@ include 'includes/tracker.php';
 //Must be first thing in the <body> tag to function correctly
 include 'includes/topbar.php';
 ?>
-<?php
-print_r($_POST);
-?>
 <form class="clearfix" action="" method="GET">
 	<input type="text" name="srch">
 	<?php
