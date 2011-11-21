@@ -9,7 +9,7 @@ tinyMCE.init({
     mode : "textareas",
     theme : "advanced"
 });
-
+<!-- Blah testing -->
 
 function ajaxLoad() {
     var ed = tinyMCE.get('content');
@@ -25,7 +25,7 @@ function ajaxLoad() {
 				alert('page not found');
 			},
 			409: function(jqXHR, textStatus, errorThrown) {
-				alert('409 ' + errorThrown);
+				alert('409 woohoo ' + errorThrown);
 			},
 			200: function(data, textStatus, jqXHR) {
 				alert('200 ' + data);
@@ -56,30 +56,17 @@ function ajaxSave() {
 </script>
 
 
-<!-- Blahiniuh
-
-kopkp
-ewflpwkefw
-fwejfiwjf
-wekfowjfowfj
-wjf9qf
-wjfwhfw
-jf
-wf]w
-jfwfjw
-fjw
-fjw
-jfw -->
+<!-- Blah -->
 
 
 <form method="post" action="">
     <textarea name="content" style="width:100%">
     </textarea>
-    <input type = 'button' onclick = 'ajaxSave()' value = 'save'/>
+    <input type = 'button' onclick = 'ajaxSave(parameter)' value = 'save'/>
     <input type = 'button' onclick = 'ajaxLoad()' value = 'load'/>
 </form>
 
 <form method="post" action="util/notepadPost.php">
-    <input type = 'text' name='success' />
+    <input type = 'text' name='successNOT' />
     <input type = 'submit' name='success' value = 'submit'/>
 </form>
