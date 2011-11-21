@@ -19,9 +19,9 @@ function printAllClasses($userid)
 	return $classmatesHTML;
 }
 
-function getClassRow($userid, $id)
+function getClassRow($userid, $classid)
 {
-	$padRow = mysql_query("SELECT name, description FROM classmates WHERE userid='$userid' AND classid='$id'");
+	$padRow = mysql_query("SELECT name, description FROM classmates WHERE userid='$userid' AND classid='$classid'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
@@ -33,7 +33,7 @@ function getClassRow($userid, $id)
 				<input type="checkbox" name="share" value="Share" /> Share
 				</td>
 				<td align="left">
-					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
+					<a href="canvas.php?id='.$classid.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
 					'.$row['description'].'
