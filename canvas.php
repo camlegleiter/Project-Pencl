@@ -208,6 +208,7 @@ include 'includes/topbar_header.php';
 					</div>
 				</div>
 				<div id="left">
+					<br>
 				</div>
 				<div id="right">
 					<a id="lightSwitch" href="#">Lights</a>

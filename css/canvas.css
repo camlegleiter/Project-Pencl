@@ -74,14 +74,14 @@ body {
 
 #left {
 	float: left;
-	width: 100px; /*Width of left column in pixel*/
+	width: 150px; /*Width of left column in pixel*/
 	margin-left: -750px; /*Set margin to that of -(MainContainerWidth)*/
 }
 
 #right {
 	float: left;
-	width: 100px; /*Width of right column*/
-	margin-left: -100px; /*Set left margin to -(RightColumnWidth)*/
+	width: 200px; /*Width of right column*/
+	margin-left: -200px; /*Set left margin to -(RightColumnWidth)*/
 }
 
 #shadow {
