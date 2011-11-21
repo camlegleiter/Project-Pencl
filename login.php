@@ -10,7 +10,7 @@ include 'includes/registerFunctions.php';
 <title>Pencl - Coming Soon</title>
 <link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
-<link rel="stylesheet" type="text/css" href="css/login.css" media="screen">
+<link rel="stylesheet" type="text/css" href="css/book.css" media="screen">
 <!-- Load jQuery -->
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -38,7 +38,7 @@ include 'includes/topbar.php';
 
 <br>
 <br>
-<div class="login">		
+<div class="bookcontainer">		
 	<div class="book">
 		<div class="page">
 			<h1>Register</h1>
