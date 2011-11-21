@@ -62,21 +62,27 @@ function findUserid($notebookid,$classid)
 	$padCheck = mysql_query("SELECT COUNT(*) FROM classbooks WHERE notebookid='$notebookid' AND classid='$classid'");
 	$numrows = mysql_fetch_assoc($padCheck);
 	if($numrows['COUNT(*)'] == 0){
+		mysql_free_result($padCheck);
 		//This notebook isnt with this class
 		errorMessage("This notebook is not from the class")
 	}
 	else
 	{
+		mysql_free_result($padCheck);
 		//Get the userid of the notebook
 		$notebook = mysql_query("SELECT userid FROM notebooks WHERE notebookid='$notebookid'");
 		$row = mysql_fetch_assoc($notebook);
-		if($row['userid'] == 0){
-			
+		if($row['userid'])
+		{
+			$userid = $row['userid'];
+			mysql_free_result($notebook);
+		}
 		else
-			errorMessage("Error saving notepad (-3)");
+		{
+			mysql_free_result($notebook);
+			errorMessage("Error finding user with notepad id: ".$notebookid);
+		}
 	}
-	mysql_free_result($padCheck);
-
 }
 
 /*
