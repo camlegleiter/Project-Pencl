@@ -78,7 +78,9 @@ if($userLevel == 0 || $userLevel == 1){
 	';
 }
 
-echo '<a href="logout.php">Logout</a>';
+if (defined("LOGGEDIN")) {
+	echo '<a href="logout.php">Logout</a>';
+}
 ?>
 </span>
 
