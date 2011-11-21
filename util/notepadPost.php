@@ -53,28 +53,26 @@ function rrmdir($dir) {
 	return false;
 } 
 
-function findUserid($notebookid,)
+function findUserid($notebookid,$classid)
 {
 	//Reference our global variable
 	global $userid;
 	
-	//Set value in SQL
-	$padCheck = mysql_query("SELECT COUNT(*) FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
+	//Make sure that this notebook is linked to the class
+	$padCheck = mysql_query("SELECT COUNT(*) FROM classbooks WHERE notebookid='$notebookid' AND classid='$classid'");
 	$numrows = mysql_fetch_assoc($padCheck);
-	if($numrows['COUNT(*)'] != 0){
-		//Already in database, update the value
-		$updatePad = mysql_query("UPDATE notebooks SET modified=NOW() WHERE userid='$userid' AND id='$notepadid'");
-		if (!$updatePad)
-			errorMessage("Error saving notepad");
-		//mysql_free_result($updatePad);
+	if($numrows['COUNT(*)'] == 0){
+		//This notebook isnt with this class
+		errorMessage("This notebook is not from the class")
 	}
 	else
 	{
-		//Create new entry
-		if (empty($notepadname))
-			errorMessage("No notepad name given");
-		$insertPad = mysql_query("INSERT INTO notebooks (userid, name, description, created, modified) VALUES ('$userid','$notepadname','$notepaddesc',NOW(),NOW())");
-		if (!$insertPad)
+		//Get the userid of the notebook
+		$notebook = mysql_query("SELECT userid FROM notebooks WHERE notebookid='$notebookid'");
+		$row = mysql_fetch_assoc($notebook);
+		if($row['userid'] == 0){
+			
+		else
 			errorMessage("Error saving notepad (-3)");
 	}
 	mysql_free_result($padCheck);
