@@ -8,22 +8,24 @@ include 'includes/functions.php';
 
 function printAllClasses($userid)
 {
- $userid = mysql_real_escape_string($userid);
- $padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
- $padRow2 = mysql_query("SELECT owner FROM classes WHERE id='$userid'");
- $classmatesHTML = "";
- 
- while ($row = mysql_fetch_assoc($padRow2)) {
-	 $classmatesHTML = $classmatesHTML.getClassRow($userid, $row['owner']);
- }
- while ($row = mysql_fetch_assoc($padRow)) {
-	 $classmatesHTML = $classmatesHTML.getClassRow($userid, $row['classid']);
- }
- 
- mysql_free_result($padRow);
- mysql_free_result($padRow2);
- 
- return $classmatesHTML;
+	$userid = mysql_real_escape_string($userid);
+	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
+	$padRow2 = mysql_query("SELECT owner FROM classes WHERE id='$userid'");
+	$classmatesHTML = "";
+	
+	while ($row = mysql_fetch_assoc($padRow2))
+	{
+		$classmatesHTML .= getClassRow($userid, $row['owner']);
+	}
+	while ($row = mysql_fetch_assoc($padRow))
+	{
+		$classmatesHTML .= getClassRow($userid, $row['classid']);
+	}
+	
+	mysql_free_result($padRow);
+	mysql_free_result($padRow2);
+	
+	return $classmatesHTML;
 }
 
 function getClassRow($userid, $classid)
@@ -33,7 +35,8 @@ function getClassRow($userid, $classid)
 	
 	$rowHTML = '';
 	
-	if($row){
+	if($row)
+	{
 		$rowHTML = '
 			<tr>
 				<td>
