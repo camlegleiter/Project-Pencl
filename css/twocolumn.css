@@ -4,11 +4,11 @@
 }
 
 .twoColumn .left {
-float:left;
-
+	float:left;
+	width:200px;
 }
 
 .twoColumn .right {
-float:left;
-
+	float:left;
+	width:600px;
 }

@@ -143,56 +143,76 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
-	<table>
-		<thead>
-			<tr class="head">
-				<td>
-					<strong>Name</strong>
-				</td>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-				//Grab our classes
-				echo getAllClasses();
+	<div class="twoColumn">
+		<div class="left">
+			<table>
+				<thead>
+					<tr class="head">
+						<td>
+							<strong>Classes:</strong>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						//Grab our classes
+						echo getAllClasses();
+					?>
+				</tbody>
+			</table>
+			<br>
+			<a href="createClass.php">Create a class</a>
+		</div>
+		<div class="right">
+			<?php 
+			//Display table only if we are displaying a class
+			//Start display
+			if (is_numeric($_GET['class'])) {
 			?>
-		</tbody>
-	</table>
-	<div id="page_header">
-		<p><a href="createClass.php">Create a class</a></p>
+				<h1>Class: <?php echo $class['name'] ?></h1>
+				<div class="notebook">
+					<table>
+						<thead>
+							<tr class="head">
+								<td>
+									<!-- Preview -->
+								</td>
+								<td>
+									<strong>Notepad</strong>
+								</td>
+								<td>
+									<strong>Modified</strong>
+								</td>
+								<td>
+									<strong>Created</strong>
+								</td>
+								<td>
+									<strong>Options</strong>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								//Grab our notepads
+								echo printAllNotepads($_POST['class']);
+							?>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<p>Tip: Choose other options in the drop down menu at the top-right!</p>
+			<?php
+			//End display
+			}
+			else
+			{
+			?>
+				<p>Select a class on the left, or <a href="createClass.php">create a class</a>.</p>
+			<?php
+			}
+			?>
+		</div>
 	</div>
-	<h1>Class: <?php echo $class['name'] ?></h1>
-	<div class="notebook">
-		<table>
-			<thead>
-				<tr class="head">
-					<td>
-						<!-- Preview -->
-					</td>
-					<td>
-						<strong>Notepad</strong>
-					</td>
-					<td>
-						<strong>Modified</strong>
-					</td>
-					<td>
-						<strong>Created</strong>
-					</td>
-					<td>
-						<strong>Options</strong>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-					//Grab our notepads
-					echo printAllNotepads($_POST['class']);
-				?>
-			</tbody>
-		</table>
-	</div>
-	<br>
-	<p>Tip: Choose other options in the drop down menu at the top-right!</p>
 </div>
 <div class="popup" id="newPopup" style="display:none">
 	<div class="header">
