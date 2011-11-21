@@ -17,6 +17,7 @@ function ajaxLoad() {
     // Do you ajax call here, window.setTimeout fakes ajax call
     ed.setProgressState(1); // Show progress
     $.ajax({
+		
     	type: 'POST',
 		url: "util/notepadPost.php",
 		statusCode: {
@@ -32,6 +33,8 @@ function ajaxLoad() {
 		},
 		data: {
 			//key1: "value1",
+			//iwfiuwhfiuhwaufihawfylawf
+			//efwefawfaw
 			error : 'true'
 		},
 		complete: function(jqXHR, textStatus) {
@@ -53,7 +56,20 @@ function ajaxSave() {
 </script>
 
 
-<!-- Blah -->
+<!-- Blahiniuh
+
+kopkp
+ewflpwkefw
+fwejfiwjf
+wekfowjfowfj
+wjf9qf
+wjfwhfw
+jf
+wf]w
+jfwfjw
+fjw
+fjw
+jfw -->
 
 
 <form method="post" action="">
