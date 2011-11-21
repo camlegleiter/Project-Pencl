@@ -32,20 +32,21 @@ function getClassData($classid)
 
 function printAllNotepads($classid)
 {
+	
 	$classid = mysql_real_escape_string($classid);
 	$padRow = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
 	$notepadHTML = "";
 	
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$notepadHTML = $notepadHTML.getNotepadRow($userid, $row['notebookid']);
+		$notepadHTML = $notepadHTML.getNotepadRow($row['notebookid'],$classid);
 	}
 	mysql_free_result($padRow);
 	
 	return $notepadHTML;
 }
 
-function getNotepadRow($id)
+function getNotepadRow($id,$classid)
 {
 	$id = mysql_real_escape_string($id);
 	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE id='$id'");
@@ -56,11 +57,8 @@ function getNotepadRow($id)
 	if($row){
 		$rowHTML = '
 			<tr>
-				<td>
-					<a href="#preview">O</a>
-				</td>
 				<td align="left">
-					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
+					<a href="canvas.php?id='.$id.'&classid='.$classid.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
 					'.$row['modified'].'
@@ -169,14 +167,11 @@ include 'includes/topbar.php';
 			//Start display
 			if (is_numeric($_GET['class'])) {
 			?>
-				<h1>Class: <?php echo $class['name'] ?></h1>
+				<h1>Class: <strong><?php echo $class['name'] ?></strong></h1>
 				<div class="notebook">
 					<table>
 						<thead>
 							<tr class="head">
-								<td>
-									<!-- Preview -->
-								</td>
 								<td>
 									<strong>Notepad</strong>
 								</td>
@@ -194,13 +189,13 @@ include 'includes/topbar.php';
 						<tbody>
 							<?php
 								//Grab our notepads
-								echo printAllNotepads($_POST['class']);
+								echo printAllNotepads($_GET['class']);
 							?>
 						</tbody>
 					</table>
 				</div>
 				<br>
-				<p>Tip: Choose other options in the drop down menu at the top-right!</p>
+				<p>Tip: To add notebooks to this class, share them from your <a href="noteselection.php">notes</a></p>
 			<?php
 			//End display
 			}
