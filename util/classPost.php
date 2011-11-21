@@ -35,7 +35,6 @@ if($_POST['error']){
 if($_POST['success']){
 	successMessage('Success message flag set');
 }
-//.../htdocs/pencl/notepads/<userid>/<notepadId>/<notepadid.html>
 $action = strtolower((mysql_real_escape_string($_POST['action'])));
 $classid = $_GET['classid'];
 $name = mysql_real_escape_string($_POST['classname']);
@@ -91,54 +90,60 @@ if (!empty($classid) && !is_numeric($classid))
 			$pass = null;
 		}
 		if($canedit == true){
-		$write = mysql_query("UPDATE classes SET name='$name' , description='$des' , password='$pass' WHERE id='$classid'");
-		if (!$write){
-			errormessage("Error saving class");
-		}
-		else{
-			successmessage('Class has been edited.');
-			header( 'Location: classes.php' );
-		}
+			$write = mysql_query("UPDATE classes SET name='$name' , description='$des' , password='$pass' WHERE id='$classid'");
+			if (!$write){
+				errormessage("Error saving class");
+			}
+			else{
+				successmessage('Class has been edited.');
+			}
 		}
 	}
 	//save a class
-	if(action == 'save']){
+	if(action == 'add']){
 		$cansave = true;
+		$nameCheck = mysql_query("SELECT COUNT(*) FROM classes WHERE owner='$owner' AND name='$name'");
+		$numrows = mysql_fetch_assoc($nameCheck);
+		if($numrows['COUNT(*)'] != 0){
+			errorMessage("Class name already used.  Please choose another.");
+		}
+		mysql_free_result($nameCheck);
 		if($name == ''){
-			adderror('No class name given.');
+			errormessage('No class name given.');
 			$cansave = false;
 		}
 		if($pass == ''){
 			$pass = null;
 		}
 		if($cansave == true){
-		$write = mysql_query("INSERT INTO classes (name, description, owner, password) VALUES ('$name','$des','$owner','$pass')");
+			$write = mysql_query("INSERT INTO classes (name, description, owner, password) VALUES ('$name','$des','$owner','$pass')");
 			if (!$write){
 				errormessage("Error saving class");
 				
 			}
 			else{
-				header( 'Location: classes.php' );	
+				successmessage('Class has been saved.');	
 			}
 		}
 	}
 	//delete a class
 	if(action == 'delete']){
-		$write = mysql_query("INSERT INTO classes (name, description, owner, password) VALUES ('$name','$des','$owner','$pass')");
-		$delete = mysql_query("DELETE FROM classes WHERE id='$classid'");
-			if (!$delete){
-				errormessage("Error saving class");
-				
-			}
-			else{
-				header( 'Location: classes.php' );	
-			}
+		$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");
+		$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
+		$deletebooks = mysql_query("DELETE * FROM classbooks WHERE classid='$classid'");
+		if (!$deleteclass || !$deletemates || !$deletebooks){
+			errormessage("Error saving class");				
+		}
+		else{
+				successmessage('Class has been deleted.');
 		}
 	}
 
-
-
-
+	if(action == 'addnotes'){
+	
+	//todo
+	
+	}
 else
 	errorMessage('Incorrect post args');
 ?>
