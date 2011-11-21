@@ -7,7 +7,7 @@ include 'includes/membersOnly.php';
 function getClassData($classid)
 {
 	$arr = array();
-	
+	$classid = mysql_real_escape_string($classid);
 	$padRow = mysql_query("SELECT name,description,password,owner FROM classes WHERE id='$classid'");
 	$row = mysql_fetch_assoc($padRow);
 
@@ -32,7 +32,7 @@ function getClassData($classid)
 
 function printAllNotepads($classid)
 {
-	$userid = mysql_real_escape_string($userid);
+	$classid = mysql_real_escape_string($classid);
 	$padRow = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
 	$notepadHTML = "";
 	
@@ -47,6 +47,7 @@ function printAllNotepads($classid)
 
 function getNotepadRow($id)
 {
+	$id = mysql_real_escape_string($id);
 	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE id='$id'");
 	$row = mysql_fetch_assoc($padRow);
 	
@@ -82,7 +83,28 @@ function getNotepadRow($id)
 	return $rowHTML;
 }
 
-$class = getClassData($_POST['class']);
+function getAllClasses()
+{
+	$userid = mysql_real_escape_string($_SESSION['id']);
+	$classRow = mysql_query("SELECT name,description,password,id FROM classes WHERE owner='$userid'");
+	$classHTML = "";
+	
+	while ($row = mysql_fetch_assoc($classRow))
+	{
+		$classHTML = $classHTML.'
+			<tr>
+				<td>
+					<a href="?class='.$row['id'].'">'.$row['name'].'</a>
+				</td>
+			</tr>
+		';
+	}
+	mysql_free_result($classRow);
+	
+	return $classHTML;
+}
+
+$class = getClassData($_GET['class']);
 ?>
 
 <!DOCTYPE html>
@@ -121,10 +143,25 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
-	<h1>Class: <?php echo $class['name'] ?></h1>
+	<table>
+		<thead>
+			<tr class="head">
+				<td>
+					<strong>Name</strong>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				//Grab our classes
+				echo getAllClasses();
+			?>
+		</tbody>
+	</table>
 	<div id="page_header">
-		<p><a href="#new" onclick="newNotepad()"><img src="img/buttons/pencl_new_large.png" title="New Notepad" alt="New Notepad"></a></p>
+		<p><a href="createClass.php">Create a class</a></p>
 	</div>
+	<h1>Class: <?php echo $class['name'] ?></h1>
 	<div class="notebook">
 		<table>
 			<thead>
