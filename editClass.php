@@ -16,9 +16,6 @@ function addsuccess($success){
 	$successarray[] = $success;
 }
 	$classid = $_GET['classid'];
-	$getclass = mysql_query("SELECT * FROM classes WHERE id= '$classid'");
-	$row = mysql_fetch_assoc($getclass);
-	
 	if($_POST['edit']){
 		$canedit = true;
 		$name = mysql_real_escape_string($_POST['classname']);
@@ -42,6 +39,8 @@ function addsuccess($success){
 		}
 		}
 	}
+	$getclass = mysql_query("SELECT * FROM classes WHERE id= '$classid'");
+	$row = mysql_fetch_assoc($getclass);
 		
 ?>
 <!DOCTYPE html>
@@ -108,4 +107,5 @@ include 'includes/topbar.php';
 </div>
 </div>
 </body>
+<?php mysql_free_result($row);?>
 </html>
