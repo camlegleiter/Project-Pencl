@@ -116,14 +116,30 @@ function getUserLevelStr($level){
 	return $level;
 }
 function getUserLevel($userid){
+	$userid = mysql_real_escape_string($userid);
 	$extract = mysql_query("SELECT 1 FROM admins WHERE userid='$userid'");
 	$numrows = mysql_num_rows($extract);
 	if($numrows == 0){
 		return 99;
 	}
 	else{
-	$line = mysql_fetch_assoc($extract);
+		$line = mysql_fetch_assoc($extract);
 		return $line['level'];
+	}
+
+}
+
+function getUsername($userid)
+{
+	$userid = mysql_real_escape_string($userid);
+	$extract = mysql_query("SELECT 1 FROM users WHERE userid='$userid'");
+	$numrows = mysql_num_rows($extract);
+	if($numrows == 0){
+		return '!NOT A USER!';
+	}
+	else{
+		$line = mysql_fetch_assoc($extract);
+		return $line['username'];
 	}
 
 }
