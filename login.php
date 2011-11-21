@@ -35,9 +35,6 @@ include 'includes/tracker.php';
 //Must be first thing in the <body> tag to function correctly
 include 'includes/topbar.php';
 ?>
-
-<br>
-<br>
 <div class="bookcontainer">		
 	<div class="book">
 		<div class="page">

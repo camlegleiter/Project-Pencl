@@ -15,28 +15,31 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-	if($_POST['save']){
-		$cansave = true;
+	$classid = $_GET['classid'];
+	$getclass = mysql_query("SELECT * FROM classes WHERE id= '$classid'");
+	$row = mysql_fetch_assoc($getclass);
+	
+	if($_POST['edit']){
+		$canedit = true;
 		$name = mysql_real_escape_string($_POST['classname']);
 		$des = mysql_real_escape_string($_POST['des']);
 		$pass = mysql_real_escape_string($_POST['pass']);
 		$owner = $_SESSION['id'];
 		if($name == ''){
 			adderror('No class name given.');
-			$cansave = false;
+			$canedit = false;
 		}
 		if($pass == ''){
 			$pass = null;
 		}
-		if($cansave == true){
-		$write = mysql_query("INSERT INTO classes (name, description, owner, password) VALUES ('$name','$des','$owner','$pass')");
-			if (!$write){
-				adderror("Error saving class");
-				
-			}
-			else{
-				header( 'Location: classes.php' );	
-			}
+		if($canedit == true){
+		$write = mysql_query("UPDATE classes SET name='$name' , description='$des' , password='$pass' WHERE id='$classid'");
+		if (!$write){
+			adderror("Error saving class");
+		}
+		else{
+			addsuccess('Class has been edited.');
+		}
 		}
 	}
 		
@@ -68,7 +71,7 @@ include 'includes/topbar.php';
 	<div class="book">
 		<div class="page">
 	<?php
-		echo "<h1>Create a Class.</h1>";
+		echo "<h1>Edit Class.</h1>";
 		
 		if ($errorarray)
 		{
@@ -87,17 +90,17 @@ include 'includes/topbar.php';
 	<form class="clearfix" action="" method="post">
 		<div>
 		<label class="grey" for="classname">Class Name:</label>
-		<input class="field" type="text" name="classname" id="text" size="23" />
+		<input class="field" type="text" name="classname" id="text" size="23" value ="<?php echo $row['name'] ?>"/>
 		</div>
 		<div>
 		<label class="grey" for="Description">Description:</label>
-		<input class="field" type="text" name="des" id="text" size="23" />
+		<input class="field" type="text" name="des" id="text" size="23" value ="<?php echo $row['description'] ?>"/>
 		</div>
 		<div>
 		<label class="grey" for="pass">Password(Optional):</label>
-		<input class="field" type="password" name="pass" id="password" size="23" />
+		<input class="field" type="text" name="pass" id="text" size="23" value ="<?php echo $row['password'] ?>"/>
 		</div>
-		<input type="submit" name="save" value="Save Class" />
+		<input type="submit" name="edit" value="Edit Class" />
         <input type="button" name="cancel" value="Cancel" onClick="window.history.back()" />
 	</form>
 <!--</div>-->

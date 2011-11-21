@@ -67,8 +67,8 @@ function getNotepadRow($id,$classid)
 					'.$row['created'].'
 				</td>
 				<td align="center">
-					<a href="#export" onClick="alert(\'Coming soon!\')">
-						<img src="img/buttons/pencl_export.png" title="Export" alt="Export">
+					<a href="editClass.php?classid='.$classid.'">
+						<img src="img/buttons/pencl_edit.png" title="Edit" alt="Edit">
 					</a>
 					<a href="#delete" onClick="alert(\'Coming soon!\')">
 						<img src="img/buttons/pencl_delete.png" title="Delete" alt="Delete">

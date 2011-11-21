@@ -50,36 +50,52 @@ if (!defined("LOGGEDIN")) {
 	<a href="login.php?register=1">Register</a>
 	';
 }
-else if (defined("CANVAS"))
+else 
 {
+	//Always give selection
 	echo '
-	<a href="noteselection.php">Notepad Selection</a>
-	<a href="#save" onclick="writeToFile()">Save</a>
+	<a href="noteselection.php">Notes</a>
 	';
-}
-else
-{
+	
+	if (defined("CANVAS"))
+	{
+		echo '
+		<a href="#save" onclick="writeToFile()">Save</a>
+		';
+	}
+
+	//=====================
+	// USER LEVEL STUFF
+	//=====================
+	$userLevel = getUserLevel($_SESSION['id']);
+
+	//Access:
+	//  Teacher
+	//  Admin
+	//  Webmaster
+	if ($userLevel >= 0 && $userLevel <= 2)
+	{
+		//Teacher
+		echo'
+			<p class="line"></p>
+			<a href="classes.php">Classes</a>
+			';
+		
+		//Webmaster and Admin stuff
+		if($userLevel == 0 || $userLevel == 1){
+			echo'
+			<a href="admin.php">Admin</a>
+			';
+		}
+	}
+	
+
+	//Always give settings and logout
 	echo '
+	<p class="line"></p>
 	<a href="settings.php?redirect='.urlencode($_SERVER['REQUEST_URI']).'">Settings</a>
+	<a href="logout.php">Logout</a>
 	';
-}
-
-$userLevel = getUserLevel($_SESSION['id']);
-
-if($userLevel >= 0 && $userLevel <= 2){
-	echo'
-	<a href="classes.php">Manage Classes</a>
-	';
-}
-
-if($userLevel == 0 || $userLevel == 1){
-	echo'
-	<a href="admin.php">Admin</a>
-	';
-}
-
-if (defined("LOGGEDIN")) {
-	echo '<a href="logout.php">Logout</a>';
 }
 ?>
 </span>
