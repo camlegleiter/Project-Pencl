@@ -6,6 +6,13 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
+$level = getUserLevel($_SESSION['id']);
+if ($level != 0 && $level != 1)
+{
+	header("Location: noteselection.php");
+	exit;
+}
+
 
 if(!empty($_GET['p'])){
 	$pagenumber = $_GET['p'];
@@ -86,11 +93,6 @@ function showNumItems($num){
 }
 
 ?>
-
-<?php
-include_once 'includes/functions.php';
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
