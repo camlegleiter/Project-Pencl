@@ -60,6 +60,8 @@ if (!isset($_GET['id'])) {
 					external_link_list_url : "lists/link_list.js",
 					external_image_list_url : "lists/image_list.js",
 					media_external_list_url : "lists/media_list.js",
+
+					oninit: loadTinyMCEContent
 				});
 
 				setTimeout("autosave()", 10000);
@@ -107,7 +109,7 @@ if (!isset($_GET['id'])) {
 			}
 
 			// Save content from editor into the file
-			function writeToFile() {
+			function saveTinyMCEContent() {
 				save();
 				// Show progress
 				tinymce.get('elm1').setProgressState(1);
@@ -184,37 +186,35 @@ if (!isset($_GET['id'])) {
 include 'includes/topbar_header.php';
 ?>
 	</head>
-	<body onload="setTimeout('loadTinyMCEContent()', 1000);" onunload="writeToFile();">
-		<!--<div class="desk">-->
-			<?php
-			//Must be first thing in the <body> tag to function correctly
-			define("CANVAS", true);
-			include 'includes/topbar.php';
-			?>
-			<div id="main">
-				<div id="page_header">
-					<h1 id="notepadTitle"></h1>
-				</div>
-				<div id="middle">
-					<div id="container">
-						<textarea id="elm1" name="elm1" rows="15" cols="80" class="tinymce">
-						</textarea>
-					</div>
-				</div>
-				<div id="left">
-					<div class="object" id="eraser"></div>
-					<div class="object" id="marker"></div>
-					<div class="object" id="pencil"></div>
-				</div>
-				<div id="right">
-					<div class="object" id="light">
-						<div class="object" id="switch"></div>
-					</div>
-					<!--<div class="light_source"></div>-->
-					<div class="object" id="phone"></div>
-					<div class="object" id="coffee"></div>
+	<body onunload="saveTinyMCEContent();">
+<?php
+//Must be first thing in the <body> tag to function correctly
+define("CANVAS", true);
+include 'includes/topbar.php';
+?>
+		<div id="main">
+			<div id="page_header">
+				<h1 id="notepadTitle"></h1>
+			</div>
+			<div id="middle">
+				<div id="container">
+					<textarea id="elm1" name="elm1" rows="15" cols="80" class="tinymce">
+					</textarea>
 				</div>
 			</div>
-		<!--</div>-->
+			<div id="left">
+				<div class="object" id="eraser"></div>
+				<div class="object" id="marker"></div>
+				<div class="object" id="pencil"></div>
+			</div>
+			<div id="right">
+				<div class="object" id="light">
+					<div class="object" id="switch"></div>
+				</div>
+				<!--<div class="light_source"></div>-->
+				<div class="object" id="phone"></div>
+				<div class="object" id="coffee"></div>
+			</div>
+		</div>
 	</body>
 </html>
