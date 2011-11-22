@@ -165,8 +165,16 @@ include 'includes/topbar.php';
 			//Display table only if we are displaying a class
 			//Start display
 			if (is_numeric($_GET['class'])) {
+				echo '<h1>Class: <strong>'.$class['name'].'</strong> ';
+				echo '<a href="editClass.php?classid='.$class['id'].'">(Edit)</a>';
+				if (strlen($class['password']) > 0)
+				{
+					echo '<img src="img/buttons/pencl_lock.png" title="Password Protected" alt="(Password Protected)">';
+				}
+				echo '</h1>';
+				echo '<p>Description: '.$class['description'].'</p>';
 			?>
-				<h1>Class: <strong><?php echo $class['name'] ?></strong> <a href="editClass.php?classid=<?php echo $class['id'] ?>">(Edit)</a></h1>
+				<br>
 				<div class="notebook">
 					<table>
 						<thead>
