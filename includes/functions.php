@@ -132,7 +132,7 @@ function getUserLevel($userid){
 function getUsername($userid)
 {
 	$userid = mysql_real_escape_string($userid);
-	$extract = mysql_query("SELECT 1 FROM users WHERE userid='$userid'");
+	$extract = mysql_query("SELECT username FROM users WHERE userid='$userid'");
 	$numrows = mysql_num_rows($extract);
 	if($numrows == 0){
 		return '!NOT A USER!';
