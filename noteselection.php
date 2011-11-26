@@ -99,6 +99,18 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
+	<?php 
+		if ($_SESSION['msg']['err'])
+		{
+			echo '<h1 class="error">'.$_SESSION['msg']['err'].'</h1>';
+			unset($_SESSION['msg']['err']);
+		}
+		if ($_SESSION['msg']['success'])
+		{
+			echo '<h1 class="success">'.$_SESSION['msg']['success'].'</h1>';
+			unset($_SESSION['msg']['success']);
+		}
+	?>
 	<h1>Which notepad would you like to open?</h1>
 	<div id="page_header">
 		<p><a href="#new" onclick="newNotepad()"><img src="img/buttons/pencl_new_large.png" title="New Notepad" alt="New Notepad"></a></p>
@@ -134,6 +146,71 @@ include 'includes/topbar.php';
 	</div>
 	<br>
 	<p>Tip: Choose other options in the drop down menu at the top-right!</p>
+	<br>
+	<h1>Class Notepads:</h1>
+	<h2>Class name #1</h2>
+	<h3>Class description...</h3>
+	<div class="notebook">
+		<table>
+			<thead>
+				<tr class="head">
+					<td>
+						<!-- Preview -->
+					</td>
+					<td>
+						<strong>Notepad</strong>
+					</td>
+					<td>
+						<strong>Modified</strong>
+					</td>
+					<td>
+						<strong>Created</strong>
+					</td>
+					<td>
+						<strong>Options</strong>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					//Grab our notepads
+					//echo printAllNotepads($_SESSION['id']);
+				?>
+			</tbody>
+		</table>
+	</div>
+	<h2>Class name #2</h2>
+	<h3>Class description...</h3>
+	<div class="notebook">
+		<table>
+			<thead>
+				<tr class="head">
+					<td>
+						<!-- Preview -->
+					</td>
+					<td>
+						<strong>Notepad</strong>
+					</td>
+					<td>
+						<strong>Modified</strong>
+					</td>
+					<td>
+						<strong>Created</strong>
+					</td>
+					<td>
+						<strong>Options</strong>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					//Grab our notepads
+					//echo printAllNotepads($_SESSION['id']);
+				?>
+			</tbody>
+		</table>
+	</div>
+	
 </div>
 <div class="popup" id="newPopup" style="display:none">
 	<div class="header">
