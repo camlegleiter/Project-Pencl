@@ -47,11 +47,29 @@ function printAllNotepads($classid)
 	
 	return $notepadHTML;
 }
+function printAllStudents($classid)
+{
+	
+	$classid = mysql_real_escape_string($classid);
+	$padRow = mysql_query("SELECT userid FROM classmates WHERE classid='$classid'");
+	$notepadHTML = "";
+	$num = 1;
+	
+	while ($row = mysql_fetch_assoc($padRow))
+	{
+		$notepadHTML = $notepadHTML.getStudentRow($row['userid'],$classid,$num);
+		$num++;
+	}
+	mysql_free_result($padRow);
+	
+	return $notepadHTML;
+}
+
 
 function getNotepadRow($id,$classid)
 {
 	$id = mysql_real_escape_string($id);
-	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE id='$id'");
+	$padRow = mysql_query("SELECT name,description,created,modified,userid FROM notebooks WHERE id='$id'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
@@ -61,6 +79,9 @@ function getNotepadRow($id,$classid)
 			<tr>
 				<td align="left">
 					<a href="canvas.php?id='.$id.'&classid='.$classid.'">'.$row['name'].'</a>
+				</td>
+				<td align="left">
+					'.getUsername($row['userid']).'
 				</td>
 				<td align="center">
 					'.$row['modified'].'
@@ -79,6 +100,36 @@ function getNotepadRow($id,$classid)
 	mysql_free_result($padRow);
 	return $rowHTML;
 }
+
+function getStudentRow($id,$classid,$num)
+{
+	$id = mysql_real_escape_string($id);
+	$padRow = mysql_query("SELECT username FROM users WHERE userid='$id'");
+	$row = mysql_fetch_assoc($padRow);
+	
+	$rowHTML = '';
+	
+	if($row){
+		$rowHTML = '
+			<tr>
+				<td align="center">
+					'.$num.'
+				</td>
+				<td align="left">
+					'.$row['username'].'
+				</td>
+				<td align="center">
+					<a href="#delete" onClick="alert(\'Coming soon!\')">
+						<img src="img/buttons/pencl_delete.png" title="Remove student from class" alt="Remove">
+					</a>
+				</td>
+			</tr>
+					';
+	}
+	mysql_free_result($padRow);
+	return $rowHTML;
+}
+
 
 function getAllClasses()
 {
@@ -183,6 +234,9 @@ include 'includes/topbar.php';
 									<strong>Notepad</strong>
 								</td>
 								<td>
+									<strong>Creator</strong>
+								</td>
+								<td>
 									<strong>Modified</strong>
 								</td>
 								<td>
@@ -203,6 +257,31 @@ include 'includes/topbar.php';
 				</div>
 				<br>
 				<p>Tip: To add notebooks to this class, share them from your <a href="noteselection.php">notes</a></p>
+				<br>
+				<h1>Students enrolled:</h1>
+				<div class="notebook">
+					<table>
+						<thead>
+							<tr class="head">
+								<td>
+									<strong>#</strong>
+								</td>
+								<td>
+									<strong>Username</strong>
+								</td>
+								<td>
+									<strong>Options</strong>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								//Grab our students
+								echo printAllStudents($_GET['class']);
+							?>
+						</tbody>
+					</table>
+				</div>
 			<?php
 			//End display
 			}
