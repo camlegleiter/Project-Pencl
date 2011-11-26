@@ -33,7 +33,7 @@ if (!isset($_GET['id'])) {
 					
 					// Save functionality
 					save_enablewhendirty : false,
-					save_onsavecallback : "writeToFile",
+					save_onsavecallback : "saveTinyMCEContent",
 					
 					// General options
 					theme : "advanced",
@@ -61,7 +61,7 @@ if (!isset($_GET['id'])) {
 					external_image_list_url : "lists/image_list.js",
 					media_external_list_url : "lists/media_list.js",
 
-					oninit: loadTinyMCEContent
+					oninit: "loadTinyMCEContent"
 				});
 
 				setTimeout("autosave()", 10000);
@@ -121,7 +121,7 @@ if (!isset($_GET['id'])) {
 					data: {
 						action: 'save',
 						notepadid: parseInt(queryObj['id']),
-<?php if(isset($_GET['classid'])) { echo "classid: queryObj['classid'],"; } ?>
+<?php if(isset($_GET['classid'])) { echo "classid: parseInt(queryObj['classid']),"; } ?>
 						content: currentSave
 					},
 					statusCode: {
@@ -153,7 +153,7 @@ if (!isset($_GET['id'])) {
 						url: './util/notepadPost.php',
 						data: {
 							action: 'load',
-<?php if(isset($_GET['classid'])) { echo "classid: queryObj['classid'],"; } ?>
+<?php if(isset($_GET['classid'])) { echo "classid: parseInt(queryObj['classid']),"; } ?>
 							notepadid: parseInt(queryObj['id'])
 						},
 						dataType: "json",
