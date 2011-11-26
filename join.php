@@ -8,14 +8,13 @@ define('INCLUDE_CHECK',true);
 require "includes/connect.php";
 require 'includes/functions.php';
 
-function addUsertoClass()
+function addUsertoClass($userid,$classid)
 {
 
 	//Join em in
-	//$classRow = mysql_query("INSERT INTO name,description,password FROM classes WHERE id='$classid'");
+	$classRow = mysql_query("INSERT INTO classmates (userid,classid) VALUES ('$userid','$classid')");
 	
-	//TODO: Ad user as a classmate
-	
+	$_SESSION['msg']['success'] = 'You are now enrolled in this class.';
 	header("Location: noteselection.php");
 	exit;
 }
@@ -23,6 +22,7 @@ function addUsertoClass()
 $classid = mysql_real_escape_string($_GET['classid']);
 $classRow = mysql_query("SELECT name,description,password,owner FROM classes WHERE id='$classid'");
 $row = mysql_fetch_assoc($classRow);
+mysql_free_result($classRow);
 
 $classarr = array();
 if ($row)
@@ -35,15 +35,28 @@ if ($row)
 	if ($row['owner'] == $_SESSION['id'])
 	{
 		//Already in the class
+		$_SESSION['msg']['err'] = 'You are teaching this class.';
 		header("Location: noteselection.php");
 		exit;
 	}
 	
 	//TODO: See if they are already in the class
+	$userid = mysql_real_escape_string($_SESSION['id']);
+	$classmateRow = mysql_query("SELECT COUNT(*) FROM classmates WHERE classid='$classid' AND userid='$userid'");
+	$cmrow = mysql_fetch_assoc($classmateRow);
+	mysql_free_result($classmateRow);
+	
+	if ($cmrow['COUNT(*)'] != 0)
+	{
+		//User is already enrolled in the class
+		$_SESSION['msg']['err'] = 'You are already enrolled in this class.';
+		header("Location: noteselection.php");
+		exit;
+	}
 	
 	if (strlen($row['password']) == 0)
 	{
-		addUsertoClass();
+		addUsertoClass($userid,$classid);
 	}
 	else
 	{
@@ -52,7 +65,7 @@ if ($row)
 		{
 			if (strcmp($row['password'],$_POST['password']) == 0)
 			{
-				addUsertoClass();
+				addUsertoClass($userid,$classid);
 			}
 			else
 			{
@@ -64,11 +77,11 @@ if ($row)
 }
 else
 {
-	echo mysql_error();
-	$classarr['name'] = 'Error (Name)';
-	$classarr['description'] = 'Error (Description)';
+	$classarr['name'] = 'N/A';
+	$classarr['description'] = '';
 	$classarr['password'] = NULL;
 }
+
 
 ?>
 
