@@ -43,7 +43,7 @@ function getClassRow($userid, $classid)
 				<input type="checkbox" name="share" value="Share" /> Share
 				</td>
 				<td align="left">
-					<a href="canvas.php?id='.$classid.'">'.$row['name'].'</a>
+					'.$row['name'].'
 				</td>
 				<td align="center">
 					'.$row['description'].'
