@@ -10,7 +10,7 @@ function printAllClasses($userid)
 {
 	$userid = mysql_real_escape_string($userid);
 	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
-	$padRow2 = mysql_query("SELECT owner FROM classes WHERE id='$userid'");
+	$padRow2 = mysql_query("SELECT owner FROM classes WHERE owner='$userid'");
 	$classmatesHTML = "";
 	
 	while ($row = mysql_fetch_assoc($padRow2))
