@@ -61,6 +61,141 @@ function getNotepadRow($userid, $id)
 	mysql_free_result($padRow);
 	return $rowHTML;
 }
+
+function printAllClassNotepads($userid)
+{
+	$userid = mysql_real_escape_string($userid);
+	
+	//Print ones they teach (Won't do anything if they are a student...
+	$padRow = mysql_query("SELECT id FROM classes WHERE owner='$userid'");
+	$classHTML = "";
+	
+	while ($row = mysql_fetch_assoc($padRow))
+	{
+		$classHTML = $classHTML.printClassSection($userid, $row['id']);
+	}
+	mysql_free_result($padRow);
+
+	//Print all enrolled courses
+	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
+	
+	while ($row = mysql_fetch_assoc($padRow))
+	{
+		$classHTML = $classHTML.printClassSection($userid, $row['classid']);
+	}
+	mysql_free_result($padRow);
+	
+	return $classHTML;
+}
+
+function printClassSection($userid,$classid)
+{
+	$classHTML = '';
+	
+	$classid = mysql_real_escape_string($classid);
+	$classRow = mysql_query("SELECT name,description,owner,password FROM classes WHERE id='$classid'");
+	$notepadHTML = "";
+	
+	$row = mysql_fetch_assoc($classRow);
+	if ($row) {
+		$ownerHTML = '';
+		//Check to see if they teach this class
+		if ($row['owner'] == $userid)
+		{
+			$classHTML = '<h2>'.$row['name'].' (<a href="classes.php?class='.$classid.'">Manage</a>)</h2>';
+		}
+		else
+		{
+			$classHTML = '<h2>'.$row['name'].'</h2>';
+		}
+		$classHTML = $classHTML.'
+			<h3>'.$row['description'].'</h2>
+			<div class="notebook">
+				<table>
+					<thead>
+						<tr class="head">
+							<td>
+								<!-- Preview -->
+							</td>
+							<td>
+								<strong>Notepad</strong>
+							</td>
+							<td>
+								<strong>Modified</strong>
+							</td>
+							<td>
+								<strong>Created</strong>
+							</td>
+							<td>
+								<strong>Options</strong>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						'.getAllNotepadsFromClass($classid).'
+					</tbody>
+				</table>
+			</div>
+			<br>
+		';
+		
+	}
+	mysql_free_result($classRow);
+	
+	return $classHTML;
+
+}
+
+function getAllNotepadsFromClass($classid)
+{
+	$padRow = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
+	$classHTML = '';
+
+	while ($row = mysql_fetch_assoc($padRow))
+	{
+		$notepadHTML = printNotepad($row['notebookid'],$classid);
+		$classHTML = $classHTML.$notepadHTML;
+	}
+	mysql_free_result($padRow);
+	
+	return $classHTML;
+}
+
+function printNotepad($id,$classid)
+{
+	$id = mysql_real_escape_string($id);
+	$padRow = mysql_query("SELECT name,description,created,modified FROM notebooks WHERE id='$id'");
+	$row = mysql_fetch_assoc($padRow);
+	
+	$rowHTML = '';
+	
+	if($row){
+		$rowHTML = '
+			<tr>
+				<td>
+					<a href="#preview">O</a>
+				</td>
+				<td align="left">
+					<a href="canvas.php?id='.$id.'&classid='.$classid.'">'.$row['name'].'</a>
+				</td>
+				<td align="center">
+					'.$row['modified'].'
+				</td>
+				<td align="center">
+					'.$row['created'].'
+				</td>
+				<td align="center">
+					<a href="export.php?notepadid='.$id.'">
+						<img src="img/buttons/pencl_export.png" title="Export" alt="Export">
+					</a>
+				</td>
+			</tr>
+					';
+	}
+	
+	mysql_free_result($padRow);
+	return $rowHTML;
+}
 ?>
 
 <!DOCTYPE html>
@@ -148,69 +283,9 @@ include 'includes/topbar.php';
 	<p>Tip: Choose other options in the drop down menu at the top-right!</p>
 	<br>
 	<h1>Class Notepads:</h1>
-	<h2>Class name #1</h2>
-	<h3>Class description...</h3>
-	<div class="notebook">
-		<table>
-			<thead>
-				<tr class="head">
-					<td>
-						<!-- Preview -->
-					</td>
-					<td>
-						<strong>Notepad</strong>
-					</td>
-					<td>
-						<strong>Modified</strong>
-					</td>
-					<td>
-						<strong>Created</strong>
-					</td>
-					<td>
-						<strong>Options</strong>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-					//Grab our notepads
-					//echo printAllNotepads($_SESSION['id']);
-				?>
-			</tbody>
-		</table>
-	</div>
-	<h2>Class name #2</h2>
-	<h3>Class description...</h3>
-	<div class="notebook">
-		<table>
-			<thead>
-				<tr class="head">
-					<td>
-						<!-- Preview -->
-					</td>
-					<td>
-						<strong>Notepad</strong>
-					</td>
-					<td>
-						<strong>Modified</strong>
-					</td>
-					<td>
-						<strong>Created</strong>
-					</td>
-					<td>
-						<strong>Options</strong>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-					//Grab our notepads
-					//echo printAllNotepads($_SESSION['id']);
-				?>
-			</tbody>
-		</table>
-	</div>
-	
+	<?php 
+		echo printAllClassNotepads($_SESSION['id']);
+	?>	
 </div>
 <div class="popup" id="newPopup" style="display:none">
 	<div class="header">
