@@ -4,6 +4,38 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
+if (isset($_GET['class']) && isset($_GET['id']))
+{
+	$id = mysql_real_escape_string($_GET['id']);
+	$classid = mysql_real_escape_string($_GET['class']);
+	if (strcmp(strtolower($_GET['delete']), 'notepad') == 0)
+	{
+		//Remove notepad from class
+		$deleted = mysql_query("DELETE FROM classbooks WHERE notebookid='$id' AND classid='$classid'");
+	}
+	else if (strcmp(strtolower($_GET['delete']), 'user') == 0)
+	{
+		//Remove user from class and all his/her notepads from the class
+		$deleteduser = mysql_query("DELETE FROM classmates WHERE userid='$id' AND classid='$classid'");
+		
+		$classnotepads = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
+		while ($row = mysql_fetch_assoc($classnotepads))
+		{
+			$notebook = mysql_query("SELECT userid FROM notebooks WHERE id='".$row['notebookid']."'");
+			$nrow = mysql_fetch_assoc($notebook);
+			mysql_free_result($notebook);
+			
+			if ($nrow)
+			{
+				if ($nrow['userid'] == $id)
+					$deletednotebook = mysql_query("DELETE FROM classbooks WHERE notebookid='".$row['notebookid']."' AND classid='$classid'");
+			}
+		}
+		mysql_free_result($classnotepads);
+
+	}
+}
+
 function getClassData($classid)
 {
 	$arr = array();
@@ -90,7 +122,7 @@ function getNotepadRow($id,$classid)
 					'.$row['created'].'
 				</td>
 				<td align="center">
-					<a href="#delete" onClick="alert(\'Coming soon!\')">
+					<a href="./classes.php?class='.$classid.'&id='.$id.'&delete=notepad" onClick="return confirmRemoveNotepad()">
 						<img src="img/buttons/pencl_delete.png" title="Remove from class" alt="Remove">
 					</a>
 				</td>
@@ -119,7 +151,7 @@ function getStudentRow($id,$classid,$num)
 					'.$row['username'].'
 				</td>
 				<td align="center">
-					<a href="#delete" onClick="alert(\'Coming soon!\')">
+					<a href="./classes.php?class='.$classid.'&id='.$id.'&delete=user" onClick="return confirmRemoveStudent()">
 						<img src="img/buttons/pencl_delete.png" title="Remove student from class" alt="Remove">
 					</a>
 				</td>
@@ -295,172 +327,17 @@ include 'includes/topbar.php';
 		</div>
 	</div>
 </div>
-<div class="popup" id="newPopup" style="display:none">
-	<div class="header">
-		<h1>New Notepad</h1>
-		<div id="buttons">
-			<a id="close"><img src="img/buttons/popup_close.png" title="Close" alt="X"></a>
-		</div>
-	</div>
-	<div class="content">
-		<form>
-			<p>Name:</p>
-			<input type="text" name="Name" id="NotepadName" size="30" maxlength="30"><br>
-			<p>Description:</p>
-			<textarea cols="45" rows="5" name="Description" id="NotepadDesc" maxlength="256"></textarea><br>
-		</form>
-		<p>When you create this notepad, you will be directed right to the editting page.</p>
-	</div>
-	<div class="footer">
-		<a href="#" onclick="createNotepad()">Create!</a>
-	</div>
-</div>
-<div class="popup" id="editPopup" style="display:none">
-	<div class="header">
-		<h1>Edit Notepad</h1>
-		<div id="buttons">
-			<a id="close"><img src="img/buttons/popup_close.png" title="Close" alt="X"></a>
-		</div>
-	</div>
-	<div class="content">
-		<form>
-			<p>Name:</p>
-			<input type="text" name="Name" id="NotepadName" size="30" maxlength="30"><br>
-			<p>Description:</p>
-			<textarea cols="45" rows="5" name="Description" id="NotepadDesc" maxlength="256"></textarea><br>
-		</form>
-		<p>When you create this notepad, you will be directed right to the editting page.</p>
-	</div>
-	<div class="footer">
-		<a href="#" id="save">Save</a>
-	</div>
-</div>
-
 <script type="text/javascript">
-	$('#newPopup').jqm();
-	$('#newPopup').jqmAddClose($('#newPopup .header #buttons #close'));
-	$('#editPopup').jqm();
-	$('#editPopup').jqmAddClose($('#editPopup .header #buttons #close'));
-	function newNotepad()
-	{
-		$('#newPopup .content form #NotepadName').val('');
-		$('#newPopup .content form #NotepadDesc').val('');
-		$('#newPopup').jqmShow();
-		$('#newPopup .content form #NotepadName').focus();
-	}
-	function createNotepad()
-	{
-		$.ajax({
-			type: 'POST',
-			url: './util/notepadPost.php',
-			data: {
-				action: 'create',
-				notepadname: $('#newPopup .content form #NotepadName').val(),
-				notepaddesc: $('#newPopup .content form #NotepadDesc').val()
-			},
-			dataType: "json",
-			statusCode: {
-				404: function() {
-					alert('Page not found!');
-				},
-				409: function(jqXHR, status, error) {
-					alert('Error: ' + error);
-				},
-				200: function(data) {
-					//Redirect to canvas
-					window.location = "./canvas.php?id="+data.notepadid;
-				}
-			}
-		});
-	}
-	function renameNotepad(id, save)
-	{
-		if (!save)
-		{
-			//Fetch our data
-			$.ajax({
-				type: 'POST',
-				url: './util/notepadPost.php',
-				data: {
-					action: 'getrename',
-					notepadid: id
-				},
-				dataType: "json",
-				statusCode: {
-					404: function() {
-						alert('Page not found!');
-					},
-					409: function(jqXHR, status, error) {
-						alert('Error: ' + error);
-					},
-					200: function(data) {
-						$('#editPopup .content form #NotepadName').val(data.notepadname);
-						$('#editPopup .content form #NotepadDesc').val(data.notepaddesc);
-						//Clear click events
-						$('#editPopup .footer #save').unbind('click');
-						//Set new click event
-						$('#editPopup .footer #save').click(function() {renameNotepad(id,true)});
-						$('#editPopup').jqmShow();
-						$('#editPopup .content form #NotepadName').focus();
-					}
-				}
-			});
-		}
-		else
-		{
-			//Save our data
-			$.ajax({
-				type: 'POST',
-				url: './util/notepadPost.php',
-				data: {
-					action: 'rename',
-					notepadid: id,
-					notepadname: $('#editPopup .content form #NotepadName').val(),
-					notepaddesc: $('#editPopup .content form #NotepadDesc').val()
-				},
-				dataType: "json",
-				statusCode: {
-					404: function() {
-						alert('Page not found!');
-					},
-					409: function(jqXHR, status, error) {
-						alert('Error: ' + error);
-					},
-					200: function(data) {
-						alert('Saved!');
-						$('#editPopup').jqmHide();
-						window.location.reload();
-					}
-				}
-			});
-		}
-	}
-	function deleteNotepad(id)
-	{
-		if (confirm("Do really want to delete this notepad?"))
-		{
-			$.ajax({
-				type: 'POST',
-				url: './util/notepadPost.php',
-				data: {
-					action: 'delete',
-					notepadid: id
-				},
-				statusCode: {
-					404: function() {
-						alert('Page not found!');
-					},
-					409: function(jqXHR, status, error) {
-						alert('Error: ' + error);
-					},
-					200: function(data) {
-						//Reload page
-						window.location.reload();
-					}
-				}
-			});
-		}
-	}
+
+function confirmRemoveStudent()
+{
+	return confirm('Are you sure you want to remove this student?\nAll notepads linking to this student will also be removed!');
+}
+function confirmRemoveNotepad()
+{
+	return confirm('Are you sure you want to remove this notepad?');
+}
 </script>
+
 </body>
 </html>
