@@ -2,9 +2,10 @@
 1. Get share.php working
 	- Needs the table encapsulated in a form with a submit button.
 	- Needs to put the correct row into the classbooks table
-2. Implement deleting a student from a class
-3. Implement removing a notebook from a class
-4. Implement deleting a class
+2. Implement deleting a student from a class (From classes.php)
+2.5. Implement leaving a class (From noteselection.php)
+3. Implement removing a notebook from a class (From classes.php)
+4. Implement deleting a class (From classes.php)
 	- Remove all notebooks in the class from classbooks table
 	- Remove all entries refering to the class in classmates table
 	- Finally, remove row from the class table
