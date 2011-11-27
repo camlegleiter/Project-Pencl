@@ -71,7 +71,7 @@ function findUserid($notebookid,$classid)
 	{
 		mysql_free_result($padCheck);
 		//Get the userid of the notebook
-		$notebook = mysql_query("SELECT userid FROM notebooks WHERE notebookid='$notebookid'");
+		$notebook = mysql_query("SELECT userid FROM notebooks WHERE id='$notebookid'");
 		$row = mysql_fetch_assoc($notebook);
 		if($row['userid'])
 		{
@@ -143,7 +143,11 @@ if (!empty($classid) && !is_numeric($classid))
 =====================================
 */
 //If a class is given, try and find the correct userid
-
+if (!empty($classid))
+{
+	//This sets the global variable to $userid if found
+	findUserid($notepadid,$classid);
+}
 
 
 if($action == 'save'){
