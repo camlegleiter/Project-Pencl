@@ -58,6 +58,16 @@ function findUserid($notebookid,$classid)
 	//Reference our global variable
 	global $userid;
 	
+	//Make sure user is in the class
+	$padCheck = mysql_query("SELECT COUNT(*) FROM classmates WHERE userid='$userid' AND classid='$classid'");
+	$numrows = mysql_fetch_assoc($padCheck);
+	mysql_free_result($padCheck);
+	if($numrows['COUNT(*)'] == 0)
+	{
+		//This notebook isnt with this class
+		errorMessage("You are not enrolled in this class");
+	}
+	
 	//Make sure that this notebook is linked to the class
 	$padCheck = mysql_query("SELECT COUNT(*) FROM classbooks WHERE notebookid='$notebookid' AND classid='$classid'");
 	$numrows = mysql_fetch_assoc($padCheck);
@@ -71,7 +81,7 @@ function findUserid($notebookid,$classid)
 	{
 		mysql_free_result($padCheck);
 		//Get the userid of the notebook
-		$notebook = mysql_query("SELECT userid FROM notebooks WHERE notebookid='$notebookid'");
+		$notebook = mysql_query("SELECT userid FROM notebooks WHERE id='$notebookid'");
 		$row = mysql_fetch_assoc($notebook);
 		if($row['userid'])
 		{
@@ -143,7 +153,11 @@ if (!empty($classid) && !is_numeric($classid))
 =====================================
 */
 //If a class is given, try and find the correct userid
-
+if (!empty($classid))
+{
+	//This sets the global variable to $userid if found
+	findUserid($notepadid,$classid);
+}
 
 
 if($action == 'save'){
