@@ -2,10 +2,10 @@
 1. Get share.php working
 	- Needs the table encapsulated in a form with a submit button.
 	- Needs to put the correct row into the classbooks table
-2. Implement deleting a student from a class (From classes.php)
+[DONE] 2. Implement deleting a student from a class (From classes.php)
 	- Should remove student from classmates table
 	- Should remove all notepads in class that are created by the student in the classbooks table
-2.5. Implement leaving a class (From noteselection.php)
+(Derby) 2.5. Implement leaving a class (From noteselection.php)
 	- Should do the same thing as step 2, except it is volantary
 3. Implement removing a notebook from a class (From classes.php)
 	- Remove notebook reference from classbooks table
@@ -24,5 +24,5 @@
 	- Implement changing a user level (e.g. to a Teacher, or Admin)
 	- Implement viewing of their notepads
 	- Implement deleting a user account
-8. Touch up images on canvas.php (Derby)
+(Derby) 8. Touch up images on canvas.php
 	- Lamp
