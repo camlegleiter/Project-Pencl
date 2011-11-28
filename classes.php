@@ -344,7 +344,7 @@ function deleteClass()
 					url: './util/classPost.php',
 					data: {
 						action: 'delete',
-						classid: parseInt(queryObj['class']),
+						classid: parseInt(queryObj['class'])
 					},
 					statusCode: {
 						404: function() {
