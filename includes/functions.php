@@ -117,7 +117,7 @@ function getUserLevelStr($level){
 }
 function getUserLevel($userid){
 	$userid = mysql_real_escape_string($userid);
-	$extract = mysql_query("SELECT 1 FROM admins WHERE userid='$userid'");
+	$extract = mysql_query("SELECT * FROM admins WHERE userid='$userid'");
 	$numrows = mysql_num_rows($extract);
 	if($numrows == 0){
 		return 99;
