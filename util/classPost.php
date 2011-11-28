@@ -76,7 +76,7 @@ if (!empty($classid) && !is_numeric($classid))
 */
 //If a class is given, try and find the correct userid
 //edit a class
-if(action == 'edit'){
+if($action == 'edit'){
 	$canedit = true;
 	if($name == ''){
 		adderror('No class name given.');
@@ -96,7 +96,7 @@ if(action == 'edit'){
 	}
 }
 //save a class
-else if(action == 'add'){
+else if($action == 'add'){
 	$cansave = true;
 	$nameCheck = mysql_query("SELECT COUNT(*) FROM classes WHERE owner='$owner' AND name='$name'");
 	$numrows = mysql_fetch_assoc($nameCheck);
@@ -123,7 +123,7 @@ else if(action == 'add'){
 	}
 }
 //delete a class
-else if(action == 'delete'){
+else if($action == 'delete'){
 	$deletebooks = mysql_query("DELETE * FROM classbooks WHERE classid='$classid'");
 	$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
 	$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");
@@ -134,7 +134,7 @@ else if(action == 'delete'){
 		successmessage('Class has been deleted.');
 	}
 }
-else if(action == 'addnotes'){
+else if($action == 'addnotes'){
 
 //todo
 
