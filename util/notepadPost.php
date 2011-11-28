@@ -240,6 +240,9 @@ else if($action == 'delete'){
 	$path = buildPath($userid, $notepadid);
 	if (!rrmdir($path))
 		errorMessage("Error deleting notepad (-3)");
+	
+	mysql_query("DELETE FROM classbooks WHERE notebookid=$notepadid");
+
 	successMessage('Notepad deleted');
 }
 else if($action == 'rename'){
