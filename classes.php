@@ -100,10 +100,10 @@ function getNotepadRow($id,$classid)
 					'.getUsername($row['userid']).'
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="./classes.php?class='.$classid.'&id='.$id.'&delete=notepad" onClick="return confirmRemoveNotepad()">
@@ -207,6 +207,7 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
+	<h1>Manage Classes</h1>
 	<div class="twoColumn">
 		<div class="left">
 			<table>
@@ -234,7 +235,7 @@ include 'includes/topbar.php';
 			if (is_numeric($_GET['class'])) {
 				echo '<h1>Class: <strong>'.$class['name'].'</strong> ';
 				echo '<a href="editClass.php?classid='.$class['id'].'">(Edit)</a>';
-				echo '<a href= "#" onclick="deleteClass();"> (Delete Class)</a>';
+				echo '<a href= "#" onclick="deleteClass();"> (Delete)</a>';
 				
 				if (strlen($class['password']) > 0)
 				{
@@ -367,7 +368,9 @@ function deleteClass()
 				});
 				
 	confirmRemoveClass();
-	window.location.reload(true);
+	var url = window.location.href;
+	var newUrl = url.split('?');
+	window.location.href = newUrl[0];
 }
 </script>
 

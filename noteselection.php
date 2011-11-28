@@ -49,10 +49,10 @@ function getNotepadRow($userid, $id)
 					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="#edit" onClick="renameNotepad('.$id.', false)">
@@ -115,11 +115,11 @@ function printClassSection($userid,$classid)
 		//Check to see if they teach this class
 		if ($row['owner'] == $userid)
 		{
-			$classHTML = '<h2>'.$row['name'].' (<a href="classes.php?class='.$classid.'">Manage</a>)</h2>';
+			$classHTML = '<h2>'.$row['name'].' <a href="classes.php?class='.$classid.'">(Manage)</a></h2>';
 		}
 		else
 		{
-			$classHTML = '<h2>'.$row['name'].' (<a href="?leave='.$classid.'" onClick="return leaveClass()">Leave</a>)</h2>';
+			$classHTML = '<h2>'.$row['name'].' <a href="?leave='.$classid.'" onClick="return leaveClass()">(Leave)</a></h2>';
 		}
 		
 		$classHTML = $classHTML.'
@@ -193,10 +193,10 @@ function printNotepad($id,$classid)
 					<a href="canvas.php?id='.$id.'&classid='.$classid.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="export.php?notepadid='.$id.'">

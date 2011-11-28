@@ -164,6 +164,7 @@ include 'includes/tracker.php';
 include 'includes/topbar.php';
 ?>
 <div id="pagewide">
+<h1>Administration Panel</h1>
 <form class="clearfix" action="" method="GET">
 	<input type="text" name="srch">
 	<?php

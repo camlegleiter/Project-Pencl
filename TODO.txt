@@ -12,7 +12,7 @@
 [DONE] 3.5 Implement a user deleting a notebook from noteselection.php so that it will be removed from all classes using it
 	- Add into notepadPost.php ("delete" action)
 	- Search for the notebook id in the classbooks table and just remove it!
-(Taylor) 4. Implement deleting a class (From classes.php)
+[DONE] 4. Implement deleting a class (From classes.php)
 	- Remove all notebooks in the class from classbooks table
 	- Remove all entries refering to the class in classmates table
 	- Finally, remove row from the class table
