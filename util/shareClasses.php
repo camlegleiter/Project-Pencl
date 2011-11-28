@@ -15,12 +15,12 @@ require $TO_ROOT."includes/membersOnly.php";
 	SENDING FUNCTIONS
 =====================================
 */
-function errorMessage($error){
+function errorMessage($error) {
 	header("HTTP/1.1 409".$error);
 	echo $error;
 	exit;
 }
-function successMessage($success){
+function successMessage($success) {
 	echo $success;
 	exit;
 }
@@ -41,7 +41,9 @@ foreach ($classes as $clazz) {
 		// The class already does - warn the user of this
 		$classbook = mysql_query("SELECT name FROM classes WHERE id='$clazz';");
 		$book = mysql_fetch_assoc($classbook);
-		errorMessage("The class " . $book['name'] . " already contains this note");
+		//errorMessage("The class " . $book['name'] . " already contains this note");
+		$errorArray = array("errorMessage" => "The class '" . $book['name'] . "' already contains this note", "classid" => "$clazz");
+		errorMessage(json_encode($errorArray));
 	}
 }
 

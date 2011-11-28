@@ -6,19 +6,16 @@ include 'includes/membersOnly.php';
 
 define('INCLUDE_CHECK', true);
 
-function printAllClasses($userid)
-{
+function printAllClasses($userid) {
 	$userid = mysql_real_escape_string($userid);
 	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
 	$padRow2 = mysql_query("SELECT id FROM classes WHERE owner='$userid'");
 	$classmatesHTML = "";
 	
-	while ($row = mysql_fetch_assoc($padRow2))
-	{
+	while ($row = mysql_fetch_assoc($padRow2)) {
 		$classmatesHTML .= getClassRow($userid, $row['id']);
 	}
-	while ($row = mysql_fetch_assoc($padRow))
-	{
+	while ($row = mysql_fetch_assoc($padRow)) {
 		$classmatesHTML .= getClassRow($userid, $row['classid']);
 	}
 	
@@ -28,25 +25,23 @@ function printAllClasses($userid)
 	return $classmatesHTML;
 }
 
-function getClassRow($userid, $classid)
-{
+function getClassRow($userid, $classid) {
 	$padRow = mysql_query("SELECT name, description FROM classes WHERE id='$classid'");
 	$row = mysql_fetch_assoc($padRow);
 	
 	$rowHTML = '';
 	
-	if($row)
-	{
+	if ($row) {
 		$rowHTML = '
 			<tr>
 				<td>
-				<input type="checkbox" name="share" value="' . $classid . '">
+				<input type="checkbox" name="share" id="' . $classid . '" value="' . $classid . '">
 				</td>
 				<td align="left">
-					'.$row['name'].'
+					' . $row['name'] . '
 				</td>
 				<td align="center">
-					'.$row['description'].'
+					' . $row['description'] . '
 				</td>
 			</tr>
 					';
@@ -104,10 +99,13 @@ function getClassRow($userid, $classid)
 					},
 					statusCode: {
 						200: function() {
-							window.location = "noteselection.php";
+							//window.location = "noteselection.php";
+							$('x');
 						},
 						409: function(error) {
-							alert("Could not share notepads with class - server error: " + error.responseText);
+							var jsonObject = JSON.parse(error.responseText);
+							alert("Could not share notepads with class: " + jsonObject.errorMessage);
+							$('input[id=' + jsonObject.classid + ']').attr('disabled', 'disabled');
 						}
 					}
 				});
