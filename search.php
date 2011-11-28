@@ -145,7 +145,7 @@ include 'includes/topbar.php';
 <div class="notebook">
 <table border="1" cellpadding="5px" style="text-align:center">
 	<thead>
-		<tr>
+		<tr class="head">
 			<th>#</th>
 			<th>Class</th>
 			<th>Description</th>
