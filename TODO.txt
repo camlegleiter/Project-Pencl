@@ -16,9 +16,9 @@
 	- Remove all notebooks in the class from classbooks table
 	- Remove all entries refering to the class in classmates table
 	- Finally, remove row from the class table
-5. Give user a visual cue that they are enrolled in certain classes in the search.php page
+[DONE] 5. Give user a visual cue that they are enrolled in certain classes in the search.php page
 	- Maybe italic?
-6. Give user a visual cue that the notepad they want to share is already shared in a certain class in share.php
+(Cameron) 6. Give user a visual cue that the notepad they want to share is already shared in a certain class in share.php
 	- Maybe italic?
 (Mike) 7. Get the admin.php fully running
 	- Implement changing a user level (e.g. to a Teacher, or Admin)
