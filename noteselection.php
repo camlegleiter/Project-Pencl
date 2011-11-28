@@ -423,7 +423,7 @@ include 'includes/topbar.php';
 					action: 'rename',
 					notepadid: id,
 					notepadname: $('#editPopup .content #NotepadName').val(),
-					notepaddesc: $('#editPopup .content #NotepadDesc').val()
+					notepaddesc: $('#editPopup .content #NotepadDesc').val(),
 				},
 				dataType: "json",
 				statusCode: {
@@ -434,7 +434,6 @@ include 'includes/topbar.php';
 						alert('Error: ' + error);
 					},
 					200: function(data) {
-						alert('Saved!');
 						$('#editPopup').jqmHide();
 						window.location.reload();
 					}

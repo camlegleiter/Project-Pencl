@@ -103,6 +103,16 @@ function findUserid($notebookid,$classid)
 	}
 }
 
+function fixSlashes($content, $FixHTML = false)
+{
+	$content = str_replace("\\\"", "\"", $content);
+	$content = str_replace("\\'", "'", $content);
+	$content = str_replace("\\\\", "\\", $content);
+	if ($FixHTML)
+		$content = htmlentities($content, ENT_QUOTES);
+	return $content;
+}
+
 /*
 =====================================
 	Error Testing
@@ -175,10 +185,7 @@ if($action == 'save'){
 	if (!is_dir($path))
 		mkdir($path, 0777, true);
 
-	$content = str_replace("\\\"", "\"", $content);
-	$content = str_replace("\\'", "'", $content);
-	$content = str_replace("\\\\", "\\", $content);
-	$content = htmlentities($content, ENT_QUOTES);
+	$content = fixSlashes($content, true);
 		
 	$file = fopen($path.$notepadid.'.html', 'w');
 	if (!$file)
@@ -260,6 +267,9 @@ else if($action == 'rename'){
 	//Rename notepad, or change description
 	if (empty($notepadname) && empty($notepaddesc))
 		errorMessage("Must give new name or new description");
+	
+	$notepadname = fixSlashes($notepadname);
+	$notepaddesc = fixSlashes($notepaddesc);
 	
 	//Construct our query string
 	$updateString = "";
