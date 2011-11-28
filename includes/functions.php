@@ -144,4 +144,10 @@ function getUsername($userid)
 
 }
 
+function getNiceTime($date)
+{
+	$datetime = strtotime($date);
+	return date("m/d/y", $datetime).' at '.date("g:i A", $datetime);
+}
+
 ?>

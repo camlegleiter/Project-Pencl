@@ -100,10 +100,10 @@ function getNotepadRow($id,$classid)
 					'.getUsername($row['userid']).'
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="./classes.php?class='.$classid.'&id='.$id.'&delete=notepad" onClick="return confirmRemoveNotepad()">
