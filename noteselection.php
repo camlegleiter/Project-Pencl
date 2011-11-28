@@ -49,10 +49,10 @@ function getNotepadRow($userid, $id)
 					<a href="canvas.php?id='.$id.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="#edit" onClick="renameNotepad('.$id.', false)">
@@ -193,10 +193,10 @@ function printNotepad($id,$classid)
 					<a href="canvas.php?id='.$id.'&classid='.$classid.'">'.$row['name'].'</a>
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="export.php?notepadid='.$id.'">

@@ -40,6 +40,41 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
+
+if($_POST['changelevel']){
+	$lvl = strtolower($_POST['dropdown']);
+	$id = $_POST['id'];
+	$intable = false;
+	$padCheck = mysql_query("SELECT COUNT(*) FROM admins WHERE userid='$id'");
+	$numrows = mysql_fetch_assoc($padCheck);
+	mysql_free_result($padCheck);
+	if($numrows['COUNT(*)'] != 0)
+	{
+		$intable = true;
+	}
+	if(strcmp($lvl, 'lvl1') == 0){
+		if($intable == true){
+			$update = mysql_query("UPDATE admins SET level = 1 WHERE userid='$id'");
+		}
+		else{
+			$insertPad = mysql_query("INSERT INTO admins (userid, level, created) VALUES ('$id',1,NOW())");
+		}
+	}
+	else if(strcmp($lvl, 'lvl2') == 0){
+		if($intable == true){
+			$update = mysql_query("UPDATE admins SET level = 2 WHERE userid='$id'");
+		}
+		else{
+			$insertPad = mysql_query("INSERT INTO admins (userid, level, created) VALUES ('$id',2,NOW())");
+		}
+	}
+	else if(strcmp($lvl, 'lvl3') == 0){
+		if($intable == true){
+			$delete = mysql_query("DELETE FROM admins WHERE userid='$id'");
+		}
+	}
+}
+
 function addrow($userid, $user, $email, $ip){
 	global $rownum;
 	$rownum = $rownum + 1;
@@ -62,12 +97,12 @@ function addrow($userid, $user, $email, $ip){
 				<option value='lvl2'>".getUserLevelStr(2)."</option>
 				<option value='lvl3'>".getUserLevelStr(3)."</option>
 			</select>
-			<input type='submit' value='&gt;'>
+			<input type='submit' value='&gt;' name='changelevel'>
 			</form>
 			</td>
 			<td>$ip</td>
 			<td><a href='#'>Bye Bye</a></td>
-
+			<td>'$levelnum'</td>
 		</tr>";
 }
 

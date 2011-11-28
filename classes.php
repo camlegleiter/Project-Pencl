@@ -100,10 +100,10 @@ function getNotepadRow($id,$classid)
 					'.getUsername($row['userid']).'
 				</td>
 				<td align="center">
-					'.$row['modified'].'
+					'.getNiceTime($row['modified']).'
 				</td>
 				<td align="center">
-					'.$row['created'].'
+					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
 					<a href="./classes.php?class='.$classid.'&id='.$id.'&delete=notepad" onClick="return confirmRemoveNotepad()">
@@ -325,17 +325,26 @@ function confirmRemoveNotepad()
 }
 function confirmRemoveClass()
 {
-	return confirm('Are you sure you want to remove this class?');
+	return confirm('Are you sure you want to Delete?');
 }
 
 function deleteClass()
 {
+	var querystring = location.search.replace('?', '').split('&');
+	var queryObj ={};
+	for (var i = 0; i < querystring.length; i++) {
+				var name = querystring[i].split('=')[0];
+				var value = querystring[i].split('=')[1];
+
+				queryObj[name] = value;
+			}
+			
 	$.ajax({
 					type: 'POST',
 					url: './util/classPost.php',
 					data: {
 						action: 'delete',
-						classid: parseInt(queryObj['classid']),
+						classid: parseInt(queryObj['class'])
 					},
 					statusCode: {
 						404: function() {
@@ -349,6 +358,7 @@ function deleteClass()
 							//tinymce.get('elm1').setProgressState(0);
 						},
 						200: function(data) {
+							alert(data);
 							// Hide progress
 							//window.setTimeout(function() {tinymce.get('elm1').setProgressState(0)}, 500);
 						}
@@ -357,6 +367,9 @@ function deleteClass()
 				});
 				
 	confirmRemoveClass();
+	var url = window.location.href;
+	var newUrl = url.split('?');
+	window.location.href = newUrl[0];
 }
 </script>
 
