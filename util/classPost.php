@@ -63,10 +63,6 @@ if($_POST['print']){
 	ERROR CHECKING
 =====================================
 */
-if (!is_numeric($notepadid) && $action != 'create')
-{
-	errorMessage("notepadid is not an int");
-}
 if (!empty($classid) && !is_numeric($classid))
 {
 	errorMessage("classid is not an int");
@@ -100,7 +96,7 @@ if (!empty($classid) && !is_numeric($classid))
 		}
 	}
 	//save a class
-	if(action == 'add']){
+	if(action == 'add'){
 		$cansave = true;
 		$nameCheck = mysql_query("SELECT COUNT(*) FROM classes WHERE owner='$owner' AND name='$name'");
 		$numrows = mysql_fetch_assoc($nameCheck);
@@ -127,7 +123,7 @@ if (!empty($classid) && !is_numeric($classid))
 		}
 	}
 	//delete a class
-	if(action == 'delete']){
+	if(action == 'delete'){
 		$deletebooks = mysql_query("DELETE * FROM classbooks WHERE classid='$classid'");
 		$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
 		$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");

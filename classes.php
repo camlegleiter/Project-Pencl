@@ -330,12 +330,21 @@ function confirmRemoveClass()
 
 function deleteClass()
 {
+	var querystring = location.search.replace('?', '').split('&');
+	var queryObj ={};
+	for (var i = 0; i < querystring.length; i++) {
+				var name = querystring[i].split('=')[0];
+				var value = querystring[i].split('=')[1];
+
+				queryObj[name] = value;
+			}
+			
 	$.ajax({
 					type: 'POST',
 					url: './util/classPost.php',
 					data: {
 						action: 'delete',
-						classid: parseInt(queryObj['classid']),
+						classid: parseInt(queryObj['class']),
 					},
 					statusCode: {
 						404: function() {
@@ -349,6 +358,7 @@ function deleteClass()
 							//tinymce.get('elm1').setProgressState(0);
 						},
 						200: function(data) {
+							alert(data);
 							// Hide progress
 							//window.setTimeout(function() {tinymce.get('elm1').setProgressState(0)}, 500);
 						}
