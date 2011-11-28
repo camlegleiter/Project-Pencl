@@ -15,11 +15,11 @@ function printAllClasses($userid)
 	
 	while ($row = mysql_fetch_assoc($padRow2))
 	{
-		$classmatesHTML .= 'x' . getClassRow($userid, $row['id']);
+		$classmatesHTML .= getClassRow($userid, $row['id']);
 	}
 	while ($row = mysql_fetch_assoc($padRow))
 	{
-		$classmatesHTML .= 'y' . getClassRow($userid, $row['classid']);
+		$classmatesHTML .= getClassRow($userid, $row['classid']);
 	}
 	
 	mysql_free_result($padRow);
@@ -40,7 +40,7 @@ function getClassRow($userid, $classid)
 		$rowHTML = '
 			<tr>
 				<td>
-				<input type="checkbox" name="share"/>
+				<input type="checkbox" name="share" value="' . $classid . '">
 				</td>
 				<td align="left">
 					'.$row['name'].'
@@ -65,9 +65,54 @@ function getClassRow($userid, $classid)
 		<title>Notepad Selection - Pencl</title>
 
 		<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
-		<link rel="stylesheet" type="text/css" href="css/dialog/jqModal.css">
+		<script type="text/javascript" src="js/jquery/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript">
+			function validateForm() {
+				var notepads = new Array();
+				var querystring = location.search.replace('?', '').split('&');
+				var queryObj = {};
 
-		<script type="text/javascript" src="js/dialog/jqModal.js"></script>
+				// Get the URL querystring values
+				for (var i = 0; i < querystring.length; i++) {
+					var name = querystring[i].split('=')[0];
+					var value = querystring[i].split('=')[1];
+
+					queryObj[name] = value;
+				}
+
+				// Get checkbox elements
+				for (var i = 0; i < document.forms[0].elements.length; i++ ) {
+					if (document.forms[0].elements[i].type == 'checkbox') {
+						if (document.forms[0].elements[i].checked == true) {
+							notepads.push(document.forms[0].elements[i].value);
+						}
+					}
+				}
+				if (notepads.length < 1) {
+					alert("");
+					return false;
+				}
+
+				var jsonString = JSON.stringify(notepads);
+
+				$.ajax({
+					type: "POST",
+					url: "util/shareClasses.php",
+					data: {
+						notepadid: parseInt(queryObj['notepadid']),
+						classes: jsonString
+					},
+					statusCode: {
+						200: function() {
+							window.location = "noteselection.php";
+						},
+						409: function(error) {
+							alert("Could not share notepads with class - server error: " + error.responseText);
+						}
+					}
+				});
+			}
+		</script>
 <?php
 //Must be in header!
 include 'includes/topbar_header.php';
@@ -88,7 +133,7 @@ include 'includes/topbar.php';
 			<h1>Which classes would you like to share with?</h1>
 	
 			<div class="notebook">
-				<form method="POST" action="">
+				<form name="shareForm" method="POST" action="javascript:validateForm()">
 					<table>
 						<thead>
 							<tr class="head">
@@ -112,6 +157,7 @@ include 'includes/topbar.php';
 						</tbody>
 					</table>
 					<input type="submit" value="Submit">
+					<input type="button" value="Cancel" onclick="javascript:window.location='noteselection.php'">
 				</form>
 			</div>
 			<br>
