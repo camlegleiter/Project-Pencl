@@ -367,7 +367,7 @@ function deleteClass()
 				});
 				
 	confirmRemoveClass();
-	history.go(0);
+	window.location.reload(true);
 }
 </script>
 
