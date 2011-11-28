@@ -64,8 +64,15 @@ function findUserid($notebookid,$classid)
 	mysql_free_result($padCheck);
 	if($numrows['COUNT(*)'] == 0)
 	{
-		//This notebook isnt with this class
-		errorMessage("You are not enrolled in this class");
+		//Make sure user teaching the class
+		$padCheck2 = mysql_query("SELECT COUNT(*) FROM classes WHERE owner='$userid' AND id='$classid'");
+		$numrows2 = mysql_fetch_assoc($padCheck2);
+		mysql_free_result($padCheck2);
+		if($numrows2['COUNT(*)'] == 0)
+		{
+			//This notebook isnt with this class
+			errorMessage("You are not enrolled in this class");
+		}
 	}
 	
 	//Make sure that this notebook is linked to the class
