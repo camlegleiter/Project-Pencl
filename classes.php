@@ -234,7 +234,7 @@ include 'includes/topbar.php';
 			if (is_numeric($_GET['class'])) {
 				echo '<h1>Class: <strong>'.$class['name'].'</strong> ';
 				echo '<a href="editClass.php?classid='.$class['id'].'">(Edit)</a>';
-				echo '<a href= "#" onclick="deleteClass();"> (Delete Class)</a>';
+				echo '<a href= "#" onclick="deleteClass();"> (Delete)</a>';
 				
 				if (strlen($class['password']) > 0)
 				{

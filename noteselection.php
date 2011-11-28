@@ -115,11 +115,11 @@ function printClassSection($userid,$classid)
 		//Check to see if they teach this class
 		if ($row['owner'] == $userid)
 		{
-			$classHTML = '<h2>'.$row['name'].' (<a href="classes.php?class='.$classid.'">Manage</a>)</h2>';
+			$classHTML = '<h2>'.$row['name'].' <a href="classes.php?class='.$classid.'">(Manage)</a></h2>';
 		}
 		else
 		{
-			$classHTML = '<h2>'.$row['name'].' (<a href="?leave='.$classid.'" onClick="return leaveClass()">Leave</a>)</h2>';
+			$classHTML = '<h2>'.$row['name'].' <a href="?leave='.$classid.'" onClick="return leaveClass()">(Leave)</a></h2>';
 		}
 		
 		$classHTML = $classHTML.'
