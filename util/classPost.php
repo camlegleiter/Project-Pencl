@@ -128,9 +128,9 @@ if (!empty($classid) && !is_numeric($classid))
 	}
 	//delete a class
 	if(action == 'delete']){
-		$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");
-		$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
 		$deletebooks = mysql_query("DELETE * FROM classbooks WHERE classid='$classid'");
+		$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
+		$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");
 		if (!$deleteclass || !$deletemates || !$deletebooks){
 			errormessage("Error saving class");				
 		}

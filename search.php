@@ -33,7 +33,7 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-function addrow($class, $description, $teacher, $password, $classid){
+function addrow($class, $description, $teacherid, $password, $classid){
 	global $rownum;
 	$rownum = $rownum + 1;
 	
@@ -46,15 +46,42 @@ function addrow($class, $description, $teacher, $password, $classid){
 		$password = '';
 	}
 	
-	return  "
+	$canjoin = true;
+	
+	if ($teacherid == $_SESSION['id'])
+	{
+		$canjoin = false;
+	}
+	else
+	{
+		$classStatus = mysql_query("SELECT * FROM classmates WHERE classid='$classid' AND userid='".mysql_real_escape_string($_SESSION['id'])."'");
+		if (mysql_num_rows($classStatus) != 0)
+		{
+			$canjoin = false;
+		}
+		mysql_free_result($classStatus);
+	}
+	
+	$HTML = "
 	    <tr>
 			<td>$rownum</td>
 			<td>$class</td>
 			<td>$description</td>
-			<td>$teacher</td>
+			<td>".getUsername($teacherid)."</td>
 			<td>$password</td>
-			<td><a href='join.php?classid=".$classid."'>Join</a></td>
+			<td>";
+	if ($canjoin)
+	{
+		$HTML .= "<a href='join.php?classid=".$classid."'>Join</a>";
+	}
+	else
+	{
+		$HTML .= "Enrolled";
+	}
+	$HTML .= "</td>
 		</tr>";
+		
+	return $HTML;
 }
 
 function showNumItems($num){
@@ -116,14 +143,17 @@ include 'includes/topbar.php';
 </form>
 <div class="notebook">
 <table border="1" cellpadding="5px" style="text-align:center">
-	<tr>
-		<th>#</th>
-		<th>Class</th>
-		<th>Description</th>
-		<th>Teacher</th>
-		<th>Password</th>
-		<th></th>
-	</tr>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Class</th>
+			<th>Description</th>
+			<th>Teacher</th>
+			<th>Password</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
 <?php
 	$srch = mysql_real_escape_string($_GET['srch']);
 	if(isSet($srch)){
@@ -138,13 +168,14 @@ include 'includes/topbar.php';
 		if (!$row)
 			break;
 		if($i != $listnumber){
-			echo addrow($row['name'],$row['description'], getUsername($row['owner']), $row['password'], $row['id'] );
+			echo addrow($row['name'],$row['description'], $row['owner'], $row['password'], $row['id'] );
 		}
 		else{
 			$shownext = true;
 		}
 	}
 ?>
+	</tbody>
 </table>
 </div>
 <?php

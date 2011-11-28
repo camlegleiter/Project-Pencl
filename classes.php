@@ -168,11 +168,6 @@ function getAllClasses()
 	return $classHTML;
 }
 
-function deleteClass($classid) {
-	mysql_query("DELETE FROM classes WHERE id = $classid");
-	mysql_query("DELETE FROM classmates WHERE classid = $classid");
-}
-
 $class = getClassData($_GET['class']);
 ?>
 
@@ -239,6 +234,8 @@ include 'includes/topbar.php';
 			if (is_numeric($_GET['class'])) {
 				echo '<h1>Class: <strong>'.$class['name'].'</strong> ';
 				echo '<a href="editClass.php?classid='.$class['id'].'">(Edit)</a>';
+				echo '<a href= "#" onclick="deleteClass();"> (Delete Class)</a>';
+				
 				if (strlen($class['password']) > 0)
 				{
 					echo '<img src="img/buttons/pencl_lock.png" title="Password Protected" alt="(Password Protected)">';
@@ -325,6 +322,41 @@ function confirmRemoveStudent()
 function confirmRemoveNotepad()
 {
 	return confirm('Are you sure you want to remove this notepad?');
+}
+function confirmRemoveClass()
+{
+	return confirm('Are you sure you want to remove this class?');
+}
+
+function deleteClass()
+{
+	$.ajax({
+					type: 'POST',
+					url: './util/classPost.php',
+					data: {
+						action: 'delete',
+						classid: parseInt(queryObj['classid']),
+					},
+					statusCode: {
+						404: function() {
+							alert('Page not found!');
+							// Hide progress
+							//tinymce.get('elm1').setProgressState(0);
+						},
+						409: function(jqXHR, status, error) {
+							alert('Error: ' + error);
+							// Hide progress
+							//tinymce.get('elm1').setProgressState(0);
+						},
+						200: function(data) {
+							// Hide progress
+							//window.setTimeout(function() {tinymce.get('elm1').setProgressState(0)}, 500);
+						}
+					}
+					
+				});
+				
+	confirmRemoveClass();
 }
 </script>
 
