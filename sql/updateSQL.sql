@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS classmates;
 DROP TABLE IF EXISTS classbooks;
 DROP TABLE IF EXISTS classes;
 DROP TABLE IF EXISTS notebooks;
-DROP TABLE IF EXISTS settings;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS coming_soon_emails;
 
@@ -33,11 +32,6 @@ CREATE TABLE notebooks (
 	created DATETIME NOT NULL,
 	modified DATETIME,
 	PRIMARY KEY(id),
-	FOREIGN KEY(userid) references users(userid));
-
-CREATE TABLE settings (
-	userid  INT NOT NULL,          
-	PRIMARY KEY(userid),
 	FOREIGN KEY(userid) references users(userid));
 
 CREATE TABLE coming_soon_emails (
