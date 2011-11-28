@@ -130,6 +130,7 @@ include 'includes/tracker.php';
 include 'includes/topbar.php';
 ?>
 <div id="pagewide">
+<h1>Search for Classes</h1>
 <form class="clearfix" action="" method="GET">
 	<input type="text" name="srch">
 	<?php
