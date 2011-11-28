@@ -36,7 +36,7 @@ if($_POST['success']){
 	successMessage('Success message flag set');
 }
 $action = strtolower((mysql_real_escape_string($_POST['action'])));
-$classid = $_GET['classid'];
+$classid = $_POST['classid'];
 $name = mysql_real_escape_string($_POST['classname']);
 $des = mysql_real_escape_string($_POST['des']);
 $pass = mysql_real_escape_string($_POST['pass']);
@@ -139,7 +139,7 @@ else if($action == 'delete'){
 	{
 		errormessage('classes: '.mysql_error());
 	}
-	successmessage("DELETE FROM classbooks WHERE classid='$classid'\nDELETE FROM classmates WHERE classid='$classid'\DELETE FROM classes WHERE id='$classid'");
+	successmessage("DELETE FROM classbooks WHERE classid='$classid'\nDELETE FROM classmates WHERE classid='$classid'\nDELETE FROM classes WHERE id='$classid'");
 }
 else if($action == 'addnotes'){
 
