@@ -4,6 +4,19 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
+include 'includes/class_functions.php';
+
+if ($_GET['leave'])
+{
+	if (is_numeric($_GET['leave']))
+	{
+		if (removeStudentFromClass($_SESSION['id'], $_GET['leave']))
+			$_SESSION['msg']['success'] = 'You have left the class.';
+		else
+			$_SESSION['msg']['err'] = 'You are not enrolled in this class.';
+	}
+}
+
 function printAllNotepads($userid)
 {
 	$userid = mysql_real_escape_string($userid);
@@ -106,8 +119,9 @@ function printClassSection($userid,$classid)
 		}
 		else
 		{
-			$classHTML = '<h2>'.$row['name'].'</h2>';
+			$classHTML = '<h2>'.$row['name'].' (<a href="?leave='.$classid.'" onClick="return leaveClass()">Leave</a>)</h2>';
 		}
+		
 		$classHTML = $classHTML.'
 			<h3>'.$row['description'].'</h2>
 			<div class="notebook">
@@ -325,6 +339,11 @@ include 'includes/topbar.php';
 </div>
 
 <script type="text/javascript">
+	function leaveClass()
+	{
+		return confirm('Are you sure you want to leave this class?');
+	}
+
 	$('#newPopup').jqm();
 	$('#newPopup').jqmAddClose($('#newPopup .header #buttons #close'));
 	$('#editPopup').jqm();

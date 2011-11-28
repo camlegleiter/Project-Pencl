@@ -4,35 +4,19 @@ include 'includes/headerbarFunctions.php';
 //Include this inside the <head> tag to require user to be logged in to view the page.
 include 'includes/membersOnly.php';
 
+include 'includes/class_functions.php';
+
 if (isset($_GET['class']) && isset($_GET['id']))
 {
-	$id = mysql_real_escape_string($_GET['id']);
-	$classid = mysql_real_escape_string($_GET['class']);
+	
 	if (strcmp(strtolower($_GET['delete']), 'notepad') == 0)
 	{
 		//Remove notepad from class
-		$deleted = mysql_query("DELETE FROM classbooks WHERE notebookid='$id' AND classid='$classid'");
+		removeNotepadFromClass($_GET['id'], $_GET['class']);
 	}
 	else if (strcmp(strtolower($_GET['delete']), 'user') == 0)
 	{
-		//Remove user from class and all his/her notepads from the class
-		$deleteduser = mysql_query("DELETE FROM classmates WHERE userid='$id' AND classid='$classid'");
-		
-		$classnotepads = mysql_query("SELECT notebookid FROM classbooks WHERE classid='$classid'");
-		while ($row = mysql_fetch_assoc($classnotepads))
-		{
-			$notebook = mysql_query("SELECT userid FROM notebooks WHERE id='".$row['notebookid']."'");
-			$nrow = mysql_fetch_assoc($notebook);
-			mysql_free_result($notebook);
-			
-			if ($nrow)
-			{
-				if ($nrow['userid'] == $id)
-					$deletednotebook = mysql_query("DELETE FROM classbooks WHERE notebookid='".$row['notebookid']."' AND classid='$classid'");
-			}
-		}
-		mysql_free_result($classnotepads);
-
+		removeStudentFromClass($_GET['id'], $_GET['class']);
 	}
 }
 
@@ -182,6 +166,11 @@ function getAllClasses()
 	mysql_free_result($classRow);
 	
 	return $classHTML;
+}
+
+function deleteClass($classid) {
+	mysql_query("DELETE FROM classes WHERE id = $classid");
+	mysql_query("DELETE FROM classmates WHERE classid = $classid");
 }
 
 $class = getClassData($_GET['class']);
