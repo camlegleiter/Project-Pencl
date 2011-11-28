@@ -127,19 +127,19 @@ else if($action == 'delete'){
 	$deletebooks = mysql_query("DELETE FROM classbooks WHERE classid='$classid'");
 	if (!$deletebooks)
 	{
-		errormessage('classbooks: '.mysql_error());
+		errormessage('Error trying to remove class. (-1)');
 	}
 	$deletemates = mysql_query("DELETE FROM classmates WHERE classid='$classid'");
 	if (!$deletemates)
 	{
-		errormessage('classmates: '.mysql_error());
+		errormessage('Error trying to remove class. (-2)');
 	}
 	$deleteclass = mysql_query("DELETE FROM classes WHERE id='$classid'");
 	if (!$deleteclass)
 	{
-		errormessage('classes: '.mysql_error());
+		errormessage('Error trying to remove class. (-3)');
 	}
-	successmessage("DELETE FROM classbooks WHERE classid='$classid'\nDELETE FROM classmates WHERE classid='$classid'\nDELETE FROM classes WHERE id='$classid'");
+	successmessage("Class has been removed.");
 }
 else if($action == 'addnotes'){
 
