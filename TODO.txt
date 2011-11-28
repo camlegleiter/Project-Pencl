@@ -5,7 +5,7 @@
 [DONE] 2. Implement deleting a student from a class (From classes.php)
 	- Should remove student from classmates table
 	- Should remove all notepads in class that are created by the student in the classbooks table
-(Derby) 2.5. Implement leaving a class (From noteselection.php)
+[DONE] 2.5. Implement leaving a class (From noteselection.php)
 	- Should do the same thing as step 2, except it is volantary
 [DONE] 3. Implement removing a notebook from a class (From classes.php)
 	- Remove notebook reference from classbooks table
