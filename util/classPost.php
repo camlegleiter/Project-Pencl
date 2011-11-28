@@ -139,7 +139,7 @@ else if($action == 'delete'){
 	{
 		errormessage('classes: '.mysql_error());
 	}
-	successmessage('Class has been deleted.');
+	successmessage("DELETE FROM classbooks WHERE classid='$classid'\nDELETE FROM classmates WHERE classid='$classid'\DELETE FROM classes WHERE id='$classid'");
 }
 else if($action == 'addnotes'){
 
