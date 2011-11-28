@@ -184,6 +184,11 @@ function getAllClasses()
 	return $classHTML;
 }
 
+function deleteClass($classid) {
+	mysql_query("DELETE FROM classes WHERE id = $classid");
+	mysql_query("DELETE FROM classmates WHERE classid = $classid");
+}
+
 $class = getClassData($_GET['class']);
 ?>
 
