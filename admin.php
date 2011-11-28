@@ -40,7 +40,7 @@ function addsuccess($success){
 	global $successarray;
 	$successarray[] = $success;
 }
-
+//Changes the level of a user
 if($_POST['changelevel']){
 	$lvl = strtolower($_POST['dropdown']);
 	$id = $_POST['id'];
@@ -74,7 +74,21 @@ if($_POST['changelevel']){
 		}
 	}
 }
-
+//Deletes a user and all of his/her likeness in the system
+if($_GET['userid']){
+	$id = $_GET['userid'];
+	$delete = mysql_query("DELETE * FROM admins WHERE userid='$id'");
+	$delete = mysql_query("DELETE * FROM classes WHERE owner='$id'");
+	$delete = mysql_query("DELETE * FROM classmates WHERE userid='$id'");
+	$delete = mysql_query("DELETE * FROM users WHERE userid='$id'");
+	$notepads = mysql_query("SELECT * FROM notebooks WHERE userid='$userid'");
+	$row = mysql_fetch_assoc($notepads);
+	while($row){
+		$num = $row['id'];
+		$delete = mysql_query("DELETE * FROM classbooks WHERE notebookid='$num'");
+		$delete = mysql_query("DELETE * FROM notebooks WHERE id='$num'");
+	}
+}
 function addrow($userid, $user, $email, $ip){
 	global $rownum;
 	$rownum = $rownum + 1;
@@ -101,8 +115,7 @@ function addrow($userid, $user, $email, $ip){
 			</form>
 			</td>
 			<td>$ip</td>
-			<td><a href='#'>Bye Bye</a></td>
-			<td>'$levelnum'</td>
+			<td><a href='?userid=$userid'>'Delete User'</a></td>
 		</tr>";
 }
 
