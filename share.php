@@ -69,6 +69,7 @@ function getClassRow($classid) {
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Notepad Selection - Pencl</title>
 
+		<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="css/styles.css" media="screen">
 		<script type="text/javascript" src="js/jquery/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript">
