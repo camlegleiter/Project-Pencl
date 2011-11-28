@@ -1,5 +1,5 @@
 ﻿Things to do (In order of importance):
-(Cameron) 1. Get share.php working
+[DONE] 1. Get share.php working
 	- Needs the table encapsulated in a form with a submit button.
 	- Needs to put the correct row into the classbooks table
 [DONE] 2. Implement deleting a student from a class (From classes.php)
@@ -24,5 +24,5 @@
 	- Implement changing a user level (e.g. to a Teacher, or Admin)
 	- Implement viewing of their notepads
 	- Implement deleting a user account
-(Derby) 8. Touch up images on canvas.php
+[DONE] 8. Touch up images on canvas.php
 	- Lamp
