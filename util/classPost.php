@@ -125,14 +125,21 @@ else if($action == 'add'){
 //delete a class
 else if($action == 'delete'){
 	$deletebooks = mysql_query("DELETE * FROM classbooks WHERE classid='$classid'");
+	if (!$deletebooks)
+	{
+		errormessage('classbooks: '.mysql_error());
+	}
 	$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
+	if (!$deletemates)
+	{
+		errormessage('classmates: '.mysql_error());
+	}
 	$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");
-	if (!$deleteclass || !$deletemates || !$deletebooks){
-		errormessage("Error saving class");				
+	if (!$deleteclass)
+	{
+		errormessage('classes: '.mysql_error());
 	}
-	else{
-		successmessage('Class has been deleted.');
-	}
+	successmessage('Class has been deleted.');
 }
 else if($action == 'addnotes'){
 
