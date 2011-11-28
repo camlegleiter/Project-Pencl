@@ -124,22 +124,22 @@ else if($action == 'add'){
 }
 //delete a class
 else if($action == 'delete'){
-	$deletebooks = mysql_query("DELETE * FROM classbooks WHERE classid='$classid'");
+	$deletebooks = mysql_query("DELETE FROM classbooks WHERE classid='$classid'");
 	if (!$deletebooks)
 	{
 		errormessage('classbooks: '.mysql_error());
 	}
-	$deletemates = mysql_query("DELETE * FROM classmates WHERE classid='$classid'");
+	$deletemates = mysql_query("DELETE FROM classmates WHERE classid='$classid'");
 	if (!$deletemates)
 	{
 		errormessage('classmates: '.mysql_error());
 	}
-	$deleteclass = mysql_query("DELETE * FROM classes WHERE id='$classid'");
+	$deleteclass = mysql_query("DELETE FROM classes WHERE id='$classid'");
 	if (!$deleteclass)
 	{
 		errormessage('classes: '.mysql_error());
 	}
-	successmessage('Class has been deleted.');
+	successmessage("DELETE FROM classbooks WHERE classid='$classid'\nDELETE FROM classmates WHERE classid='$classid'\DELETE FROM classes WHERE id='$classid'");
 }
 else if($action == 'addnotes'){
 
