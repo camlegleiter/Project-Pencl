@@ -1,5 +1,5 @@
 ﻿Things to do (In order of importance):
-(Cameron) 1. Get share.php working
+[DONE] 1. Get share.php working
 	- Needs the table encapsulated in a form with a submit button.
 	- Needs to put the correct row into the classbooks table
 [DONE] 2. Implement deleting a student from a class (From classes.php)
@@ -9,7 +9,7 @@
 	- Should do the same thing as step 2, except it is volantary
 [DONE] 3. Implement removing a notebook from a class (From classes.php)
 	- Remove notebook reference from classbooks table
-(Derby) 3.5 Implement a user deleting a notebook from noteselection.php so that it will be removed from all classes using it
+[DONE] 3.5 Implement a user deleting a notebook from noteselection.php so that it will be removed from all classes using it
 	- Add into notepadPost.php ("delete" action)
 	- Search for the notebook id in the classbooks table and just remove it!
 (Taylor) 4. Implement deleting a class (From classes.php)
@@ -24,5 +24,5 @@
 	- Implement changing a user level (e.g. to a Teacher, or Admin)
 	- Implement viewing of their notepads
 	- Implement deleting a user account
-(Derby) 8. Touch up images on canvas.php
+[DONE] 8. Touch up images on canvas.php
 	- Lamp

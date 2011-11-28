@@ -157,6 +157,7 @@ if (!empty($classid))
 {
 	//This sets the global variable to $userid if found
 	findUserid($notepadid,$classid);
+	
 }
 
 
@@ -231,6 +232,9 @@ else if($action == 'load'){
 	successMessage(json_encode($arr));
 }
 else if($action == 'delete'){
+	//Delete any references to the notebook
+	mysql_query("DELETE FROM classbooks WHERE notebookid=$notepadid");
+
 	$deletePad = mysql_query("DELETE FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
 	$deletedRows = mysql_affected_rows();
 	if ($deletedRows > 1)
@@ -240,6 +244,9 @@ else if($action == 'delete'){
 	$path = buildPath($userid, $notepadid);
 	if (!rrmdir($path))
 		errorMessage("Error deleting notepad (-3)");
+	
+	
+
 	successMessage('Notepad deleted');
 }
 else if($action == 'rename'){
