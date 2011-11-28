@@ -19,7 +19,7 @@ function printAllClasses($userid) {
 		$classDisplay .= getClassRow($row['classid']);
 	}
 	
-	mysql_free_result($padRow);
+	mysql_free_result($padRow1);
 	mysql_free_result($padRow2);
 
 	if (empty($classDisplay)) {
@@ -54,8 +54,9 @@ function getClassRow($classid) {
 				</td>
 			</tr>
 					';
+		mysql_free_result($padRow);
 	}
-	mysql_free_result($padRow);
+	
 	return $rowHTML;
 }
 ?>
