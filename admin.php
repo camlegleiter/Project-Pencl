@@ -74,20 +74,46 @@ if($_POST['changelevel']){
 		}
 	}
 }
-//Deletes a user and all of his/her likeness in the system
-if($_GET['userid']){
-	$id = $_GET['userid'];
-	$delete = mysql_query("DELETE * FROM admins WHERE userid='$id'");
-	$delete = mysql_query("DELETE * FROM classes WHERE owner='$id'");
-	$delete = mysql_query("DELETE * FROM classmates WHERE userid='$id'");
-	$delete = mysql_query("DELETE * FROM users WHERE userid='$id'");
-	$notepads = mysql_query("SELECT * FROM notebooks WHERE userid='$userid'");
-	$row = mysql_fetch_assoc($notepads);
-	while($row){
-		$num = $row['id'];
-		$delete = mysql_query("DELETE * FROM classbooks WHERE notebookid='$num'");
-		$delete = mysql_query("DELETE * FROM notebooks WHERE id='$num'");
+
+function buildPath($userid){
+	//return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
+	return $url = getcwd().'/notepads/'.$userid.'/';
+}
+
+//Recursive remove directory
+function rrmdir($dir) {
+	if (is_dir($dir)) {
+		$objects = scandir($dir);
+		foreach ($objects as $object) {
+			if ($object != "." && $object != "..") {
+				if (filetype($dir."/".$object) == "dir") 
+					rrmdir($dir."/".$object); 
+				else 
+					unlink($dir."/".$object);
+			}
+		}
+		reset($objects);
+		rmdir($dir);
+		return true;
 	}
+	return false;
+} 
+
+//Deletes a user and all of his/her likeness in the system
+if($_GET['delete']){
+	$id = $_GET['delete'];
+	$delete = mysql_query("DELETE FROM admins WHERE userid='$id'");
+	$delete = mysql_query("DELETE FROM classmates WHERE userid='$id'");
+	$notepads = mysql_query("SELECT * FROM notebooks WHERE userid='$id'");
+	while($row = mysql_fetch_assoc($notepads)){
+		$num = $row['id'];
+		$delete = mysql_query("DELETE FROM classbooks WHERE notebookid='$num'");
+		$delete = mysql_query("DELETE FROM notebooks WHERE id='$num'");
+	}
+	$delete = mysql_query("DELETE FROM classes WHERE owner='$id'");
+	$delete = mysql_query("DELETE FROM users WHERE userid='$id'");
+	
+	rrmdir(buildPath($id));
 }
 function addrow($userid, $user, $email, $ip){
 	global $rownum;
@@ -115,7 +141,7 @@ function addrow($userid, $user, $email, $ip){
 			</form>
 			</td>
 			<td>$ip</td>
-			<td><a href='?userid=$userid'>'Delete User'</a></td>
+			<td><a href='?delete=$userid' onClick='return removeUser()'>Delete User</a></td>
 		</tr>";
 }
 
@@ -244,5 +270,12 @@ if ($shownext)
 ?>
 )    Show: <?php showNumItems(10);echo" ";showNumItems(25);echo" ";showNumItems(50);echo" ";showNumItems(100);echo" ";showNumItems(200);echo" "; ?></p>
 </div>
+
+<script type="text/javascript">
+function removeUser()
+{
+	return confirm("Are you sure you want to remove this user?\n\nAll notes and classes (if a teacher) will be removed!");
+}
+</script>
 </body>
 </html>
