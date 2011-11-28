@@ -29,12 +29,15 @@ function successMessage($success){
 	EXTRA FUNCTIONS
 =====================================
 */
+
+//ALSO USED IN ADMIN.PHP
 function buildPath($userid, $notepadid){
 	//return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
 	return $url = getcwd().'/../notepads/'.$userid.'/'.$notepadid.'/';
 }
 
 //Recursive remove directory
+//ALSO USED IN ADMIN.PHP
 function rrmdir($dir) {
 	if (is_dir($dir)) {
 		$objects = scandir($dir);
@@ -297,22 +300,22 @@ else if($action == 'rename'){
 else if($action == 'getrename'){
 	$padName = mysql_query("SELECT name,description FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
 	$row = mysql_fetch_assoc($padName);
-	if($row['name'])
-	{
+	//if($row['name'])
+	//{
 		$name = $row['name'];
-	}
-	else
-	{
-		$name = "Error fetching notepad name!";
-	}
-	if ($row['description'])
-	{
+	//}
+	//else
+	//{
+	//	$name = "Error fetching notepad name!";
+	//}
+	//if ($row['description'])
+	//{
 		$desc = $row['description'];
-	}
-	else
-	{
-		$desc = "Error fetching notepad description!";
-	}
+	//}
+	//else
+	//{
+	//	$desc = "Error fetching notepad description!";
+	//}
 	mysql_free_result($padName);
 
 	$arr = array("notepadname" => $name,
