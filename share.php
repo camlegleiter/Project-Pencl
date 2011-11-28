@@ -8,30 +8,39 @@ define('INCLUDE_CHECK', true);
 
 function printAllClasses($userid) {
 	$userid = mysql_real_escape_string($userid);
-	$padRow = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
-	$padRow2 = mysql_query("SELECT id FROM classes WHERE owner='$userid'");
-	$classmatesHTML = "";
+	$padRow1 = mysql_query("SELECT id FROM classes WHERE owner='$userid'");	
+	$padRow2 = mysql_query("SELECT classid FROM classmates WHERE userid='$userid'");
+	$classDisplay = "";
 	
-	while ($row = mysql_fetch_assoc($padRow2)) {
-		$classmatesHTML .= getClassRow($userid, $row['id']);
+	while ($row = mysql_fetch_assoc($padRow1)) {
+		$classDisplay .= getClassRow($row['id']);
 	}
-	while ($row = mysql_fetch_assoc($padRow)) {
-		$classmatesHTML .= getClassRow($userid, $row['classid']);
+	while ($row = mysql_fetch_assoc($padRow2)) {
+		$classDisplay .= getClassRow($row['classid']);
 	}
 	
 	mysql_free_result($padRow);
 	mysql_free_result($padRow2);
+
+	if (empty($classDisplay)) {
+		$classDisplay = "<tr><td colspan=3>All of the classes you are enrolled in contain this notepad!</td></tr>";
+	}
 	
-	return $classmatesHTML;
+	return $classDisplay;
 }
 
-function getClassRow($userid, $classid) {
-	$padRow = mysql_query("SELECT name, description FROM classes WHERE id='$classid'");
-	$row = mysql_fetch_assoc($padRow);
+function getClassRow($classid) {
+	// See if the current notepad ($notepadid) exists within the class ($classid)
+	$notepadid = $_GET['notepadid'];
+	$padEntry = mysql_query("SELECT * FROM classes c INNER JOIN classbooks cl ON cl.classid = c.id WHERE c.id = '$classid' AND cl.notebookid = '$notepadid';");
+	$row = mysql_fetch_assoc($padEntry);
 	
 	$rowHTML = '';
-	
-	if ($row) {
+
+	// If it doesn't, show that the class can have the notepad added to it
+	if (empty($row)) {
+		$padRow = mysql_query("SELECT name, description FROM classes WHERE id='$classid'");
+		$row = mysql_fetch_assoc($padRow);
 		$rowHTML = '
 			<tr>
 				<td>
@@ -84,7 +93,7 @@ function getClassRow($userid, $classid) {
 					}
 				}
 				if (notepads.length < 1) {
-					alert("");
+					alert("You must select at least 1 notepad, or if none are available select \"Cancel\".");
 					return false;
 				}
 
@@ -99,13 +108,10 @@ function getClassRow($userid, $classid) {
 					},
 					statusCode: {
 						200: function() {
-							//window.location = "noteselection.php";
-							$('x');
+							window.location = "noteselection.php";
 						},
 						409: function(error) {
-							var jsonObject = JSON.parse(error.responseText);
-							alert("Could not share notepads with class: " + jsonObject.errorMessage);
-							$('input[id=' + jsonObject.classid + ']').attr('disabled', 'disabled');
+							alert(error.responseText);
 						}
 					}
 				});
