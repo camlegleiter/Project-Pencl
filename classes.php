@@ -207,6 +207,7 @@ include 'includes/topbar.php';
 
 
 <div id="pagewide">
+	<h1>Manage Classes</h1>
 	<div class="twoColumn">
 		<div class="left">
 			<table>
