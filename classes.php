@@ -367,7 +367,9 @@ function deleteClass()
 				});
 				
 	confirmRemoveClass();
-	window.location.reload(true);
+	var url = window.location.href;
+	var newUrl = url.split('?');
+	window.location.href = newUrl[0];
 }
 </script>
 
