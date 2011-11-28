@@ -325,7 +325,7 @@ function confirmRemoveNotepad()
 }
 function confirmRemoveClass()
 {
-	return confirm('Are you sure you want to remove this class?');
+	return confirm('Are you sure you want to Delete?');
 }
 
 function deleteClass()
@@ -367,6 +367,7 @@ function deleteClass()
 				});
 				
 	confirmRemoveClass();
+	history.go(0);
 }
 </script>
 
