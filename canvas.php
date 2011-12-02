@@ -43,7 +43,7 @@ if (!isset($_GET['id'])) {
 					height : "600",
 					
 					// Theme options
-					theme_advanced_buttons1 : "save,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect,|,bullist,numlist,|,image,|,lights",
+					theme_advanced_buttons1 : "save,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,fontselect,fontsizeselect,|,bullist,numlist,|,image",
 					theme_advanced_buttons2 : "",
 					theme_advanced_buttons3 : "",
 					theme_advanced_buttons4 : "",
@@ -187,6 +187,7 @@ include 'includes/topbar_header.php';
 ?>
 	</head>
 	<body onunload="saveTinyMCEContent();">
+	<noscript>You must have JavaScript enabled to run the editor. Please enable JavaScript and reload the page.</noscript>
 <?php
 //Must be first thing in the <body> tag to function correctly
 define("CANVAS", true);
