@@ -3,9 +3,12 @@ $(window).load(function() {
 	// Creating the Nivo Slider on window load
 	
 	$('#slideshow').nivoSlider({
-		pauseTime:5000,
+		pauseTime:3000,
 		directionNav:false,
-		controlNav:false	
+		controlNav:false,
+		randomStart:true,
+		pauseOnHover:true,
+		effect: 'sliceDownRight,sliceDownLeft,sliceUpRight,sliceUpLeft,sliceUpDown,sliceUpDownLeft,fade,fold'
 	});
 });
 

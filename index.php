@@ -50,6 +50,13 @@ if($_POST['email']){
 <link rel="stylesheet" type="text/css" href="css/styles.css" >
 <link rel="stylesheet" type="text/css" href="css/nivo-slider.css" >
 
+<!-- Load jQuery -->
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("jquery", "1");
+</script>
+
+
 <?php
 //Put this at the end of the <head> tag to track
 include 'includes/topbar_header.php';
@@ -70,8 +77,10 @@ include 'includes/topbar.php';
     
     <div id="slideshowContainer">
         <div id="slideshow">
-            <img src="img/slides/slide1.jpg" width="454" height="169" alt="Coming Soon: Our Awesome Web App">
-            <img src="img/slides/slide2.jpg" width="454" height="169" alt="Extensive Functionality">
+            <img src="img/slides/slide1.jpg" width="454" height="169" alt="'Best app ever' - Gizmodo">
+            <img src="img/slides/slide2.jpg" width="454" height="169" alt="'If this were a game: 10/10' - IGN">
+            <img src="img/slides/slide3.jpg" width="454" height="169" alt="'Steve jobs would use this' - Apple">
+            <img src="img/slides/slide4.jpg" width="454" height="169" alt="'This deserves an...A...' - Simanta Mitra">
         </div>
 	</div>
         
@@ -85,7 +94,7 @@ include 'includes/topbar.php';
 </div>
 
 	<!-- Javascript (Called after jQuery) -->
-	<script type="text/javascript" src="js/jquery/jquery.nivo.slider.pack.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery.nivo.slider.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
 <?php
