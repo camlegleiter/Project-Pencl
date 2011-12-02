@@ -29,12 +29,15 @@ function successMessage($success){
 	EXTRA FUNCTIONS
 =====================================
 */
+
+//ALSO USED IN ADMIN.PHP
 function buildPath($userid, $notepadid){
 	//return $url = getcwd().'\\..\\notepads\\'.$userid.'\\'.$notepadid.'\\';
 	return $url = getcwd().'/../notepads/'.$userid.'/'.$notepadid.'/';
 }
 
 //Recursive remove directory
+//ALSO USED IN ADMIN.PHP
 function rrmdir($dir) {
 	if (is_dir($dir)) {
 		$objects = scandir($dir);
@@ -101,6 +104,16 @@ function findUserid($notebookid,$classid)
 			errorMessage("Error finding user with notepad id: ".$notebookid);
 		}
 	}
+}
+
+function fixSlashes($content, $FixHTML = false)
+{
+	$content = str_replace("\\\"", "\"", $content);
+	$content = str_replace("\\'", "'", $content);
+	$content = str_replace("\\\\", "\\", $content);
+	if ($FixHTML)
+		$content = htmlentities($content, ENT_QUOTES);
+	return $content;
 }
 
 /*
@@ -175,10 +188,7 @@ if($action == 'save'){
 	if (!is_dir($path))
 		mkdir($path, 0777, true);
 
-	$content = str_replace("\\\"", "\"", $content);
-	$content = str_replace("\\'", "'", $content);
-	$content = str_replace("\\\\", "\\", $content);
-	$content = htmlentities($content, ENT_QUOTES);
+	$content = fixSlashes($content, true);
 		
 	$file = fopen($path.$notepadid.'.html', 'w');
 	if (!$file)
@@ -261,6 +271,9 @@ else if($action == 'rename'){
 	if (empty($notepadname) && empty($notepaddesc))
 		errorMessage("Must give new name or new description");
 	
+	$notepadname = fixSlashes($notepadname);
+	$notepaddesc = fixSlashes($notepaddesc);
+	
 	//Construct our query string
 	$updateString = "";
 	if (!empty($notepadname))
@@ -287,22 +300,22 @@ else if($action == 'rename'){
 else if($action == 'getrename'){
 	$padName = mysql_query("SELECT name,description FROM notebooks WHERE userid='$userid' AND id='$notepadid'");
 	$row = mysql_fetch_assoc($padName);
-	if($row['name'])
-	{
+	//if($row['name'])
+	//{
 		$name = $row['name'];
-	}
-	else
-	{
-		$name = "Error fetching notepad name!";
-	}
-	if ($row['description'])
-	{
+	//}
+	//else
+	//{
+	//	$name = "Error fetching notepad name!";
+	//}
+	//if ($row['description'])
+	//{
 		$desc = $row['description'];
-	}
-	else
-	{
-		$desc = "Error fetching notepad description!";
-	}
+	//}
+	//else
+	//{
+	//	$desc = "Error fetching notepad description!";
+	//}
 	mysql_free_result($padName);
 
 	$arr = array("notepadname" => $name,
