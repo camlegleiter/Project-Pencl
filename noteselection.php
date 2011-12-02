@@ -61,7 +61,7 @@ function getNotepadRow($userid, $id)
 					<a href="share.php?notepadid='.$id.'">
 						<img src="img/buttons/pencl_share.png" title="Share" alt="Share">
 					</a>
-					<a href="export.php?notepadid='.$id.'">
+					<a href="#export" onClick="alert(\'Coming soon!\')">
 						<img src="img/buttons/pencl_export.png" title="Export" alt="Export">
 					</a>
 					<a href="#delete" onClick="deleteNotepad('.$id.')">
@@ -199,7 +199,7 @@ function printNotepad($id,$classid)
 					'.getNiceTime($row['created']).'
 				</td>
 				<td align="center">
-					<a href="export.php?notepadid='.$id.'">
+					<a href="#export" onClick="alert(\'Coming soon!\')">
 						<img src="img/buttons/pencl_export.png" title="Export" alt="Export">
 					</a>
 				</td>
