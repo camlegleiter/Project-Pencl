@@ -105,16 +105,19 @@ if (!isset($_GET['id'])) {
 
 				if (currentSave != editorText) {
 					currentSave = editorText;
+					return true;
 				}
+
+				return false;
 			}
 
 			// Save content from editor into the file
 			function saveTinyMCEContent() {
-				save();
+				if (!save()) {
+					return;
+				}
 				// Show progress
 				tinymce.get('elm1').setProgressState(1);
-				// Convert HTML entities
-				currentSave = $(currentSave).html()
 				$.ajax({
 					type: 'POST',
 					url: './util/notepadPost.php',
