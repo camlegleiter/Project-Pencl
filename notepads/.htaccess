@@ -1,0 +1,3 @@
+#"AllowOverride None" needs to be changed to "AllowOverride All" in http.conf
+order allow,deny
+deny from all
